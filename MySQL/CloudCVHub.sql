@@ -4,8 +4,8 @@ use  CloudCVHub
 create table users(
 id bigint auto_increment ,
 email varchar(50) not null unique,
-passwd varchar(255) not null ,
-fullname varchar(50)not null,
+password varchar(255) not null ,
+full_name varchar(50)not null,
 phone varchar(10),
 avatar_url varchar(255),
 state varchar(50) not null default 'Đang hoạt động',
@@ -67,5 +67,17 @@ CREATE TABLE refresh_tokens (
     CONSTRAINT fk_refresh_tokens_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- 1. Thêm dữ liệu mẫu vào bảng users
+INSERT INTO users (id, email, password, full_name, avatar_url, role, state, created_at, updated_at)
+VALUES
+    (1, 'admin@hosohub.com', 'admin123', 'Quản Trị Viên', 'https://avatar.iran.liara.run/public/1', 'ADMIN', 'ACTIVE', NOW(), NOW()),
+    (2, 'student@hosohub.com', 'pass123', 'Nguyễn Văn A', 'https://avatar.iran.liara.run/public/2', 'USER', 'ACTIVE', NOW(), NOW())
+    ON DUPLICATE KEY UPDATE id = id;
 
+-- 2. Thêm dữ liệu mẫu vào bảng resumes
+INSERT INTO resumes (id, user_id, title, description, is_deleted, created_at, updated_at)
+VALUES
+    (1, 2, 'CV Backend Developer', 'Java Spring Boot Developer', FALSE, NOW(), NOW()),
+    (2, 2, 'CV Cloud & DevOps', 'AWS/DevOps Engineer', FALSE, NOW(), NOW())
+    ON DUPLICATE KEY UPDATE id = id;
 

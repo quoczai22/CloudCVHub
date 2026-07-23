@@ -68,6 +68,9 @@ public class User {
         if (this.role == null) {
             this.role = "USER";
         }
+        if(this.state == null) {
+            this.state = "ACTIVE";
+        }
     }
 
     @PreUpdate

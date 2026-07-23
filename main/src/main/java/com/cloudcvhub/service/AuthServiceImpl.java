@@ -61,7 +61,8 @@ public class AuthServiceImpl implements AuthService {
                 .email(savedUser.getEmail())
                 .fullname(savedUser.getFullname())
                 .avatarUrl(savedUser.getAvatarUrl())
-                .role(savedUser.getState())
+                .role(savedUser.getRole())
+                .state(savedUser.getState())
                 .build();
 
         AuthResponse authResponse = AuthResponse.builder()
