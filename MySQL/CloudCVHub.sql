@@ -9,6 +9,7 @@ fullname varchar(50)not null,
 phone varchar(10),
 avatar_url varchar(255),
 state varchar(50) not null default 'Đang hoạt động',
+role varchar(50) not null default 'USER',
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 CONSTRAINT pk_users PRIMARY KEY (id)
@@ -65,7 +66,6 @@ CREATE TABLE refresh_tokens (
     CONSTRAINT pk_refresh_tokens PRIMARY KEY (id), 
     CONSTRAINT fk_refresh_tokens_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 
 
 
