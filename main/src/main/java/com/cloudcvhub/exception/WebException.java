@@ -4,10 +4,10 @@ import lombok.*;
 import org.springframework.http.HttpStatus;
 @Getter
 @Setter
-public class AppException extends RuntimeException {
+public class WebException extends RuntimeException {
         private final HttpStatus status;
 
-        public AppException(String message, HttpStatus status) {
+        public WebException(String message, HttpStatus status) {
             super(message);
             this.status = status;
         }
