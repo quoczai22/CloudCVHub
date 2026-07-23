@@ -1,6 +1,6 @@
 # 📖 Giới thiệu
 
-Phần mềm được phát triển nhằm mô phỏng quy trình xây dựng một hệ thống thực tế trong doanh nghiệp.
+Web được phát triển nhằm mô phỏng quy trình xây dựng một hệ thống thực tế trong doanh nghiệp.
 
 Dự án không chỉ tập trung vào chức năng Upload CV mà còn hướng đến việc áp dụng các công nghệ hiện đại như:
 
