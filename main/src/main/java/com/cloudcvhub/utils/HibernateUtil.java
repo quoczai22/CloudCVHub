@@ -1,4 +1,4 @@
-package com.cloudcvhub.util;
+package com.cloudcvhub.utils;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
