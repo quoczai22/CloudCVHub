@@ -1,0 +1,33 @@
+# Build output
+target/
+main/target/
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+
+# Logs
+*.log
+logs/
+
+# Environment and local config
+.env
+.env.*
+application-local.properties
+application-*.local.properties
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+
+# Maven wrapper downloaded files
+.mvn/wrapper/maven-wrapper.jar
+main/.mvn/wrapper/maven-wrapper.jar
