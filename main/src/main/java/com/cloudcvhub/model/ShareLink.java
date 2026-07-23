@@ -18,7 +18,7 @@ public class ShareLink {
     Resume resume;
 
     @Column(nullable = false, unique = true, length = 100)
-    String name;
+    String token;
 
     @Column(name = "expired_at")
     LocalDateTime expiredAt;
@@ -54,10 +54,10 @@ public class ShareLink {
 
     public ShareLink(){}
 
-    public ShareLink(Long id, Resume resume, String name, LocalDateTime expiredAt, Boolean isActive, Integer viewCount, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public ShareLink(Long id, Resume resume, String token, LocalDateTime expiredAt, Boolean isActive, Integer viewCount, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.resume = resume;
-        this.name = name;
+        this.token = token;
         this.expiredAt = expiredAt;
         this.isActive = isActive;
         this.viewCount = viewCount;
@@ -73,8 +73,8 @@ public class ShareLink {
         return resume;
     }
 
-    public String getName() {
-        return name;
+    public String getToken() {
+        return token;
     }
 
     public LocalDateTime getExpiredAt() {
@@ -105,8 +105,8 @@ public class ShareLink {
         this.resume = resume;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public void setExpiredAt(LocalDateTime expiredAt) {

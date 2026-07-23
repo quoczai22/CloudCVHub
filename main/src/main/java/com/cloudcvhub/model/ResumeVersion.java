@@ -12,6 +12,10 @@ public class ResumeVersion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "resume_id", nullable = false)
+    Resume resume;
+
     @Column(name = "version_number", nullable = false)
     Integer versionNumber;
 
@@ -35,8 +39,9 @@ public class ResumeVersion {
 
     public  ResumeVersion() {}
 
-    public ResumeVersion(Long id, Integer versionNumber, String fileName, String fileKey, Long fileSize, String fileType, Boolean isPrimary, LocalDateTime createdAt) {
+    public ResumeVersion(Long id, Resume resume, Integer versionNumber, String fileName, String fileKey, Long fileSize, String fileType, Boolean isPrimary, LocalDateTime createdAt) {
         this.id = id;
+        this.resume = resume;
         this.versionNumber = versionNumber;
         this.fileName = fileName;
         this.fileKey = fileKey;
@@ -65,6 +70,10 @@ public class ResumeVersion {
         return id;
     }
 
+    public Resume getResume() {
+        return resume;
+    }
+
     public String getFileName() {
         return fileName;
     }
@@ -91,6 +100,10 @@ public class ResumeVersion {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public void setResume(Resume resume) {
+        this.resume = resume;
     }
 
     public void setVersionNumber(Integer versionNumber) {

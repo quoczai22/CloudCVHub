@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HoSoHub Auth Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f4f6f8;
+            color: #1f2937;
+        }
+
+        main {
+            width: min(900px, 92vw);
+            margin: 40px auto;
+        }
+
+        h1 {
+            margin-bottom: 8px;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        section {
+            background: #ffffff;
+            border: 1px solid #d8dee6;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 12px;
+            font-weight: 600;
+        }
+
+        input {
+            box-sizing: border-box;
+            width: 100%;
+            margin-top: 6px;
+            padding: 10px;
+            border: 1px solid #c7ced8;
+            border-radius: 6px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 16px;
+            padding: 11px;
+            border: 0;
+            border-radius: 6px;
+            background: #2563eb;
+            color: #ffffff;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        pre {
+            min-height: 160px;
+            margin-top: 24px;
+            padding: 16px;
+            overflow: auto;
+            background: #111827;
+            color: #e5e7eb;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+<main>
+    <h1>HoSoHub</h1>
+    <p>Trang test nhanh API đăng ký và đăng nhập.</p>
+
+    <div class="layout">
+        <section>
+            <h2>Đăng ký</h2>
+            <form id="registerForm">
+                <label for="registerEmail">Email</label>
+                <input id="registerEmail" type="email" value="test@gmail.com" required>
+
+                <label for="registerPassword">Mật khẩu</label>
+                <input id="registerPassword" type="password" value="123456" required>
+
+                <label for="registerFullName">Họ và tên</label>
+                <input id="registerFullName" type="text" value="Nguyen Van A" required>
+
+                <button type="submit">Đăng ký</button>
+            </form>
+        </section>
+
+        <section>
+            <h2>Đăng nhập</h2>
+            <form id="loginForm">
+                <label for="loginEmail">Email</label>
+                <input id="loginEmail" type="email" value="test@gmail.com" required>
+
+                <label for="loginPassword">Mật khẩu</label>
+                <input id="loginPassword" type="password" value="123456" required>
+
+                <button type="submit">Đăng nhập</button>
+            </form>
+        </section>
+    </div>
+
+    <pre id="result">Kết quả API sẽ hiển thị ở đây.</pre>
+</main>
+
+<script>
+    const result = document.getElementById("result");
+
+    async function sendRequest(url, data) {
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+
+        const body = await response.json();
+        result.textContent = JSON.stringify(body, null, 2);
+    }
+
+    document.getElementById("registerForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        sendRequest("/api/v1/auth/register", {
+            email: document.getElementById("registerEmail").value,
+            password: document.getElementById("registerPassword").value,
+            fullName: document.getElementById("registerFullName").value
+        });
+    });
+
+    document.getElementById("loginForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        sendRequest("/api/v1/auth/login", {
+            email: document.getElementById("loginEmail").value,
+            password: document.getElementById("loginPassword").value
+        });
+    });
+</script>
+</body>
+</html>

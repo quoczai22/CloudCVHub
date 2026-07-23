@@ -15,6 +15,7 @@ public class SecurityConfig {
 
         // Cho phép gọi API đăng ký/đăng nhập mà chưa cần token.
         http.authorizeHttpRequests(authConfig -> {
+            authConfig.requestMatchers("/", "/index.html").permitAll();
             authConfig.requestMatchers("/api/v1/auth/**").permitAll();
             authConfig.anyRequest().authenticated();
         });

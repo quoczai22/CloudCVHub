@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Repository
 
-public interface ResumeVersionRepo {
+public interface ResumeVersionRepo extends JpaRepository<ResumeVersion, Long> {
     List<ResumeVersion> findByResumeIdOrderByVersionNumberDesc(Long resumeId); //sap xep giam dan cua CV
     Optional<ResumeVersion> findByResumeIdAndIsPrimaryTrue(Long resumeId);
     Optional<ResumeVersion> findFirstByResumeIdOrderByVersionNumberDesc(Long resumeId); // lay CV gan nhat
