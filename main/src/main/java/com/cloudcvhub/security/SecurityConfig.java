@@ -35,6 +35,9 @@ public class SecurityConfig {
         // Không dùng popup Basic Auth của trình duyệt.
         http.httpBasic(httpBasicConfig -> httpBasicConfig.disable());
 
+        // Không lưu Session
+        http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
         return http.build();
     }
 
