@@ -8,7 +8,12 @@ import com.cloudcvhub.exception.DuplicateEmailException;
 import com.cloudcvhub.exception.WebException;
 import com.cloudcvhub.model.User;
 import com.cloudcvhub.repo.UserRepo;
+import com.cloudcvhub.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +21,23 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
     private final UserRepo userRepo;
+    private final AuthenticationManager authenticationManager;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Override
     public AuthResponse login(LoginRequest request) throws WebException {
-        User user = userRepo.findByEmail(request.getEmail()).orElseThrow(() -> new WebException("Email hoặc mật khẩu không đúng", HttpStatus.UNAUTHORIZED));
-        if (!user.getPassword().equals(request.getPassword())) {
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
+            );
+        } catch (AuthenticationException ex) {
             throw new WebException("Email hoặc mật khẩu không đúng", HttpStatus.UNAUTHORIZED);
         }
+
+        User user = userRepo.findByEmail(request.getEmail())
+                .orElseThrow(() -> new WebException("Email hoặc mật khẩu không đúng", HttpStatus.UNAUTHORIZED));
+
         UserResponse userResponse = UserResponse.builder()
                 .id(user.getId())
                 .email(user.getEmail())
@@ -33,8 +48,8 @@ public class AuthServiceImpl implements AuthService {
                 .build();
 
         AuthResponse authResponse = AuthResponse.builder()
-                .accessToken("mock-access-token")
-                .refreshToken("mock-refresh-token")
+                .accessToken(jwtTokenProvider.generateAccessToken(user.getEmail()))
+                .refreshToken(jwtTokenProvider.generateRefreshToken(user.getEmail()))
                 .user(userResponse)
                 .build();
         return authResponse;
@@ -51,7 +66,7 @@ public class AuthServiceImpl implements AuthService {
 
         User user = new User();
         user.setEmail(request.getEmail());
-        user.setPassword(request.getPassword());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setFullname(request.getFullName());
 
         User savedUser = userRepo.save(user);
@@ -66,8 +81,8 @@ public class AuthServiceImpl implements AuthService {
                 .build();
 
         AuthResponse authResponse = AuthResponse.builder()
-                .accessToken("mock-access-token")
-                .refreshToken("mock-refresh-token")
+                .accessToken(jwtTokenProvider.generateAccessToken(savedUser.getEmail()))
+                .refreshToken(jwtTokenProvider.generateRefreshToken(savedUser.getEmail()))
                 .user(userResponse)
                 .build();
 

@@ -3,9 +3,12 @@ package com.cloudcvhub.model;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 
 @Entity
 @Table(name = "users")
+@Builder
+
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,7 +52,7 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String email, String password, String fullname, String phone, String avatarUrl, String state, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public User(Long id, String email, String password, String fullname, String phone, String avatarUrl, String state, LocalDateTime createdAt, LocalDateTime updatedAt, String role) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -59,6 +62,7 @@ public class User {
         this.state = state;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.role = role;
     }
 
     @PrePersist
