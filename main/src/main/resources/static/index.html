@@ -7,145 +7,245 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            background: #f4f6f8;
-            color: #1f2937;
-        }
-
-        main {
-            width: min(900px, 92vw);
-            margin: 40px auto;
-        }
-
-        h1 {
-            margin-bottom: 8px;
-        }
-
-        .layout {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 16px;
-            margin-top: 24px;
-        }
-
-        section {
-            background: #ffffff;
-            border: 1px solid #d8dee6;
-            border-radius: 8px;
+            background-color: #f2f2f2;
             padding: 20px;
         }
-
-        label {
-            display: block;
-            margin-top: 12px;
-            font-weight: 600;
+        .form-container {
+            width: 350px;
+            margin: 40px auto;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 8px #aaa;
+            background: #fff;
+            border-radius: 6px;
+            overflow: hidden;
         }
-
+        .form-header {
+            background: #00bfff;
+            color: black;
+            text-align: center;
+            padding: 15px;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        .form-body { padding: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { font-weight: bold; display: block; }
         input {
+            width: 100%; padding: 8px; margin-top: 5px;
+            border: 1px solid #aaa; border-radius: 4px;
             box-sizing: border-box;
-            width: 100%;
-            margin-top: 6px;
-            padding: 10px;
-            border: 1px solid #c7ced8;
-            border-radius: 6px;
         }
-
         button {
-            width: 100%;
-            margin-top: 16px;
-            padding: 11px;
-            border: 0;
-            border-radius: 6px;
-            background: #2563eb;
-            color: #ffffff;
-            font-weight: 700;
-            cursor: pointer;
+            width: 100%; padding: 10px; font-size: 16px;
+            border: none; color: white; background-color: red;
+            border-radius: 4px; cursor: pointer;
         }
-
-        pre {
-            min-height: 160px;
-            margin-top: 24px;
-            padding: 16px;
-            overflow: auto;
-            background: #111827;
-            color: #e5e7eb;
-            border-radius: 8px;
-        }
+        button:hover { background-color: darkred; }
+        .toggle-link { text-align: center; margin-top: 10px; }
+        .toggle-link a { color: #00bfff; text-decoration: none; font-weight: bold; }
+        .error-message { color: red; font-size: 0.85em; display: none; margin-top: 5px; }
     </style>
 </head>
 <body>
 <main>
-    <h1>HoSoHub</h1>
-    <p>Trang test nhanh API đăng ký và đăng nhập.</p>
-
-    <div class="layout">
-        <section>
-            <h2>Đăng ký</h2>
-            <form id="registerForm">
-                <label for="registerEmail">Email</label>
-                <input id="registerEmail" type="email" value="test@gmail.com" required>
-
-                <label for="registerPassword">Mật khẩu</label>
-                <input id="registerPassword" type="password" value="123456" required>
-
-                <label for="registerFullName">Họ và tên</label>
-                <input id="registerFullName" type="text" value="Nguyen Van A" required>
-
-                <button type="submit">Đăng ký</button>
-            </form>
-        </section>
-
-        <section>
-            <h2>Đăng nhập</h2>
-            <form id="loginForm">
-                <label for="loginEmail">Email</label>
-                <input id="loginEmail" type="email" value="test@gmail.com" required>
-
-                <label for="loginPassword">Mật khẩu</label>
-                <input id="loginPassword" type="password" value="123456" required>
-
+    <div class="form-container" id="loginForm">
+        <div class="form-header">ĐĂNG NHẬP</div>
+        <form class="form-body" id="loginFormInternal" novalidate>
+            <div class="form-group">
+                <label for="username">Tên đăng nhập</label>
+                <input type="text" id="username" name="username" required>
+                <span class="error-message" id="usernameError"></span>
+            </div>
+            <div class="form-group">
+                <label for="password">Mật khẩu</label>
+                <input type="password" id="password" name="password" required>
+                <span class="error-message" id="passwordError"></span>
+            </div>
+            <div class="form-actions">
                 <button type="submit">Đăng nhập</button>
-            </form>
-        </section>
+            </div>
+            <div class="toggle-link">
+                <p>Chưa có tài khoản? <a href="#" onclick="showRegister()">Đăng ký</a></p>
+            </div>
+        </form>
     </div>
 
+    <div class="form-container" id="registerForm" style="display:none;">
+        <div class="form-header">ĐĂNG KÝ</div>
+        <form class="form-body" id="registerFormInternal" novalidate>
+            <div class="form-group">
+                <label for="fullname">Tên đăng ký</label>
+                <input type="text" id="fullname" name="fullname" required>
+                <span class="error-message" id="fullnameError"></span>
+            </div>
+            <div class="form-group">
+                <label for="email">Email khôi phục</label>
+                <input type="email" id="email" name="email" required placeholder="vi.du@gmail.com">
+                <span class="error-message" id="emailError"></span>
+            </div>
+            <div class="form-group">
+                <label for="regpassword">Mật khẩu</label>
+                <input type="password" id="regpassword" name="regpassword" required minlength="8">
+                <span class="error-message" id="regPasswordError"></span>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Xác nhận mật khẩu</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required minlength="8">
+                <span class="error-message" id="confirmPasswordError"></span>
+            </div>
+            <div class="form-actions">
+                <button type="submit">Đăng ký</button>
+            </div>
+            <div class="toggle-link">
+                <p>Đã có tài khoản? <a href="#" onclick="showLogin()">Đăng nhập</a></p>
+            </div>
+        </form>
+    </div>
     <pre id="result">Kết quả API sẽ hiển thị ở đây.</pre>
 </main>
 
 <script>
     const result = document.getElementById("result");
+    const API_BASE_URL = "http://localhost:8081";
 
-    async function sendRequest(url, data) {
-        const response = await fetch(url, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        });
-
-        const body = await response.json();
-        result.textContent = JSON.stringify(body, null, 2);
+    function showRegister() {
+        document.getElementById("loginForm").style.display = "none";
+        document.getElementById("registerForm").style.display = "block";
+        result.textContent = "Kết quả API sẽ hiển thị ở đây.";
     }
 
-    document.getElementById("registerForm").addEventListener("submit", function (event) {
+    function showLogin() {
+        document.getElementById("registerForm").style.display = "none";
+        document.getElementById("loginForm").style.display = "block";
+        result.textContent = "Kết quả API sẽ hiển thị ở đây.";
+    }
+
+    function setError(id, message) {
+        const el = document.getElementById(id);
+        el.innerText = message;
+        el.style.display = "block";
+    }
+
+    function clearErrors(form) {
+        form.querySelectorAll(".error-message").forEach(e => e.style.display = "none");
+    }
+
+    function isValidEmail(email) {
+        return /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(email);
+    }
+
+    async function sendRequest(url, data) {
+        const apiUrl = API_BASE_URL + url;
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+
+            const text = await response.text();
+            let body;
+
+            try {
+                body = JSON.parse(text);
+            } catch (error) {
+                body = text;
+            }
+
+            result.textContent = "URL: " + apiUrl + "\n"
+                + "Status: " + response.status + "\n\n"
+                + JSON.stringify(body, null, 2);
+            return response.ok;
+        } catch (error) {
+            result.textContent = "URL: " + apiUrl + "\n"
+                + "Không gọi được API: " + error.message;
+            return false;
+        }
+    }
+
+    async function validateRegisterForm(event) {
         event.preventDefault();
+        const form = document.getElementById("registerFormInternal");
+        clearErrors(form);
 
-        sendRequest("/api/v1/auth/register", {
-            email: document.getElementById("registerEmail").value,
-            password: document.getElementById("registerPassword").value,
-            fullName: document.getElementById("registerFullName").value
+        const name = document.getElementById("fullname").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const pass = document.getElementById("regpassword").value;
+        const confirm = document.getElementById("confirmPassword").value;
+        let ok = true;
+
+        if (!name) {
+            setError("fullnameError", "Vui lòng nhập tên!");
+            ok = false;
+        }
+        if (!isValidEmail(email)) {
+            setError("emailError", "Email không hợp lệ!");
+            ok = false;
+        }
+        if (pass.length < 8) {
+            setError("regPasswordError", "Mật khẩu ít nhất 8 ký tự!");
+            ok = false;
+        }
+        if (pass !== confirm) {
+            setError("confirmPasswordError", "Mật khẩu không khớp!");
+            ok = false;
+        }
+
+        if (!ok) {
+            return;
+        }
+
+        const success = await sendRequest("/api/v1/auth/register", {
+            email: email,
+            password: pass,
+            fullName: name
         });
-    });
 
-    document.getElementById("loginForm").addEventListener("submit", function (event) {
+        if (success) {
+            document.getElementById("username").value = email;
+            alert("Đăng ký thành công! Hãy đăng nhập.");
+            showLogin();
+        }
+    }
+
+    async function validateLoginForm(event) {
         event.preventDefault();
+        const form = document.getElementById("loginFormInternal");
+        clearErrors(form);
 
-        sendRequest("/api/v1/auth/login", {
-            email: document.getElementById("loginEmail").value,
-            password: document.getElementById("loginPassword").value
+        const user = document.getElementById("username").value.trim();
+        const pass = document.getElementById("password").value;
+
+        if (!user) {
+            setError("usernameError", "Vui lòng nhập email!");
+            return;
+        }
+        if (!isValidEmail(user)) {
+            setError("usernameError", "Email không hợp lệ!");
+            return;
+        }
+        if (!pass) {
+            setError("passwordError", "Vui lòng nhập mật khẩu!");
+            return;
+        }
+
+        const success = await sendRequest("/api/v1/auth/login", {
+            email: user,
+            password: pass
         });
-    });
+
+        if (success) {
+            localStorage.setItem("isLoggedIn", "true");
+            localStorage.setItem("currentUser", user);
+            alert("Đăng nhập thành công!");
+        }
+    }
+
+    document.getElementById("registerFormInternal").addEventListener("submit", validateRegisterForm);
+    document.getElementById("loginFormInternal").addEventListener("submit", validateLoginForm);
 </script>
 </body>
 </html>
