@@ -35,25 +35,32 @@ public class ShareLinkServiceImpl implements ShareLinkService {
         User user = findUserByEmail(userEmail);
         Resume resume = findResumeByIdAndUserId(resumeId, user.getId());
 
+        // Kiểm tra xem CV này đã có link share trước đó chưa
         ShareLink shareLink = shareLinkRepo.findByResumeId(resume.getId())
                 .stream()
                 .findFirst()
-                .orElse(new ShareLink());
+                .orElse(null);
 
-        if (shareLink.getId() == null) {
-            shareLink.setResume(resume);
-            shareLink.setToken(UUID.randomUUID().toString());
-            shareLink.setViewCount(0);
+        if (shareLink == null) {
+            // Tạo mới mã code ngẫu nhiên (8 ký tự đầu của UUID)
+            String uniqueCode = UUID.randomUUID().toString().substring(0, 8);
+            shareLink = ShareLink.builder()
+                    .resume(resume)
+                    .token(uniqueCode)
+                    .viewCount(0)
+                    .isActive(true)
+                    .build();
         }
 
-        shareLink.setExpiredAt(request.getExpiresAt());
+        // Cập nhật thông tin bảo vệ
         shareLink.setPasswordHash(createPasswordHash(request.getPassword()));
+        shareLink.setExpiredAt(request.getExpiresAt());
         shareLink.setActive(true);
 
-        ShareLink savedShareLink = shareLinkRepo.save(shareLink);
-        return mapToResponse(savedShareLink);
+        ShareLink savedLink = shareLinkRepo.save(shareLink);
+        return mapToResponse(savedLink);
     }
-
+    
     @Override
     @Transactional(readOnly = true)
     public ShareLinkResponse getShareLinkInfo(Long resumeId, String userEmail) {

@@ -3,6 +3,7 @@ package com.cloudcvhub.model;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 
 @Entity
 @Table(name = "resume_versions")
@@ -31,6 +32,12 @@ public class ResumeVersion {
     @Column(name = "file_type", nullable = false, length = 100)
     String fileType;
 
+    @Column(name = "version_name", nullable = false)
+    String versionName;
+
+    @Column(columnDefinition = "TEXT")
+    String content;
+
     @Column(name = "is_primary", nullable = false)
     Boolean isPrimary;
 
@@ -39,7 +46,8 @@ public class ResumeVersion {
 
     public  ResumeVersion() {}
 
-    public ResumeVersion(Long id, Resume resume, Integer versionNumber, String fileName, String fileKey, Long fileSize, String fileType, Boolean isPrimary, LocalDateTime createdAt) {
+    @Builder
+    public ResumeVersion(Long id, Resume resume, Integer versionNumber, String fileName, String fileKey, Long fileSize, String fileType, String versionName, String content, Boolean isPrimary, LocalDateTime createdAt) {
         this.id = id;
         this.resume = resume;
         this.versionNumber = versionNumber;
@@ -47,6 +55,8 @@ public class ResumeVersion {
         this.fileKey = fileKey;
         this.fileSize = fileSize;
         this.fileType = fileType;
+        this.versionName = versionName;
+        this.content = content;
         this.isPrimary = isPrimary;
         this.createdAt = createdAt;
     }
@@ -94,6 +104,14 @@ public class ResumeVersion {
         return isPrimary;
     }
 
+    public String getVersionName() {
+        return versionName;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -128,6 +146,14 @@ public class ResumeVersion {
 
     public void setPrimary(Boolean primary) {
         isPrimary = primary;
+    }
+
+    public void setVersionName(String versionName) {
+        this.versionName = versionName;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public void setCreatedAt(LocalDateTime createdAt) {

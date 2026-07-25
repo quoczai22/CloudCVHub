@@ -3,6 +3,7 @@ package com.cloudcvhub.model;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 
 
 @Entity
@@ -57,6 +58,7 @@ public class ShareLink {
 
     public ShareLink(){}
 
+    @Builder
     public ShareLink(Long id, Resume resume, String token, LocalDateTime expiredAt, String passwordHash, Boolean isActive, Integer viewCount, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.resume = resume;

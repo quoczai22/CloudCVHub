@@ -778,6 +778,42 @@
                 </div>
             </div>
 
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <h2>Phiên bản CV</h2>
+                    <p class="card-desc">Tạo bản lưu nội dung CV hiện tại để có thể khôi phục sau.</p>
+
+                    <form class="form" id="resumeVersionForm" novalidate>
+                        <div class="field">
+                            <label for="versionResumeId">Resume ID</label>
+                            <input id="versionResumeId" type="number" min="1" placeholder="VD: 1" required>
+                            <span class="error-message" id="versionResumeIdError"></span>
+                        </div>
+
+                        <div class="field">
+                            <label for="versionName">Tên phiên bản</label>
+                            <input id="versionName" type="text" placeholder="VD: Bản gửi công ty ABC" required>
+                            <span class="error-message" id="versionNameError"></span>
+                        </div>
+
+                        <button class="primary-button" type="submit">Tạo phiên bản</button>
+                    </form>
+
+                    <div class="toolbar" style="margin-top: 16px;">
+                        <button class="secondary-button" type="button" onclick="loadResumeVersions()">Tải lịch sử phiên bản</button>
+                    </div>
+                </div>
+
+                <div class="dashboard-card">
+                    <h2>Lịch sử phiên bản</h2>
+                    <p class="card-desc">Chọn một version để khôi phục CV về nội dung cũ.</p>
+
+                    <div id="resumeVersionList">
+                        <div class="empty-state">Chưa tải lịch sử phiên bản.</div>
+                    </div>
+                </div>
+            </div>
+
             <pre class="result" id="resumeResult">Kết quả API Resume sẽ hiển thị ở đây.</pre>
         </div>
     </section>
@@ -1125,8 +1161,87 @@
         }
     }
 
+    async function createResumeVersion(event) {
+        event.preventDefault();
+        const form = document.getElementById("resumeVersionForm");
+        clearErrors(form);
+
+        const resumeId = document.getElementById("versionResumeId").value;
+        const versionName = document.getElementById("versionName").value.trim();
+
+        if (!resumeId) {
+            setError("versionResumeIdError", "Vui lòng nhập Resume ID!");
+            return;
+        }
+
+        if (!versionName) {
+            setError("versionNameError", "Vui lòng nhập tên phiên bản!");
+            return;
+        }
+
+        try {
+            const { response, body, apiUrl } = await apiRequest("POST", "/api/v1/resumes/" + resumeId + "/versions", {
+                versionName: versionName
+            });
+
+            document.getElementById("resumeResult").textContent = "URL: " + apiUrl + "\n"
+                + "Status: " + response.status + "\n\n"
+                + JSON.stringify(body, null, 2);
+
+            if (response.ok) {
+                document.getElementById("versionName").value = "";
+                loadResumeVersions();
+            }
+        } catch (error) {
+            document.getElementById("resumeResult").textContent = "Không gọi được API Resume Version: " + error.message;
+        }
+    }
+
+    async function loadResumeVersions() {
+        const resumeId = document.getElementById("versionResumeId").value;
+
+        if (!resumeId) {
+            setError("versionResumeIdError", "Vui lòng nhập Resume ID trước khi tải lịch sử!");
+            return;
+        }
+
+        try {
+            const { response, body, apiUrl } = await apiRequest("GET", "/api/v1/resumes/" + resumeId + "/versions");
+
+            document.getElementById("resumeResult").textContent = "URL: " + apiUrl + "\n"
+                + "Status: " + response.status + "\n\n"
+                + JSON.stringify(body, null, 2);
+
+            if (!response.ok) {
+                document.getElementById("resumeVersionList").innerHTML = '<div class="empty-state">Không tải được lịch sử phiên bản.</div>';
+                return;
+            }
+
+            renderResumeVersionList(Array.isArray(body) ? body : [], resumeId);
+        } catch (error) {
+            document.getElementById("resumeResult").textContent = "Không gọi được API Resume Version: " + error.message;
+        }
+    }
+
+    async function restoreResumeVersion(resumeId, versionId) {
+        try {
+            const { response, body, apiUrl } = await apiRequest("POST", "/api/v1/resumes/" + resumeId + "/versions/" + versionId + "/restore");
+
+            document.getElementById("resumeResult").textContent = "URL: " + apiUrl + "\n"
+                + "Status: " + response.status + "\n\n"
+                + JSON.stringify(body, null, 2);
+
+            if (response.ok) {
+                loadResumes();
+            }
+        } catch (error) {
+            document.getElementById("resumeResult").textContent = "Không gọi được API Restore Version: " + error.message;
+        }
+    }
+
     function selectResumeForShare(resumeId) {
         document.getElementById("shareResumeId").value = resumeId;
+        document.getElementById("versionResumeId").value = resumeId;
         document.getElementById("resumeResult").textContent = "Đã chọn Resume ID: " + resumeId + "\nBạn có thể tạo link chia sẻ cho CV này.";
     }
 
@@ -1168,6 +1283,42 @@
         `;
     }
 
+    function renderResumeVersionList(versions, resumeId) {
+        const container = document.getElementById("resumeVersionList");
+
+        if (versions.length === 0) {
+            container.innerHTML = '<div class="empty-state">CV này chưa có phiên bản nào.</div>';
+            return;
+        }
+
+        container.innerHTML = `
+            <div class="table-wrap">
+                <table class="resume-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tên phiên bản</th>
+                            <th>Nội dung</th>
+                            <th>Ngày tạo</th>
+                            <th>Khôi phục</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${versions.map(version => `
+                            <tr>
+                                <td>${escapeHtml(version.id || "")}</td>
+                                <td><span class="resume-name">${escapeHtml(version.versionName || "")}</span></td>
+                                <td>${escapeHtml(version.content || "")}</td>
+                                <td>${escapeHtml(version.createdAt || "")}</td>
+                                <td><button class="small-button" type="button" onclick="restoreResumeVersion('${escapeHtml(resumeId)}', '${escapeHtml(version.id || "")}')">Restore</button></td>
+                            </tr>
+                        `).join("")}
+                    </tbody>
+                </table>
+            </div>
+        `;
+    }
+
     function escapeHtml(value) {
         return String(value)
             .replaceAll("&", "&amp;")
@@ -1182,6 +1333,7 @@
     document.getElementById("resumeForm").addEventListener("submit", createResume);
     document.getElementById("shareLinkForm").addEventListener("submit", createShareLink);
     document.getElementById("publicShareForm").addEventListener("submit", viewPublicShare);
+    document.getElementById("resumeVersionForm").addEventListener("submit", createResumeVersion);
 </script>
 </body>
 </html>
