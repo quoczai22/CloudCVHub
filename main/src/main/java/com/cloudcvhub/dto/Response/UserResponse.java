@@ -1,6 +1,5 @@
-package com.cloudcvhub.dto;
+package com.cloudcvhub.dto.Response;
 
-import jakarta.validation.constraints.*;
 import lombok.*;
 
 @Getter

@@ -3,121 +3,760 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HoSoHub Auth Test</title>
+    <title>HoSoHub - Đăng nhập</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-            padding: 20px;
-        }
-        .form-container {
-            width: 350px;
-            margin: 40px auto;
-            border: 1px solid #ccc;
-            box-shadow: 0 0 8px #aaa;
-            background: #fff;
-            border-radius: 6px;
-            overflow: hidden;
-        }
-        .form-header {
-            background: #00bfff;
-            color: black;
-            text-align: center;
-            padding: 15px;
-            font-weight: bold;
-            font-size: 20px;
-        }
-        .form-body { padding: 20px; }
-        .form-group { margin-bottom: 15px; }
-        label { font-weight: bold; display: block; }
-        input {
-            width: 100%; padding: 8px; margin-top: 5px;
-            border: 1px solid #aaa; border-radius: 4px;
+        * {
             box-sizing: border-box;
         }
-        button {
-            width: 100%; padding: 10px; font-size: 16px;
-            border: none; color: white; background-color: red;
-            border-radius: 4px; cursor: pointer;
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Inter, Arial, sans-serif;
+            background: #f8fafc;
+            color: #0f172a;
         }
-        button:hover { background-color: darkred; }
-        .toggle-link { text-align: center; margin-top: 10px; }
-        .toggle-link a { color: #00bfff; text-decoration: none; font-weight: bold; }
-        .error-message { color: red; font-size: 0.85em; display: none; margin-top: 5px; }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .page {
+            min-height: 100vh;
+            display: flex;
+            background: #f8fafc;
+        }
+
+        .brand-panel {
+            display: none;
+            width: 480px;
+            flex-shrink: 0;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 48px;
+            background: #2563eb;
+            color: #ffffff;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 48px;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .brand-mark {
+            width: 36px;
+            height: 36px;
+            display: grid;
+            place-items: center;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.18);
+        }
+
+        .brand-panel h2 {
+            margin: 0 0 16px;
+            font-size: 32px;
+            line-height: 1.2;
+        }
+
+        .brand-panel p {
+            margin: 0;
+            max-width: 320px;
+            color: #bfdbfe;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .feature-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #dbeafe;
+            font-size: 14px;
+        }
+
+        .check-dot {
+            width: 20px;
+            height: 20px;
+            display: grid;
+            place-items: center;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.18);
+            font-size: 12px;
+        }
+
+        .auth-panel {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 32px 20px;
+        }
+
+        .auth-box {
+            width: 100%;
+            max-width: 448px;
+        }
+
+        .mobile-brand {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 28px;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .mobile-brand .brand-mark {
+            background: #2563eb;
+            color: #ffffff;
+        }
+
+        .card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+        }
+
+        .auth-title {
+            margin: 0 0 4px;
+            font-size: 24px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .auth-subtitle {
+            margin: 0 0 28px;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .social-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 22px;
+        }
+
+        .social-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            height: 42px;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            background: #ffffff;
+            color: #334155;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .social-button:hover {
+            background: #f8fafc;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 22px;
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #f1f5f9;
+        }
+
+        .form {
+            display: grid;
+            gap: 16px;
+        }
+
+        .field label {
+            display: block;
+            margin-bottom: 6px;
+            color: #334155;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .field input {
+            width: 100%;
+            height: 42px;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 0 14px;
+            color: #0f172a;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+
+        .field input::placeholder {
+            color: #cbd5e1;
+        }
+
+        .field input:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px #dbeafe;
+        }
+
+        .password-wrap {
+            position: relative;
+        }
+
+        .password-wrap input {
+            padding-right: 48px;
+        }
+
+        .icon-button {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 0;
+            background: transparent;
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        .form-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 2px;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #475569;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .checkbox-label input {
+            width: 16px;
+            height: 16px;
+            accent-color: #2563eb;
+        }
+
+        .link-button {
+            border: 0;
+            background: transparent;
+            color: #2563eb;
+            padding: 0;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .primary-button {
+            width: 100%;
+            height: 44px;
+            border: 0;
+            border-radius: 12px;
+            background: #2563eb;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 700;
+            transition: background 0.15s;
+        }
+
+        .primary-button:hover {
+            background: #1d4ed8;
+        }
+
+        .switch-text {
+            margin: 22px 0 0;
+            text-align: center;
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        .terms {
+            align-items: flex-start;
+            line-height: 1.55;
+        }
+
+        .strength {
+            display: flex;
+            gap: 4px;
+            margin-top: 8px;
+        }
+
+        .strength span {
+            height: 4px;
+            flex: 1;
+            border-radius: 999px;
+            background: #f1f5f9;
+        }
+
+        .strength span.active {
+            background: #f59e0b;
+        }
+
+        .hint {
+            margin: 6px 0 0;
+            color: #d97706;
+            font-size: 12px;
+        }
+
+        .error-message {
+            display: none;
+            margin-top: 6px;
+            color: #ef4444;
+            font-size: 12px;
+        }
+
+        .result {
+            margin-top: 18px;
+            min-height: 120px;
+            max-height: 220px;
+            overflow: auto;
+            border-radius: 12px;
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 14px;
+            font-size: 12px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .dashboard {
+            min-height: 100vh;
+            width: 100%;
+            background: #f8fafc;
+            padding: 28px;
+        }
+
+        .dashboard-shell {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .dashboard-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 22px;
+        }
+
+        .dashboard-title h1 {
+            margin: 0 0 4px;
+            font-size: 26px;
+            color: #0f172a;
+        }
+
+        .dashboard-title p {
+            margin: 0;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .logout-button {
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            background: #ffffff;
+            color: #475569;
+            padding: 10px 14px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            gap: 18px;
+        }
+
+        .dashboard-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+        }
+
+        .dashboard-card h2 {
+            margin: 0 0 6px;
+            font-size: 17px;
+            color: #0f172a;
+        }
+
+        .dashboard-card .card-desc {
+            margin: 0 0 18px;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 90px;
+            resize: vertical;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 12px 14px;
+            color: #0f172a;
+            font: inherit;
+            font-size: 14px;
+            outline: none;
+        }
+
+        textarea:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px #dbeafe;
+        }
+
+        .toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .secondary-button {
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            background: #ffffff;
+            color: #334155;
+            padding: 9px 13px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .resume-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .resume-table th {
+            background: #f8fafc;
+            color: #64748b;
+            font-size: 11px;
+            text-align: left;
+            text-transform: uppercase;
+            padding: 12px;
+        }
+
+        .resume-table td {
+            border-top: 1px solid #f1f5f9;
+            padding: 12px;
+            color: #334155;
+            font-size: 13px;
+            vertical-align: top;
+        }
+
+        .resume-name {
+            color: #0f172a;
+            font-weight: 700;
+        }
+
+        .badge {
+            display: inline-flex;
+            border-radius: 999px;
+            background: #dcfce7;
+            color: #15803d;
+            padding: 4px 8px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .empty-state {
+            padding: 28px;
+            color: #94a3b8;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        @media (min-width: 1024px) {
+            .brand-panel {
+                display: flex;
+            }
+
+            .mobile-brand {
+                display: none;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .card {
+                padding: 24px;
+            }
+
+            .social-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard {
+                padding: 18px;
+            }
+        }
     </style>
 </head>
 <body>
-<main>
-    <div class="form-container" id="loginForm">
-        <div class="form-header">ĐĂNG NHẬP</div>
-        <form class="form-body" id="loginFormInternal" novalidate>
-            <div class="form-group">
-                <label for="username">Tên đăng nhập</label>
-                <input type="text" id="username" name="username" required>
-                <span class="error-message" id="usernameError"></span>
+<main class="page">
+    <aside class="brand-panel">
+        <div>
+            <div class="brand">
+                <div class="brand-mark">CV</div>
+                <span>HoSoHub</span>
             </div>
-            <div class="form-group">
-                <label for="password">Mật khẩu</label>
-                <input type="password" id="password" name="password" required>
-                <span class="error-message" id="passwordError"></span>
-            </div>
-            <div class="form-actions">
-                <button type="submit">Đăng nhập</button>
-            </div>
-            <div class="toggle-link">
-                <p>Chưa có tài khoản? <a href="#" onclick="showRegister()">Đăng ký</a></p>
-            </div>
-        </form>
-    </div>
+            <h2>Hồ sơ của bạn,<br>mọi lúc mọi nơi.</h2>
+            <p>Lưu trữ và chia sẻ CV an toàn trên nền tảng Cloud. Tiếp cận từ bất kỳ thiết bị nào.</p>
+        </div>
+        <div class="feature-list">
+            <div class="feature-item"><span class="check-dot">✓</span><span>Mã hóa AES-256</span></div>
+            <div class="feature-item"><span class="check-dot">✓</span><span>Quản lý đa phiên bản</span></div>
+            <div class="feature-item"><span class="check-dot">✓</span><span>Chia sẻ có kiểm soát</span></div>
+        </div>
+    </aside>
 
-    <div class="form-container" id="registerForm" style="display:none;">
-        <div class="form-header">ĐĂNG KÝ</div>
-        <form class="form-body" id="registerFormInternal" novalidate>
-            <div class="form-group">
-                <label for="fullname">Tên đăng ký</label>
-                <input type="text" id="fullname" name="fullname" required>
-                <span class="error-message" id="fullnameError"></span>
+    <section class="auth-panel">
+        <div class="auth-box">
+            <div class="mobile-brand">
+                <div class="brand-mark">CV</div>
+                <span>HoSoHub</span>
             </div>
-            <div class="form-group">
-                <label for="email">Email khôi phục</label>
-                <input type="email" id="email" name="email" required placeholder="vi.du@gmail.com">
-                <span class="error-message" id="emailError"></span>
+
+            <div class="card" id="loginForm">
+                <h1 class="auth-title">Chào mừng trở lại</h1>
+                <p class="auth-subtitle">Đăng nhập vào tài khoản HoSoHub của bạn</p>
+
+                <div class="social-grid">
+                    <button class="social-button" type="button">
+                        <span>G</span>
+                        Google
+                    </button>
+                    <button class="social-button" type="button">
+                        <span>⌘</span>
+                        GitHub
+                    </button>
+                </div>
+
+                <div class="divider">hoặc đăng nhập với email</div>
+
+                <form class="form" id="loginFormInternal" novalidate>
+                    <div class="field">
+                        <label for="username">Email</label>
+                        <input type="email" id="username" name="username" placeholder="you@example.com" required>
+                        <span class="error-message" id="usernameError"></span>
+                    </div>
+
+                    <div class="field">
+                        <label for="password">Mật khẩu</label>
+                        <div class="password-wrap">
+                            <input type="password" id="password" name="password" placeholder="••••••••" required>
+                            <button class="icon-button" type="button" onclick="togglePassword('password')">Hiện</button>
+                        </div>
+                        <span class="error-message" id="passwordError"></span>
+                    </div>
+
+                    <div class="form-row">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="remember">
+                            <span>Nhớ đăng nhập</span>
+                        </label>
+                        <button class="link-button" type="button">Quên mật khẩu?</button>
+                    </div>
+
+                    <button class="primary-button" type="submit">Đăng nhập</button>
+                </form>
+
+                <p class="switch-text">
+                    Chưa có tài khoản?
+                    <button class="link-button" type="button" onclick="showRegister()">Đăng ký ngay</button>
+                </p>
             </div>
-            <div class="form-group">
-                <label for="regpassword">Mật khẩu</label>
-                <input type="password" id="regpassword" name="regpassword" required minlength="8">
-                <span class="error-message" id="regPasswordError"></span>
+
+            <div class="card hidden" id="registerForm">
+                <h1 class="auth-title">Tạo tài khoản</h1>
+                <p class="auth-subtitle">Miễn phí mãi mãi cho 3 CV đầu tiên</p>
+
+                <div class="social-grid">
+                    <button class="social-button" type="button">
+                        <span>G</span>
+                        Google
+                    </button>
+                    <button class="social-button" type="button">
+                        <span>⌘</span>
+                        GitHub
+                    </button>
+                </div>
+
+                <div class="divider">hoặc với email</div>
+
+                <form class="form" id="registerFormInternal" novalidate>
+                    <div class="field">
+                        <label for="fullname">Họ và tên</label>
+                        <input type="text" id="fullname" name="fullname" placeholder="Nguyễn Văn An" required>
+                        <span class="error-message" id="fullnameError"></span>
+                    </div>
+
+                    <div class="field">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                        <span class="error-message" id="emailError"></span>
+                    </div>
+
+                    <div class="field">
+                        <label for="regpassword">Mật khẩu</label>
+                        <div class="password-wrap">
+                            <input type="password" id="regpassword" name="regpassword" placeholder="Tối thiểu 8 ký tự" required minlength="8">
+                            <button class="icon-button" type="button" onclick="togglePassword('regpassword')">Hiện</button>
+                        </div>
+                        <div class="strength"><span class="active"></span><span class="active"></span><span></span><span></span></div>
+                        <p class="hint">Độ mạnh: Trung bình</p>
+                        <span class="error-message" id="regPasswordError"></span>
+                    </div>
+
+                    <div class="field">
+                        <label for="confirmPassword">Xác nhận mật khẩu</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Nhập lại mật khẩu" required minlength="8">
+                        <span class="error-message" id="confirmPasswordError"></span>
+                    </div>
+
+                    <label class="checkbox-label terms">
+                        <input type="checkbox" id="agreeTerms">
+                        <span>Tôi đồng ý với <button class="link-button" type="button">Điều khoản dịch vụ</button> và <button class="link-button" type="button">Chính sách bảo mật</button></span>
+                    </label>
+                    <span class="error-message" id="termsError"></span>
+
+                    <button class="primary-button" type="submit">Tạo tài khoản</button>
+                </form>
+
+                <p class="switch-text">
+                    Đã có tài khoản?
+                    <button class="link-button" type="button" onclick="showLogin()">Đăng nhập</button>
+                </p>
             </div>
-            <div class="form-group">
-                <label for="confirmPassword">Xác nhận mật khẩu</label>
-                <input type="password" id="confirmPassword" name="confirmPassword" required minlength="8">
-                <span class="error-message" id="confirmPasswordError"></span>
+
+            <pre class="result" id="result">Kết quả API sẽ hiển thị ở đây.</pre>
+        </div>
+    </section>
+
+    <section class="dashboard hidden" id="dashboardView">
+        <div class="dashboard-shell">
+            <header class="dashboard-header">
+                <div class="dashboard-title">
+                    <h1>Quản lý CV</h1>
+                    <p id="currentUserText">Test nhanh API tạo và lấy danh sách CV</p>
+                </div>
+                <button class="logout-button" type="button" onclick="showAuth()">Đăng xuất giao diện</button>
+            </header>
+
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <h2>Tạo CV mới</h2>
+                    <p class="card-desc">Form này gọi API tạo resume của Spring Boot.</p>
+
+                    <form class="form" id="resumeForm" novalidate>
+                        <div class="field">
+                            <label for="resumeTitle">Tên CV</label>
+                            <input id="resumeTitle" type="text" placeholder="VD: CV Backend Developer 2026" required>
+                            <span class="error-message" id="resumeTitleError"></span>
+                        </div>
+
+                        <div class="field">
+                            <label for="resumeContent">Mô tả ngắn</label>
+                            <textarea id="resumeContent" placeholder="Mô tả về phiên bản CV này..."></textarea>
+                        </div>
+
+                        <button class="primary-button" type="submit">Tạo CV</button>
+                    </form>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="toolbar">
+                        <div>
+                            <h2>Danh sách CV</h2>
+                            <p class="card-desc">Dữ liệu lấy từ API của user đang đăng nhập.</p>
+                        </div>
+                        <button class="secondary-button" type="button" onclick="loadResumes()">Tải danh sách</button>
+                    </div>
+
+                    <div id="resumeList">
+                        <div class="empty-state">Chưa tải danh sách CV.</div>
+                    </div>
+                </div>
             </div>
-            <div class="form-actions">
-                <button type="submit">Đăng ký</button>
-            </div>
-            <div class="toggle-link">
-                <p>Đã có tài khoản? <a href="#" onclick="showLogin()">Đăng nhập</a></p>
-            </div>
-        </form>
-    </div>
-    <pre id="result">Kết quả API sẽ hiển thị ở đây.</pre>
+
+            <pre class="result" id="resumeResult">Kết quả API Resume sẽ hiển thị ở đây.</pre>
+        </div>
+    </section>
 </main>
 
 <script>
     const result = document.getElementById("result");
-    const API_BASE_URL = "http://localhost:8081";
+    const API_BASE_URL = window.location.port === "63342" ? "http://localhost:8081" : window.location.origin;
 
     function showRegister() {
-        document.getElementById("loginForm").style.display = "none";
-        document.getElementById("registerForm").style.display = "block";
+        document.getElementById("loginForm").classList.add("hidden");
+        document.getElementById("registerForm").classList.remove("hidden");
         result.textContent = "Kết quả API sẽ hiển thị ở đây.";
     }
 
     function showLogin() {
-        document.getElementById("registerForm").style.display = "none";
-        document.getElementById("loginForm").style.display = "block";
+        document.getElementById("registerForm").classList.add("hidden");
+        document.getElementById("loginForm").classList.remove("hidden");
         result.textContent = "Kết quả API sẽ hiển thị ở đây.";
+    }
+
+    function showDashboard() {
+        document.querySelector(".brand-panel").classList.add("hidden");
+        document.querySelector(".auth-panel").classList.add("hidden");
+        document.getElementById("dashboardView").classList.remove("hidden");
+        document.getElementById("currentUserText").textContent = "Đang đăng nhập: " + (localStorage.getItem("currentUser") || "");
+        loadResumes();
+    }
+
+    function showAuth() {
+        document.getElementById("dashboardView").classList.add("hidden");
+        document.querySelector(".brand-panel").classList.remove("hidden");
+        document.querySelector(".auth-panel").classList.remove("hidden");
+        localStorage.removeItem("isLoggedIn");
+        localStorage.removeItem("currentUser");
+        showLogin();
+    }
+
+    function togglePassword(id) {
+        const input = document.getElementById(id);
+        input.type = input.type === "password" ? "text" : "password";
     }
 
     function setError(id, message) {
@@ -127,7 +766,11 @@
     }
 
     function clearErrors(form) {
-        form.querySelectorAll(".error-message").forEach(e => e.style.display = "none");
+        form.querySelectorAll(".error-message").forEach(e => {
+            e.innerText = "";
+            e.style.display = "none";
+        });
+        document.getElementById("termsError").style.display = "none";
     }
 
     function isValidEmail(email) {
@@ -143,6 +786,7 @@
                 headers: {
                     "Content-Type": "application/json"
                 },
+                credentials: "include",
                 body: JSON.stringify(data)
             });
 
@@ -166,6 +810,33 @@
         }
     }
 
+    async function apiRequest(method, url, data) {
+        const apiUrl = API_BASE_URL + url;
+        const options = {
+            method: method,
+            headers: {
+                "Content-Type": "application/json"
+            },
+            credentials: "include"
+        };
+
+        if (data) {
+            options.body = JSON.stringify(data);
+        }
+
+        const response = await fetch(apiUrl, options);
+        const text = await response.text();
+        let body;
+
+        try {
+            body = JSON.parse(text);
+        } catch (error) {
+            body = text;
+        }
+
+        return { response, body, apiUrl };
+    }
+
     async function validateRegisterForm(event) {
         event.preventDefault();
         const form = document.getElementById("registerFormInternal");
@@ -175,6 +846,7 @@
         const email = document.getElementById("email").value.trim();
         const pass = document.getElementById("regpassword").value;
         const confirm = document.getElementById("confirmPassword").value;
+        const agreed = document.getElementById("agreeTerms").checked;
         let ok = true;
 
         if (!name) {
@@ -191,6 +863,10 @@
         }
         if (pass !== confirm) {
             setError("confirmPasswordError", "Mật khẩu không khớp!");
+            ok = false;
+        }
+        if (!agreed) {
+            setError("termsError", "Bạn cần đồng ý điều khoản trước khi tạo tài khoản.");
             ok = false;
         }
 
@@ -241,11 +917,107 @@
             localStorage.setItem("isLoggedIn", "true");
             localStorage.setItem("currentUser", user);
             alert("Đăng nhập thành công!");
+            showDashboard();
         }
+    }
+
+    async function createResume(event) {
+        event.preventDefault();
+        const form = document.getElementById("resumeForm");
+        clearErrors(form);
+
+        const title = document.getElementById("resumeTitle").value.trim();
+        const content = document.getElementById("resumeContent").value.trim();
+
+        if (!title) {
+            setError("resumeTitleError", "Vui lòng nhập tên CV!");
+            return;
+        }
+
+        try {
+            const { response, body, apiUrl } = await apiRequest("POST", "/api/v1/resumes", {
+                title: title,
+                content: content,
+                targetJob: ""
+            });
+
+            document.getElementById("resumeResult").textContent = "URL: " + apiUrl + "\n"
+                + "Status: " + response.status + "\n\n"
+                + JSON.stringify(body, null, 2);
+
+            if (response.ok) {
+                form.reset();
+                loadResumes();
+            }
+        } catch (error) {
+            document.getElementById("resumeResult").textContent = "Không gọi được API Resume: " + error.message;
+        }
+    }
+
+    async function loadResumes() {
+        try {
+            const { response, body, apiUrl } = await apiRequest("GET", "/api/v1/resumes");
+            document.getElementById("resumeResult").textContent = "URL: " + apiUrl + "\n"
+                + "Status: " + response.status + "\n\n"
+                + JSON.stringify(body, null, 2);
+
+            if (!response.ok) {
+                document.getElementById("resumeList").innerHTML = '<div class="empty-state">Không tải được danh sách CV.</div>';
+                return;
+            }
+
+            renderResumeList(Array.isArray(body) ? body : []);
+        } catch (error) {
+            document.getElementById("resumeResult").textContent = "Không gọi được API Resume: " + error.message;
+        }
+    }
+
+    function renderResumeList(resumes) {
+        const container = document.getElementById("resumeList");
+
+        if (resumes.length === 0) {
+            container.innerHTML = '<div class="empty-state">Chưa có CV nào.</div>';
+            return;
+        }
+
+        container.innerHTML = `
+            <div class="table-wrap">
+                <table class="resume-table">
+                    <thead>
+                        <tr>
+                            <th>Tên CV</th>
+                            <th>Mô tả</th>
+                            <th>Trạng thái</th>
+                            <th>Cập nhật</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${resumes.map(resume => `
+                            <tr>
+                                <td><span class="resume-name">${escapeHtml(resume.title || "")}</span></td>
+                                <td>${escapeHtml(resume.content || "")}</td>
+                                <td><span class="badge">${escapeHtml(resume.state || "ACTIVE")}</span></td>
+                                <td>${escapeHtml(resume.updatedAt || "")}</td>
+                            </tr>
+                        `).join("")}
+                    </tbody>
+                </table>
+            </div>
+        `;
+    }
+
+    function escapeHtml(value) {
+        return String(value)
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;")
+            .replaceAll("'", "&#039;");
     }
 
     document.getElementById("registerFormInternal").addEventListener("submit", validateRegisterForm);
     document.getElementById("loginFormInternal").addEventListener("submit", validateLoginForm);
+    document.getElementById("resumeForm").addEventListener("submit", createResume);
 </script>
 </body>
 </html>

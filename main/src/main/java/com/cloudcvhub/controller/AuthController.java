@@ -1,8 +1,8 @@
 package com.cloudcvhub.controller;
 
-import com.cloudcvhub.dto.AuthResponse;
-import com.cloudcvhub.dto.LoginRequest;
-import com.cloudcvhub.dto.RegisterRequest;
+import com.cloudcvhub.dto.Response.AuthResponse;
+import com.cloudcvhub.dto.Request.LoginRequest;
+import com.cloudcvhub.dto.Request.RegisterRequest;
 import com.cloudcvhub.security.JwtTokenProvider;
 import com.cloudcvhub.service.AuthService;
 import jakarta.validation.Valid;

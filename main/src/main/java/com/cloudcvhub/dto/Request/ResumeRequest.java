@@ -1,4 +1,4 @@
-package com.cloudcvhub.dto;
+package com.cloudcvhub.dto.Request;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;

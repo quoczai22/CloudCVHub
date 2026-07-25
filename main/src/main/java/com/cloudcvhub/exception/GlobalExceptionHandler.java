@@ -1,6 +1,6 @@
 package com.cloudcvhub.exception;
 
-import com.cloudcvhub.dto.ErrorResponse;
+import com.cloudcvhub.dto.Response.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpRequestMethodNotSupportedException;

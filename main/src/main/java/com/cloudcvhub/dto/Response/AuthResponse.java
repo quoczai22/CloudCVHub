@@ -1,4 +1,4 @@
-package com.cloudcvhub.dto;
+package com.cloudcvhub.dto.Response;
 
 import lombok.*;
 

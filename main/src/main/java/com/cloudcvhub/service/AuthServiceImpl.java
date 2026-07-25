@@ -1,9 +1,9 @@
 package com.cloudcvhub.service;
 
-import com.cloudcvhub.dto.AuthResponse;
-import com.cloudcvhub.dto.LoginRequest;
-import com.cloudcvhub.dto.RegisterRequest;
-import com.cloudcvhub.dto.UserResponse;
+import com.cloudcvhub.dto.Response.AuthResponse;
+import com.cloudcvhub.dto.Request.LoginRequest;
+import com.cloudcvhub.dto.Request.RegisterRequest;
+import com.cloudcvhub.dto.Response.UserResponse;
 import com.cloudcvhub.exception.DuplicateEmailException;
 import com.cloudcvhub.exception.WebException;
 import com.cloudcvhub.model.User;
