@@ -9,9 +9,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Component;
 
+<<<<<<< HEAD
 import jakarta.annotation.PostConstruct; // Dùng để khởi tạo key sau khi đọc được chuỗi bí mật
 import org.springframework.web.util.WebUtils;
 
+=======
+import jakarta.annotation.PostConstruct; 
+>>>>>>> b8e0d7c75e1287008409fc1028af010475ff2de8
 import java.nio.charset.StandardCharsets;
 
 import javax.crypto.SecretKey;
