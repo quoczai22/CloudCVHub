@@ -398,6 +398,10 @@
             gap: 18px;
         }
 
+        .dashboard-grid + .dashboard-grid {
+            margin-top: 18px;
+        }
+
         .dashboard-card {
             background: #ffffff;
             border: 1px solid #e5e7eb;
@@ -451,6 +455,16 @@
             color: #334155;
             padding: 9px 13px;
             font-size: 13px;
+            font-weight: 700;
+        }
+
+        .small-button {
+            border: 1px solid #bfdbfe;
+            border-radius: 10px;
+            background: #eff6ff;
+            color: #1d4ed8;
+            padding: 7px 10px;
+            font-size: 12px;
             font-weight: 700;
         }
 
@@ -716,6 +730,54 @@
                 </div>
             </div>
 
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <h2>Tạo link chia sẻ</h2>
+                    <p class="card-desc">Chọn một CV rồi gọi API tạo hoặc cập nhật share link.</p>
+
+                    <form class="form" id="shareLinkForm" novalidate>
+                        <div class="field">
+                            <label for="shareResumeId">Resume ID</label>
+                            <input id="shareResumeId" type="number" min="1" placeholder="VD: 1" required>
+                            <span class="error-message" id="shareResumeIdError"></span>
+                        </div>
+
+                        <div class="field">
+                            <label for="sharePassword">Mật khẩu link nếu muốn</label>
+                            <input id="sharePassword" type="password" placeholder="Bỏ trống nếu muốn public">
+                            <span class="error-message" id="sharePasswordError"></span>
+                        </div>
+
+                        <div class="field">
+                            <label for="shareExpiresAt">Thời gian hết hạn</label>
+                            <input id="shareExpiresAt" type="datetime-local">
+                        </div>
+
+                        <button class="primary-button" type="submit">Tạo hoặc cập nhật link</button>
+                    </form>
+                </div>
+
+                <div class="dashboard-card">
+                    <h2>Xem CV bằng link share</h2>
+                    <p class="card-desc">API public này dùng để test nhà tuyển dụng mở CV.</p>
+
+                    <form class="form" id="publicShareForm" novalidate>
+                        <div class="field">
+                            <label for="shareCode">Share code</label>
+                            <input id="shareCode" type="text" placeholder="Dán shareCode nhận được sau khi tạo link" required>
+                            <span class="error-message" id="shareCodeError"></span>
+                        </div>
+
+                        <div class="field">
+                            <label for="publicSharePassword">Mật khẩu nếu link có cài</label>
+                            <input id="publicSharePassword" type="password" placeholder="Nhập mật khẩu của link">
+                        </div>
+
+                        <button class="primary-button" type="submit">Xem CV public</button>
+                    </form>
+                </div>
+            </div>
+
             <pre class="result" id="resumeResult">Kết quả API Resume sẽ hiển thị ở đây.</pre>
         </div>
     </section>
@@ -802,11 +864,11 @@
             result.textContent = "URL: " + apiUrl + "\n"
                 + "Status: " + response.status + "\n\n"
                 + JSON.stringify(body, null, 2);
-            return response.ok;
+            return { success: response.ok, body: body };
         } catch (error) {
             result.textContent = "URL: " + apiUrl + "\n"
                 + "Không gọi được API: " + error.message;
-            return false;
+            return { success: false, body: { message: "Không gọi được API. Hãy kiểm tra Spring Boot đã chạy chưa." } };
         }
     }
 
@@ -874,13 +936,18 @@
             return;
         }
 
-        const success = await sendRequest("/api/v1/auth/register", {
+        const apiResult = await sendRequest("/api/v1/auth/register", {
             email: email,
             password: pass,
             fullName: name
         });
 
-        if (success) {
+        if (!apiResult.success) {
+            setError("emailError", getApiMessage(apiResult.body));
+            return;
+        }
+
+        if (apiResult.success) {
             document.getElementById("username").value = email;
             alert("Đăng ký thành công! Hãy đăng nhập.");
             showLogin();
@@ -908,17 +975,35 @@
             return;
         }
 
-        const success = await sendRequest("/api/v1/auth/login", {
+        const apiResult = await sendRequest("/api/v1/auth/login", {
             email: user,
             password: pass
         });
 
-        if (success) {
+        if (!apiResult.success) {
+            const message = getApiMessage(apiResult.body);
+
+            if (message.includes("Tài khoản chưa tồn tại")) {
+                setError("usernameError", message);
+            } else {
+                setError("passwordError", message);
+            }
+            return;
+        }
+
+        if (apiResult.success) {
             localStorage.setItem("isLoggedIn", "true");
             localStorage.setItem("currentUser", user);
             alert("Đăng nhập thành công!");
             showDashboard();
         }
+    }
+
+    function getApiMessage(body) {
+        if (body && body.message) {
+            return body.message;
+        }
+        return "Có lỗi xảy ra. Vui lòng thử lại.";
     }
 
     async function createResume(event) {
@@ -972,6 +1057,79 @@
         }
     }
 
+    async function createShareLink(event) {
+        event.preventDefault();
+        const form = document.getElementById("shareLinkForm");
+        clearErrors(form);
+
+        const resumeId = document.getElementById("shareResumeId").value;
+        const password = document.getElementById("sharePassword").value;
+        const expiresAt = document.getElementById("shareExpiresAt").value;
+
+        if (!resumeId) {
+            setError("shareResumeIdError", "Vui lòng nhập Resume ID!");
+            return;
+        }
+
+        if (password && (password.length < 5 || password.length > 50)) {
+            setError("sharePasswordError", "Mật khẩu link chia sẻ phải từ 5 đến 50 ký tự");
+            return;
+        }
+
+        const requestBody = {};
+
+        if (password) {
+            requestBody.password = password;
+        }
+
+        if (expiresAt) {
+            requestBody.expiresAt = expiresAt;
+        }
+
+        try {
+            const { response, body, apiUrl } = await apiRequest("POST", "/api/v1/resumes/" + resumeId + "/share", requestBody);
+            document.getElementById("resumeResult").textContent = "URL: " + apiUrl + "\n"
+                + "Status: " + response.status + "\n\n"
+                + JSON.stringify(body, null, 2);
+
+            if (response.ok && body.shareCode) {
+                document.getElementById("shareCode").value = body.shareCode;
+            }
+        } catch (error) {
+            document.getElementById("resumeResult").textContent = "Không gọi được API Share Link: " + error.message;
+        }
+    }
+
+    async function viewPublicShare(event) {
+        event.preventDefault();
+        const form = document.getElementById("publicShareForm");
+        clearErrors(form);
+
+        const shareCode = document.getElementById("shareCode").value.trim();
+        const password = document.getElementById("publicSharePassword").value;
+
+        if (!shareCode) {
+            setError("shareCodeError", "Vui lòng nhập shareCode!");
+            return;
+        }
+
+        const passwordQuery = password ? "?password=" + encodeURIComponent(password) : "";
+
+        try {
+            const { response, body, apiUrl } = await apiRequest("GET", "/api/v1/public/share/" + encodeURIComponent(shareCode) + passwordQuery);
+            document.getElementById("resumeResult").textContent = "URL: " + apiUrl + "\n"
+                + "Status: " + response.status + "\n\n"
+                + JSON.stringify(body, null, 2);
+        } catch (error) {
+            document.getElementById("resumeResult").textContent = "Không gọi được API xem CV public: " + error.message;
+        }
+    }
+
+    function selectResumeForShare(resumeId) {
+        document.getElementById("shareResumeId").value = resumeId;
+        document.getElementById("resumeResult").textContent = "Đã chọn Resume ID: " + resumeId + "\nBạn có thể tạo link chia sẻ cho CV này.";
+    }
+
     function renderResumeList(resumes) {
         const container = document.getElementById("resumeList");
 
@@ -985,19 +1143,23 @@
                 <table class="resume-table">
                     <thead>
                         <tr>
+                            <th>ID</th>
                             <th>Tên CV</th>
                             <th>Mô tả</th>
                             <th>Trạng thái</th>
                             <th>Cập nhật</th>
+                            <th>Share</th>
                         </tr>
                     </thead>
                     <tbody>
                         ${resumes.map(resume => `
                             <tr>
+                                <td>${escapeHtml(resume.id || "")}</td>
                                 <td><span class="resume-name">${escapeHtml(resume.title || "")}</span></td>
                                 <td>${escapeHtml(resume.content || "")}</td>
                                 <td><span class="badge">${escapeHtml(resume.state || "ACTIVE")}</span></td>
                                 <td>${escapeHtml(resume.updatedAt || "")}</td>
+                                <td><button class="small-button" type="button" onclick="selectResumeForShare('${escapeHtml(resume.id || "")}')">Chọn</button></td>
                             </tr>
                         `).join("")}
                     </tbody>
@@ -1018,6 +1180,8 @@
     document.getElementById("registerFormInternal").addEventListener("submit", validateRegisterForm);
     document.getElementById("loginFormInternal").addEventListener("submit", validateLoginForm);
     document.getElementById("resumeForm").addEventListener("submit", createResume);
+    document.getElementById("shareLinkForm").addEventListener("submit", createShareLink);
+    document.getElementById("publicShareForm").addEventListener("submit", viewPublicShare);
 </script>
 </body>
 </html>

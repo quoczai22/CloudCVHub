@@ -23,6 +23,9 @@ public class ShareLink {
     @Column(name = "expired_at")
     LocalDateTime expiredAt;
 
+    @Column(name = "password_hash")
+    String passwordHash;
+
     @Column(name = "is_active", nullable = false)
     Boolean isActive;
 
@@ -54,11 +57,12 @@ public class ShareLink {
 
     public ShareLink(){}
 
-    public ShareLink(Long id, Resume resume, String token, LocalDateTime expiredAt, Boolean isActive, Integer viewCount, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public ShareLink(Long id, Resume resume, String token, LocalDateTime expiredAt, String passwordHash, Boolean isActive, Integer viewCount, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.resume = resume;
         this.token = token;
         this.expiredAt = expiredAt;
+        this.passwordHash = passwordHash;
         this.isActive = isActive;
         this.viewCount = viewCount;
         this.createdAt = createdAt;
@@ -79,6 +83,10 @@ public class ShareLink {
 
     public LocalDateTime getExpiredAt() {
         return expiredAt;
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
     public Boolean getActive() {
@@ -111,6 +119,10 @@ public class ShareLink {
 
     public void setExpiredAt(LocalDateTime expiredAt) {
         this.expiredAt = expiredAt;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
     public void setActive(Boolean active) {

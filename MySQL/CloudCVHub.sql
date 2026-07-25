@@ -47,6 +47,7 @@ CREATE TABLE share_links (
     resume_id BIGINT NOT NULL,
     token VARCHAR(100) NOT NULL UNIQUE,
     expired_at TIMESTAMP NULL, 
+    password_hash VARCHAR(255) NULL,
     is_active BOOLEAN NOT NULL DEFAULT TRUE,
     view_count INT NOT NULL DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
@@ -66,6 +67,5 @@ CREATE TABLE refresh_tokens (
     CONSTRAINT pk_refresh_tokens PRIMARY KEY (id), 
     CONSTRAINT fk_refresh_tokens_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 
 

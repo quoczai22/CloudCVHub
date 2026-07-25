@@ -10,6 +10,7 @@ import com.cloudcvhub.model.User;
 import com.cloudcvhub.repo.UserRepo;
 import com.cloudcvhub.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -17,8 +18,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AuthServiceImpl implements AuthService {
     private final UserRepo userRepo;
     private final AuthenticationManager authenticationManager;
@@ -27,16 +30,20 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public AuthResponse login(LoginRequest request) throws WebException {
+        User user = userRepo.findByEmail(request.getEmail())
+                .orElseThrow(() -> {
+                    log.warn("Đăng nhập thất bại: Email '{}' chưa được đăng ký.", request.getEmail());
+                    return new WebException("Tài khoản chưa tồn tại. Vui lòng đăng ký trước.", HttpStatus.UNAUTHORIZED);
+                });
+
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
             );
         } catch (AuthenticationException ex) {
-            throw new WebException("Email hoặc mật khẩu không đúng", HttpStatus.UNAUTHORIZED);
+            log.warn("Đăng nhập thất bại: Mật khẩu không đúng cho tài khoản '{}'.", request.getEmail());
+            throw new WebException("Mật khẩu không đúng. Vui lòng thử lại.", HttpStatus.UNAUTHORIZED);
         }
-
-        User user = userRepo.findByEmail(request.getEmail())
-                .orElseThrow(() -> new WebException("Email hoặc mật khẩu không đúng", HttpStatus.UNAUTHORIZED));
 
         UserResponse userResponse = UserResponse.builder()
                 .id(user.getId())

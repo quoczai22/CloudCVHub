@@ -11,5 +11,6 @@ import java.util.Optional;
 @Repository
 public interface ShareLinkRepo extends  JpaRepository<ShareLink,Long> {
     Optional<ShareLink> findByToken(String token);
+
     List<ShareLink> findByResumeId(Long resumeId); // lay danh sach theo resume
 }
