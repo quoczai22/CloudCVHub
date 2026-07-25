@@ -27,8 +27,11 @@ public class JwtAuthenticationFilter extends  OncePerRequestFilter {
             throws ServletException, IOException {
         try {
 
-            // 1. Lấy JWT token từ header của request
-            String jwt = getJwtFromRequest(request);
+            // 1. Lấy token từ cookie trước, nếu không có thì lấy từ Authorization header
+            String jwt = tokenProvider.getJwtFromCookies(request);
+            if (!StringUtils.hasText(jwt)) {
+                jwt = getJwtFromRequest(request);
+            }
 
             // 2. Kiểm tra và xác thực token
             if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
