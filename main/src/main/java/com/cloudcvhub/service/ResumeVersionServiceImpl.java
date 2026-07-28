@@ -4,6 +4,8 @@ import com.cloudcvhub.dto.Request.ResumeVersionRequest;
 import com.cloudcvhub.dto.Response.ResumeResponse;
 import com.cloudcvhub.dto.Response.ResumeVersionResponse;
 import com.cloudcvhub.exception.ResourceNotFoundException;
+import com.cloudcvhub.mapper.ResumeMap;
+import com.cloudcvhub.mapper.ResumeVersionMap;
 import com.cloudcvhub.model.Resume;
 import com.cloudcvhub.model.ResumeVersion;
 import com.cloudcvhub.model.User;
@@ -24,6 +26,8 @@ public class ResumeVersionServiceImpl implements ResumeVersionService {
     private final ResumeVersionRepo resumeVersionRepo;
     private final ResumeRepo resumeRepo;
     private final UserRepo userRepo;
+    private final ResumeVersionMap resumeVersionMap;
+    private final ResumeMap resumeMap;
 
     @Override
     @Transactional
@@ -46,11 +50,11 @@ public class ResumeVersionServiceImpl implements ResumeVersionService {
                 .fileKey("resume-" + resumeId + "-version-" + nextVersionNumber)
                 .fileSize((long) content.getBytes(StandardCharsets.UTF_8).length)
                 .fileType("text/plain")
-                .isPrimary(nextVersionNumber == 1)
+                .primary(nextVersionNumber == 1)
                 .build();
 
         ResumeVersion savedVersion = resumeVersionRepo.save(version);
-        return mapToVersionResponse(savedVersion);
+        return resumeVersionMap.toResponse(savedVersion);
     }
 
     @Override
@@ -61,7 +65,7 @@ public class ResumeVersionServiceImpl implements ResumeVersionService {
 
         return resumeVersionRepo.findByResumeIdOrderByVersionNumberDesc(resumeId)
                 .stream()
-                .map(this::mapToVersionResponse)
+                .map(resumeVersionMap::toResponse)
                 .toList();
     }
 
@@ -77,7 +81,7 @@ public class ResumeVersionServiceImpl implements ResumeVersionService {
         resume.setDescription(version.getContent());
         Resume savedResume = resumeRepo.save(resume);
 
-        return mapToResumeResponse(savedResume);
+        return resumeMap.toResponse(savedResume);
     }
 
     private User findUserByEmail(String email) {
@@ -86,27 +90,8 @@ public class ResumeVersionServiceImpl implements ResumeVersionService {
     }
 
     private Resume findResumeByIdAndUserId(Long resumeId, Long userId) {
-        return resumeRepo.findByIdAndUserIdAndIsDeletedFalse(resumeId, userId)
+        return resumeRepo.findByIdAndUserIdAndDeletedFalse(resumeId, userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Resume", "id", resumeId));
     }
 
-    private ResumeVersionResponse mapToVersionResponse(ResumeVersion version) {
-        return ResumeVersionResponse.builder()
-                .id(version.getId())
-                .versionName(version.getVersionName())
-                .content(version.getContent())
-                .createdAt(version.getCreatedAt())
-                .build();
-    }
-
-    private ResumeResponse mapToResumeResponse(Resume resume) {
-        return ResumeResponse.builder()
-                .id(resume.getId())
-                .title(resume.getTitle())
-                .content(resume.getDescription())
-                .state(resume.getDeleted() ? "DELETED" : "ACTIVE")
-                .createdAt(resume.getCreatedAt())
-                .updatedAt(resume.getUpdatedAt())
-                .build();
-    }
 }

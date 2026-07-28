@@ -7,6 +7,8 @@ import com.cloudcvhub.dto.Response.UserResponse;
 import com.cloudcvhub.exception.DuplicateEmailException;
 import com.cloudcvhub.exception.ErrCode;
 import com.cloudcvhub.exception.WebException;
+import com.cloudcvhub.mapper.AuthMap;
+import com.cloudcvhub.mapper.UserMap;
 import com.cloudcvhub.model.User;
 import com.cloudcvhub.repo.UserRepo;
 import com.cloudcvhub.security.JwtTokenProvider;
@@ -28,6 +30,8 @@ public class AuthServiceImpl implements AuthService {
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
+    private final UserMap userMap;
+    private final AuthMap authMap;
 
     @Override
     public AuthResponse login(LoginRequest request) throws WebException {
@@ -46,21 +50,12 @@ public class AuthServiceImpl implements AuthService {
             throw new WebException(ErrCode.PASSWORD_INVALID, HttpStatus.UNAUTHORIZED);
         }
 
-        UserResponse userResponse = UserResponse.builder()
-                .id(user.getId())
-                .email(user.getEmail())
-                .fullname(user.getFullname())
-                .avatarUrl(user.getAvatarUrl())
-                .role(user.getRole())
-                .state(user.getState())
-                .build();
-
-        AuthResponse authResponse = AuthResponse.builder()
-                .accessToken(jwtTokenProvider.generateAccessToken(user.getEmail()))
-                .refreshToken(jwtTokenProvider.generateRefreshToken(user.getEmail()))
-                .user(userResponse)
-                .build();
-        return authResponse;
+        UserResponse userResponse = userMap.toResponse(user);
+        return authMap.toResponse(
+                jwtTokenProvider.generateAccessToken(user.getEmail()),
+                jwtTokenProvider.generateRefreshToken(user.getEmail()),
+                userResponse
+        );
     }
 
     @Override
@@ -72,28 +67,16 @@ public class AuthServiceImpl implements AuthService {
             throw new DuplicateEmailException(request.getEmail());
         }
 
-        User user = new User();
-        user.setEmail(request.getEmail());
+        User user = userMap.toUser(request);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setFullname(request.getFullName());
 
         User savedUser = userRepo.save(user);
 
-        UserResponse userResponse = UserResponse.builder()
-                .id(savedUser.getId())
-                .email(savedUser.getEmail())
-                .fullname(savedUser.getFullname())
-                .avatarUrl(savedUser.getAvatarUrl())
-                .role(savedUser.getRole())
-                .state(savedUser.getState())
-                .build();
-
-        AuthResponse authResponse = AuthResponse.builder()
-                .accessToken(jwtTokenProvider.generateAccessToken(savedUser.getEmail()))
-                .refreshToken(jwtTokenProvider.generateRefreshToken(savedUser.getEmail()))
-                .user(userResponse)
-                .build();
-
-        return authResponse;
+        UserResponse userResponse = userMap.toResponse(savedUser);
+        return authMap.toResponse(
+                jwtTokenProvider.generateAccessToken(savedUser.getEmail()),
+                jwtTokenProvider.generateRefreshToken(savedUser.getEmail()),
+                userResponse
+        );
     }
 }

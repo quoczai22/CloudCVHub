@@ -5,6 +5,8 @@ import com.cloudcvhub.dto.Response.ResumeResponse;
 import com.cloudcvhub.dto.Response.ShareLinkResponse;
 import com.cloudcvhub.exception.ResourceNotFoundException;
 import com.cloudcvhub.exception.WebException;
+import com.cloudcvhub.mapper.ResumeMap;
+import com.cloudcvhub.mapper.ShareLinkMap;
 import com.cloudcvhub.model.Resume;
 import com.cloudcvhub.model.ShareLink;
 import com.cloudcvhub.model.User;
@@ -28,6 +30,8 @@ public class ShareLinkServiceImpl implements ShareLinkService {
     private final UserRepo userRepo;
     private final ResumeRepo resumeRepo;
     private final PasswordEncoder passwordEncoder;
+    private final ShareLinkMap shareLinkMap;
+    private final ResumeMap resumeMap;
 
     @Override
     @Transactional
@@ -48,7 +52,7 @@ public class ShareLinkServiceImpl implements ShareLinkService {
                     .resume(resume)
                     .token(uniqueCode)
                     .viewCount(0)
-                    .isActive(true)
+                    .active(true)
                     .build();
         }
 
@@ -58,7 +62,7 @@ public class ShareLinkServiceImpl implements ShareLinkService {
         shareLink.setActive(true);
 
         ShareLink savedLink = shareLinkRepo.save(shareLink);
-        return mapToResponse(savedLink);
+        return shareLinkMap.toResponse(savedLink);
     }
     
     @Override
@@ -72,7 +76,7 @@ public class ShareLinkServiceImpl implements ShareLinkService {
                 .findFirst()
                 .orElseThrow(() -> new ResourceNotFoundException("ShareLink", "resumeId", resumeId));
 
-        return mapToResponse(shareLink);
+        return shareLinkMap.toResponse(shareLink);
     }
 
     @Override
@@ -99,15 +103,7 @@ public class ShareLinkServiceImpl implements ShareLinkService {
         shareLinkRepo.save(shareLink);
 
         Resume resume = shareLink.getResume();
-
-        return ResumeResponse.builder()
-                .id(resume.getId())
-                .title(resume.getTitle())
-                .content(resume.getDescription())
-                .state(resume.getDeleted() ? "DELETED" : "ACTIVE")
-                .createdAt(resume.getCreatedAt())
-                .updatedAt(resume.getUpdatedAt())
-                .build();
+        return resumeMap.toResponse(resume);
     }
 
     private String createPasswordHash(String password) {
@@ -123,19 +119,8 @@ public class ShareLinkServiceImpl implements ShareLinkService {
     }
 
     private Resume findResumeByIdAndUserId(Long resumeId, Long userId) {
-        return resumeRepo.findByIdAndUserIdAndIsDeletedFalse(resumeId, userId)
+        return resumeRepo.findByIdAndUserIdAndDeletedFalse(resumeId, userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Resume", "id", resumeId));
     }
 
-    private ShareLinkResponse mapToResponse(ShareLink shareLink) {
-        return ShareLinkResponse.builder()
-                .id(shareLink.getId())
-                .shareCode(shareLink.getToken())
-                .shareUrl("/share/" + shareLink.getToken())
-                .hasPassword(shareLink.getPasswordHash() != null && !shareLink.getPasswordHash().isBlank())
-                .expiresAt(shareLink.getExpiredAt())
-                .viewCount(shareLink.getViewCount())
-                .state(shareLink.getActive() ? "ACTIVE" : "INACTIVE")
-                .build();
-    }
 }

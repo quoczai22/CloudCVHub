@@ -3,6 +3,7 @@ package com.cloudcvhub.service;
 import com.cloudcvhub.dto.Request.ResumeRequest;
 import com.cloudcvhub.dto.Response.ResumeResponse;
 import com.cloudcvhub.exception.ResourceNotFoundException;
+import com.cloudcvhub.mapper.ResumeMap;
 import com.cloudcvhub.model.Resume;
 import com.cloudcvhub.model.User;
 import com.cloudcvhub.repo.ResumeRepo;
@@ -19,32 +20,28 @@ public class ResumeServiceImpl implements ResumeService {
 
     private final ResumeRepo resumeRepo;
     private final UserRepo userRepo;
+    private final ResumeMap resumeMap;
 
     @Override
     @Transactional
     public ResumeResponse createResume(ResumeRequest request, String userEmail) {
         User user = findUserByEmail(userEmail);
 
-        Resume resume = new Resume();
-
+        Resume resume = resumeMap.toResume(request);
         resume.setUser(user);
-        resume.setTitle(request.getTitle());
-        resume.setDescription(request.getContent());
 
         Resume savedResume = resumeRepo.save(resume);
-        return mapToResponse(savedResume);
+        return resumeMap.toResponse(savedResume);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<ResumeResponse> getMyResumes(String userEmail) {
-
-
         User user = findUserByEmail(userEmail);
 
-        return resumeRepo.findByUserIdAndIsDeletedFalse(user.getId())
+        return resumeRepo.findByUserIdAndDeletedFalse(user.getId())
                 .stream()
-                .map(this::mapToResponse)
+                .map(resumeMap::toResponse)
                 .toList();
     }
 
@@ -54,8 +51,7 @@ public class ResumeServiceImpl implements ResumeService {
         User user = findUserByEmail(userEmail);
         Resume resume = findResumeByIdAndUserId(id, user.getId());
 
-
-        return mapToResponse(resume);
+        return resumeMap.toResponse(resume);
     }
 
     @Override
@@ -64,11 +60,10 @@ public class ResumeServiceImpl implements ResumeService {
         User user = findUserByEmail(userEmail);
         Resume resume = findResumeByIdAndUserId(id, user.getId());
 
-        resume.setTitle(request.getTitle());
-        resume.setDescription(request.getContent());
+        resumeMap.updateResume(request, resume);
 
         Resume savedResume = resumeRepo.save(resume);
-        return mapToResponse(savedResume);
+        return resumeMap.toResponse(savedResume);
     }
 
     @Override
@@ -87,18 +82,8 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
     private Resume findResumeByIdAndUserId(Long resumeId, Long userId) {
-        return resumeRepo.findByIdAndUserIdAndIsDeletedFalse(resumeId, userId)
+        return resumeRepo.findByIdAndUserIdAndDeletedFalse(resumeId, userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Resume", "id", resumeId));
     }
 
-    private ResumeResponse mapToResponse(Resume resume) {
-        return ResumeResponse.builder()
-                .id(resume.getId())
-                .title(resume.getTitle())
-                .content(resume.getDescription())
-                .state(resume.getDeleted() ? "DELETED" : "ACTIVE")
-                .createdAt(resume.getCreatedAt())
-                .updatedAt(resume.getUpdatedAt())
-                .build();
-    }
 }
