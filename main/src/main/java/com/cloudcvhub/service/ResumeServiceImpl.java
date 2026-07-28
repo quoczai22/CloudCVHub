@@ -26,6 +26,7 @@ public class ResumeServiceImpl implements ResumeService {
         User user = findUserByEmail(userEmail);
 
         Resume resume = new Resume();
+
         resume.setUser(user);
         resume.setTitle(request.getTitle());
         resume.setDescription(request.getContent());
@@ -37,6 +38,8 @@ public class ResumeServiceImpl implements ResumeService {
     @Override
     @Transactional(readOnly = true)
     public List<ResumeResponse> getMyResumes(String userEmail) {
+
+
         User user = findUserByEmail(userEmail);
 
         return resumeRepo.findByUserIdAndIsDeletedFalse(user.getId())
@@ -50,6 +53,7 @@ public class ResumeServiceImpl implements ResumeService {
     public ResumeResponse getResumeById(Long id, String userEmail) {
         User user = findUserByEmail(userEmail);
         Resume resume = findResumeByIdAndUserId(id, user.getId());
+
 
         return mapToResponse(resume);
     }
