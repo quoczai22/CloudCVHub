@@ -5,6 +5,7 @@ import com.cloudcvhub.dto.Request.LoginRequest;
 import com.cloudcvhub.dto.Request.RegisterRequest;
 import com.cloudcvhub.dto.Response.UserResponse;
 import com.cloudcvhub.exception.DuplicateEmailException;
+import com.cloudcvhub.exception.ErrCode;
 import com.cloudcvhub.exception.WebException;
 import com.cloudcvhub.model.User;
 import com.cloudcvhub.repo.UserRepo;
@@ -42,7 +43,7 @@ public class AuthServiceImpl implements AuthService {
             );
         } catch (AuthenticationException ex) {
             log.warn("Đăng nhập thất bại: Mật khẩu không đúng cho tài khoản '{}'.", request.getEmail());
-            throw new WebException("Mật khẩu không đúng. Vui lòng thử lại.", HttpStatus.UNAUTHORIZED);
+            throw new WebException(ErrCode.PASSWORD_INVALID, HttpStatus.UNAUTHORIZED);
         }
 
         UserResponse userResponse = UserResponse.builder()
