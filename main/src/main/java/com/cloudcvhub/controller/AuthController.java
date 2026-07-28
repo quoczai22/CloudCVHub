@@ -1,6 +1,7 @@
 package com.cloudcvhub.controller;
 
 import com.cloudcvhub.dto.Response.AuthResponse;
+import com.cloudcvhub.dto.Response.ApiRespone;
 import com.cloudcvhub.dto.Request.LoginRequest;
 import com.cloudcvhub.dto.Request.RegisterRequest;
 import com.cloudcvhub.security.JwtTokenProvider;
@@ -24,20 +25,28 @@ public class AuthController {
     private final JwtTokenProvider jwtTokenProvider;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthResponse> register(@Valid @RequestBody RegisterRequest request) {
+    public ResponseEntity<ApiRespone<AuthResponse>> register(@Valid @RequestBody RegisterRequest request) {
         AuthResponse response = authService.register(request);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .header(HttpHeaders.SET_COOKIE, jwtTokenProvider.generateAccessCookie(response.getUser().getEmail()).toString())
                 .header(HttpHeaders.SET_COOKIE, jwtTokenProvider.generateRefreshCookie(response.getUser().getEmail()).toString())
-                .body(response);
+                .body(ApiRespone.success(
+                        HttpStatus.CREATED.value(),
+                        "Đăng ký thành công.",
+                        response
+                ));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
+    public ResponseEntity<ApiRespone<AuthResponse>> login(@Valid @RequestBody LoginRequest request) {
         AuthResponse response = authService.login(request);
         return ResponseEntity.ok()
                 .header(HttpHeaders.SET_COOKIE, jwtTokenProvider.generateAccessCookie(response.getUser().getEmail()).toString())
                 .header(HttpHeaders.SET_COOKIE, jwtTokenProvider.generateRefreshCookie(response.getUser().getEmail()).toString())
-                .body(response);
+                .body(ApiRespone.success(
+                        HttpStatus.OK.value(),
+                        "Đăng nhập thành công.",
+                        response
+                ));
     }
 }
