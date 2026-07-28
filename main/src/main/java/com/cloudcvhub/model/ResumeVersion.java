@@ -3,10 +3,17 @@ package com.cloudcvhub.model;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
-import lombok.Builder;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 @Entity
 @Table(name = "resume_versions")
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 
 public class ResumeVersion {
     @Id
@@ -39,124 +46,19 @@ public class ResumeVersion {
     String content;
 
     @Column(name = "is_primary", nullable = false)
-    Boolean isPrimary;
+    Boolean primary;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     LocalDateTime createdAt;
 
-    public  ResumeVersion() {}
-
-    @Builder
-    public ResumeVersion(Long id, Resume resume, Integer versionNumber, String fileName, String fileKey, Long fileSize, String fileType, String versionName, String content, Boolean isPrimary, LocalDateTime createdAt) {
-        this.id = id;
-        this.resume = resume;
-        this.versionNumber = versionNumber;
-        this.fileName = fileName;
-        this.fileKey = fileKey;
-        this.fileSize = fileSize;
-        this.fileType = fileType;
-        this.versionName = versionName;
-        this.content = content;
-        this.isPrimary = isPrimary;
-        this.createdAt = createdAt;
-    }
-
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
-        if (this.isPrimary == null) {
-            this.isPrimary = false;
+        if (this.primary == null) {
+            this.primary = false;
         }
         if (this.versionNumber == null) {
             this.versionNumber = 1;
         }
-    }
-
-    public Integer getVersionNumber() {
-        return versionNumber;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Resume getResume() {
-        return resume;
-    }
-
-    public String getFileName() {
-        return fileName;
-    }
-
-    public String getFileKey() {
-        return fileKey;
-    }
-
-    public Long getFileSize() {
-        return fileSize;
-    }
-
-    public String getFileType() {
-        return fileType;
-    }
-
-    public Boolean getPrimary() {
-        return isPrimary;
-    }
-
-    public String getVersionName() {
-        return versionName;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setResume(Resume resume) {
-        this.resume = resume;
-    }
-
-    public void setVersionNumber(Integer versionNumber) {
-        this.versionNumber = versionNumber;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
-    public void setFileKey(String fileKey) {
-        this.fileKey = fileKey;
-    }
-
-    public void setFileSize(Long fileSize) {
-        this.fileSize = fileSize;
-    }
-
-    public void setFileType(String fileType) {
-        this.fileType = fileType;
-    }
-
-    public void setPrimary(Boolean primary) {
-        isPrimary = primary;
-    }
-
-    public void setVersionName(String versionName) {
-        this.versionName = versionName;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
     }
 }

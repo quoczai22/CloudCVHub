@@ -1,5 +1,10 @@
 package com.cloudcvhub.exception;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public enum ErrCode {
     UNCATEGORIZED_EXCEPTION(1001, "Lỗi sai sót trong quá trình code."),
     RUNTIME_EXCEPTION(10002, "Lỗi khi xử lý yêu cầu."),
@@ -23,18 +28,5 @@ public enum ErrCode {
 
     private final int code;
     private final String message;
-
-    public int getCode() {
-        return code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    ErrCode(int code, String message) {
-        this.code = code;
-        this.message = message;
-    }
 }
 

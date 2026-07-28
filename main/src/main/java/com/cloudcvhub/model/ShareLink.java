@@ -3,11 +3,18 @@ package com.cloudcvhub.model;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
-import lombok.Builder;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 
 @Entity
 @Table(name = "share_links")
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 
 public class ShareLink {
     @Id
@@ -28,7 +35,7 @@ public class ShareLink {
     String passwordHash;
 
     @Column(name = "is_active", nullable = false)
-    Boolean isActive;
+    Boolean active;
 
     @Column(name = "view_count", nullable = false)
     Integer viewCount;
@@ -43,8 +50,8 @@ public class ShareLink {
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
-        if (this.isActive == null) {
-            this.isActive = true;
+        if (this.active == null) {
+            this.active = true;
         }
         if (this.viewCount == null) {
             this.viewCount = 0;
@@ -56,90 +63,4 @@ public class ShareLink {
         this.updatedAt = LocalDateTime.now();
     }
 
-    public ShareLink(){}
-
-    @Builder
-    public ShareLink(Long id, Resume resume, String token, LocalDateTime expiredAt, String passwordHash, Boolean isActive, Integer viewCount, LocalDateTime createdAt, LocalDateTime updatedAt) {
-        this.id = id;
-        this.resume = resume;
-        this.token = token;
-        this.expiredAt = expiredAt;
-        this.passwordHash = passwordHash;
-        this.isActive = isActive;
-        this.viewCount = viewCount;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Resume getResume() {
-        return resume;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public LocalDateTime getExpiredAt() {
-        return expiredAt;
-    }
-
-    public String getPasswordHash() {
-        return passwordHash;
-    }
-
-    public Boolean getActive() {
-        return isActive;
-    }
-
-    public Integer getViewCount() {
-        return viewCount;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setResume(Resume resume) {
-        this.resume = resume;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public void setExpiredAt(LocalDateTime expiredAt) {
-        this.expiredAt = expiredAt;
-    }
-
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
-    }
-
-    public void setActive(Boolean active) {
-        isActive = active;
-    }
-
-    public void setViewCount(Integer viewCount) {
-        this.viewCount = viewCount;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
 }

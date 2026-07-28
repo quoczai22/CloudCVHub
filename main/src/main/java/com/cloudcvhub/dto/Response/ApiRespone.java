@@ -1,8 +1,15 @@
 package com.cloudcvhub.dto.Response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 
 @JsonInclude(JsonInclude.Include.NON_NULL) // bỏ null ra khỏi json
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@Getter
+@Setter
 
 public class ApiRespone<T> {
     int code=1000;
@@ -17,27 +24,4 @@ public class ApiRespone<T> {
         return response;
     }
 
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public void setResult(T result) {
-        this.result = result;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public T getResult() {
-        return result;
-    }
 }

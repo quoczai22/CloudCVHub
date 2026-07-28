@@ -1,6 +1,7 @@
 package com.cloudcvhub.dto.Response;
 
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 import java.time.LocalDateTime;
 
 @Getter
@@ -8,6 +9,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
 
 public class ErrorResponse {
      int status;

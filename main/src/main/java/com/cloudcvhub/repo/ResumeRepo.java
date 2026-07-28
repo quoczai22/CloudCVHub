@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 
 public interface ResumeRepo extends JpaRepository<Resume,Long> {
-    List<Resume> findByUserIdAndIsDeletedFalse(Long userId); // lay danh sach CV cua user chua bi xoa mem
+    List<Resume> findByUserIdAndDeletedFalse(Long userId); // lay danh sach CV cua user chua bi xoa mem
 
-    Optional<Resume> findByIdAndUserIdAndIsDeletedFalse(Long id, Long userId);
+    Optional<Resume> findByIdAndUserIdAndDeletedFalse(Long id, Long userId);
 }
