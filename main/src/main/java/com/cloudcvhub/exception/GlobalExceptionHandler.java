@@ -1,6 +1,8 @@
 package com.cloudcvhub.exception;
 
 import com.cloudcvhub.dto.Response.ErrorResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -13,6 +15,7 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
 import java.time.LocalDateTime;
 
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 
     // 1. Hứng lỗi nghiệp vụ
@@ -97,7 +100,11 @@ public class GlobalExceptionHandler {
 
     // 7. Hứng lỗi không tìm thấy đường dẫn
     @ExceptionHandler(NoResourceFoundException.class)
-    public ResponseEntity<ErrorResponse> handleNoResourceFoundException(NoResourceFoundException ex) {
+    public ResponseEntity<ErrorResponse> handleNoResourceFoundException(
+            NoResourceFoundException ex,
+            HttpServletRequest request) {
+        log.warn("Không tìm thấy API: method={}, path={}", request.getMethod(), request.getRequestURI());
+
         ErrorResponse error = ErrorResponse.builder()
                 .status(HttpStatus.NOT_FOUND.value())
                 .code(ErrCode.RESOURCE_NOT_FOUND.getCode())
