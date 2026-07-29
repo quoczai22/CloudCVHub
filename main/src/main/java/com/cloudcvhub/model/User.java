@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import com.cloudcvhub.enums.Role;
+
 @Entity
 @Table(name = "users")
 @Builder
@@ -43,18 +45,19 @@ public class User {
     @Column(name = "updated_at")
     LocalDateTime updatedAt;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    String role;
+    Role role;
 
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
-        if (this.role == null) {
-            this.role = "USER";
-        }
         if(this.state == null) {
-            this.state = "ACTIVE";
+            this.state = "Đang hoạt động";
+        }
+        if (this.role == null) {
+            this.role = Role.USER;
         }
     }
 

@@ -4,6 +4,7 @@ import com.cloudcvhub.dto.Response.AuthResponse;
 import com.cloudcvhub.dto.Request.LoginRequest;
 import com.cloudcvhub.dto.Request.RegisterRequest;
 import com.cloudcvhub.dto.Response.UserResponse;
+import com.cloudcvhub.enums.Role;
 import com.cloudcvhub.exception.DuplicateEmailException;
 import com.cloudcvhub.exception.ErrCode;
 import com.cloudcvhub.exception.WebException;
@@ -20,7 +21,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
 
 @Service
 @RequiredArgsConstructor
@@ -69,6 +69,7 @@ public class AuthServiceImpl implements AuthService {
 
         User user = userMap.toUser(request);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setRole(Role.USER);
 
         User savedUser = userRepo.save(user);
 
