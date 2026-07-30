@@ -1,2 +1,5 @@
 /mvnw text eol=lf
 *.cmd text eol=crlf
+
+# Khong tinh folder UI/UX mau vao thong ke ngon ngu cua GitHub.
+"src/main/webapp/HoSoHub UI_UX Design/**" linguist-vendored
