@@ -1,0 +1,67 @@
+.chu-cau-vong {
+  font-size: 25px;
+  font-weight: bold;
+  animation: doi-mau 3s linear infinite;
+  text-align: justify;
+  line-height: 150%;
+}
+
+@keyframes doi-mau {
+  0% {
+    color: hsl(0, 100%, 50%);
+  }
+
+  /* Đỏ */
+  17% {
+    color: hsl(60, 100%, 50%);
+  }
+
+  /* Vàng */
+  33% {
+    color: hsl(120, 100%, 50%);
+  }
+
+  /* Xanh lá */
+  50% {
+    color: hsl(180, 100%, 50%);
+  }
+
+  /* Xanh lơ */
+  67% {
+    color: hsl(240, 100%, 50%);
+  }
+
+  /* Xanh dương */
+  83% {
+    color: hsl(300, 100%, 50%);
+  }
+
+  /* Tím */
+  100% {
+    color: hsl(360, 100%, 50%);
+  }
+
+  /* Quay lại Đỏ */
+}
+
+/* Ẩn con mắt mặc định của trình duyệt (ví dụ: Microsoft Edge) */
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+}
+
+/* Animation cho Alert/Toast xuất hiện từ góc trên bên phải */
+@keyframes slide-in {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in {
+  animation: slide-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
