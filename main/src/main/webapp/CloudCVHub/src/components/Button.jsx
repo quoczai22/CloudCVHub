@@ -16,7 +16,7 @@ function Button({
             onClick={onClick}
             disabled={disabled || isLoading}
             className={`
-                w-full py-3 px-4 rounded-xl font-medium text-white
+                w-full py-3.5 px-4 rounded-2xl font-semibold text-white
                 transition-all duration-200 ease-in-out
                 flex items-center justify-center gap-2
                 cursor-pointer
@@ -24,7 +24,9 @@ function Button({
                 /* Hiệu ứng trạng thái */
                 ${(disabled || isLoading)
                     ? 'bg-slate-400 cursor-not-allowed shadow-none'
-                    : 'bg-blue-600 hover:bg-blue-700 active:scale-[0.98] shadow-lg shadow-blue-500/25 hover:shadow-blue-500/35'
+                    : className.includes('bg-')
+                        ? ''
+                        : 'bg-blue-600 hover:bg-blue-700 active:scale-[0.98] shadow-lg shadow-blue-500/25 hover:shadow-blue-500/35'
                 }
                 
                 /* Hỗ trợ accessibility phím Tab */
