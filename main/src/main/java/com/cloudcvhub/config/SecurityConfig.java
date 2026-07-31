@@ -67,7 +67,12 @@ public class SecurityConfig {
     public CorsFilter  corsFilter() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
 
-        corsConfiguration.setAllowedOrigins(List.of("http://localhost:5174", "http://127.0.0.1:5174"));
+        corsConfiguration.setAllowedOrigins(List.of(
+                "http://localhost:5174",
+                "http://127.0.0.1:5174",
+                "http://cloudcvhub.eu.cc",
+                "https://cloudcvhub.eu.cc"
+        ));
         corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         corsConfiguration.setAllowedHeaders(List.of("*"));
 
