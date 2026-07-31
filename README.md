@@ -15,6 +15,20 @@ Qua đó giúp sinh viên thực hành toàn bộ quy trình từ phân tích, t
 
 ---
 
+# 🌐 Demo trực quan
+
+Website demo fullstack:
+
+🔗 [http://47.129.161.10](http://47.129.161.10)
+
+Backend REST API:
+
+🔗 [http://47.129.161.10:8081](http://47.129.161.10:8081)
+
+> Lưu ý: Đây là môi trường demo học tập chạy trên AWS EC2. Đường dẫn có thể thay đổi nếu EC2 bị stop/start và Public IPv4 thay đổi.
+
+---
+
 # 🎯 Mục tiêu dự án
 
 - Xây dựng hệ thống quản lý CV theo kiến trúc nhiều tầng.
