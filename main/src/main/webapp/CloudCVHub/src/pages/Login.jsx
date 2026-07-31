@@ -4,6 +4,7 @@ import { Mail, Lock, Eye, EyeOff, User } from 'lucide-react';
 import Button from '../components/Button.jsx';
 import Alert from '../components/Alert.jsx';
 import LoginSidebar from '../components/sidebar/LoginSidebar.jsx';
+import { apiUrl } from '../config/api.js';
 
 // Component Form Đăng Nhập
 function SignInForm({ onToggleSignUp }) {
@@ -20,7 +21,7 @@ function SignInForm({ onToggleSignUp }) {
         setIsLoading(true); // Bật hiệu ứng loading khi gửi request
         setSnackBarOpen(false); // Ẩn thông báo lỗi cũ nếu có
 
-        fetch("http://localhost:8081/api/v1/auth/login", {
+        fetch(apiUrl("/api/v1/auth/login"), {
             method: "POST",
             credentials: "include",
             headers: {
@@ -183,7 +184,7 @@ function SignUpForm({ onToggleSignIn }) {
         setIsLoading(true);
         setSnackBarOpen(false);
 
-        fetch("http://localhost:8081/api/v1/auth/register", {
+        fetch(apiUrl("/api/v1/auth/register"), {
             method: "POST",
             credentials: "include",
             headers: {

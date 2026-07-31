@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Button from '../Button.jsx';
+import { apiUrl } from '../../config/api.js';
 
 function UploadCVContent({ onSuccess, onCancel, showToast }) {
     const [newTitle, setNewTitle] = useState("");
@@ -11,7 +12,7 @@ function UploadCVContent({ onSuccess, onCancel, showToast }) {
         e.preventDefault();
         setIsSubmitting(true);
         try {
-            const res = await fetch("http://localhost:8081/api/v1/resumes", {
+            const res = await fetch(apiUrl("/api/v1/resumes"), {
                 method: "POST",
                 credentials: "include",
                 headers: {

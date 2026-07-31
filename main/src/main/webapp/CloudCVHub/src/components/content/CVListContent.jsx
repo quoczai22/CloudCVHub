@@ -3,6 +3,7 @@ import {
     RefreshCw, Folder, Plus, Edit, Link, History, Trash2, 
     X, Shield, Calendar, Copy, Check 
 } from 'lucide-react';
+import { apiUrl } from '../../config/api.js';
 
 function CVListContent({
     isLoading,
@@ -60,7 +61,7 @@ function CVListContent({
             return;
         }
         try {
-            const res = await fetch(`http://localhost:8081/api/v1/resumes/${id}`, {
+            const res = await fetch(apiUrl(`/api/v1/resumes/${id}`), {
                 method: "DELETE",
                 credentials: "include"
             });
@@ -93,7 +94,7 @@ function CVListContent({
         setIsShareModalOpen(true);
 
         try {
-            const res = await fetch(`http://localhost:8081/api/v1/resumes/${cv.id}/share`, {
+            const res = await fetch(apiUrl(`/api/v1/resumes/${cv.id}/share`), {
                 credentials: "include"
             });
             const data = await res.json();
@@ -114,7 +115,7 @@ function CVListContent({
                 formattedExpiry = new Date(shareExpires).toISOString();
             }
 
-            const res = await fetch(`http://localhost:8081/api/v1/resumes/${activeResume.id}/share`, {
+            const res = await fetch(apiUrl(`/api/v1/resumes/${activeResume.id}/share`), {
                 method: "POST",
                 credentials: "include",
                 headers: {
@@ -149,7 +150,7 @@ function CVListContent({
     // Lấy danh sách các phiên bản từ API
     const loadVersions = async (resumeId) => {
         try {
-            const res = await fetch(`http://localhost:8081/api/v1/resumes/${resumeId}/versions`, {
+            const res = await fetch(apiUrl(`/api/v1/resumes/${resumeId}/versions`), {
                 credentials: "include"
             });
             const data = await res.json();
@@ -166,7 +167,7 @@ function CVListContent({
         e.preventDefault();
         if (!newVersionName.trim()) return;
         try {
-            const res = await fetch(`http://localhost:8081/api/v1/resumes/${activeResume.id}/versions`, {
+            const res = await fetch(apiUrl(`/api/v1/resumes/${activeResume.id}/versions`), {
                 method: "POST",
                 credentials: "include",
                 headers: {
@@ -196,7 +197,7 @@ function CVListContent({
             return;
         }
         try {
-            const res = await fetch(`http://localhost:8081/api/v1/resumes/${activeResume.id}/versions/${versionId}/restore`, {
+            const res = await fetch(apiUrl(`/api/v1/resumes/${activeResume.id}/versions/${versionId}/restore`), {
                 method: "POST",
                 credentials: "include"
             });
@@ -361,11 +362,11 @@ function CVListContent({
                                     <input
                                         type="text"
                                         readOnly
-                                        value={`http://localhost:8081/api/v1/public/share/${sharedLinkData.shareCode}`}
+                                        value={apiUrl(`/api/v1/public/share/${sharedLinkData.shareCode}`)}
                                         className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-600 text-xs font-mono select-all focus:outline-none"
                                     />
                                     <button
-                                        onClick={() => copyToClipboard(`http://localhost:8081/api/v1/public/share/${sharedLinkData.shareCode}`)}
+                                        onClick={() => copyToClipboard(apiUrl(`/api/v1/public/share/${sharedLinkData.shareCode}`))}
                                         className="px-3.5 bg-slate-100 hover:bg-slate-200 rounded-xl text-slate-600 transition-all flex items-center justify-center cursor-pointer"
                                         title="Sao chép"
                                     >

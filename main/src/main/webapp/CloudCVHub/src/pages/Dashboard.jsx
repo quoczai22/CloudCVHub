@@ -6,6 +6,7 @@ import CVListContent from '../components/content/CVListContent.jsx';
 import UploadCVContent from '../components/content/UploadCVContent.jsx';
 import EditCVContent from '../components/content/EditCVContent.jsx';
 import ProfileContent from '../components/content/ProfileContent.jsx';
+import { apiUrl } from '../config/api.js';
 
 
 
@@ -48,7 +49,7 @@ function DashboardPage() {
         if (!token) return;
         setIsLoading(true);
         try {
-            const res = await fetch("http://localhost:8081/api/v1/resumes", {
+            const res = await fetch(apiUrl("/api/v1/resumes"), {
                 method: "GET",
                 credentials: "include"
             });

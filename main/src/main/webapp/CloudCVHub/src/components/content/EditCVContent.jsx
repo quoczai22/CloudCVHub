@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Button from '../Button.jsx';
+import { apiUrl } from '../../config/api.js';
 
 function EditCVContent({ resume, onSuccess, onCancel, showToast }) {
     const [editTitle, setEditTitle] = useState(resume?.title || "");
@@ -11,7 +12,7 @@ function EditCVContent({ resume, onSuccess, onCancel, showToast }) {
         e.preventDefault();
         setIsSubmitting(true);
         try {
-            const res = await fetch(`http://localhost:8081/api/v1/resumes/${resume.id}`, {
+            const res = await fetch(apiUrl(`/api/v1/resumes/${resume.id}`), {
                 method: "PUT",
                 credentials: "include",
                 headers: {
