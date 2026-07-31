@@ -17,6 +17,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Configuration
 @EnableMethodSecurity
@@ -28,6 +30,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         // API REST dùng Postman nên tạm thời tắt CSRF để test dễ hơn ( CSRF là 1 kiểu tấn công mạng).
         http.csrf(csrfConfig -> csrfConfig.disable());
+
+        // Cho phép Spring Security xử lý CORS
+        http.cors(corsConfig -> {});
 
         // Không lưu Session
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
@@ -62,10 +67,11 @@ public class SecurityConfig {
     public CorsFilter  corsFilter() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
 
-        corsConfiguration.addAllowedOrigin("http://localhost:5173");
-        corsConfiguration.addAllowedHeader("*");
-        corsConfiguration.addAllowedMethod("*");
+        corsConfiguration.setAllowedOrigins(List.of("http://localhost:5174", "http://127.0.0.1:5174"));
+        corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        corsConfiguration.setAllowedHeaders(List.of("*"));
 
+        corsConfiguration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfiguration);
 

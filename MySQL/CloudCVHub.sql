@@ -1,5 +1,5 @@
-create database CloudCVHub
-use  CloudCVHub
+CREATE DATABASE IF NOT EXISTS cloudcvhub;
+USE cloudcvhub;
 
 create table users(
 id bigint auto_increment ,
@@ -67,5 +67,4 @@ CREATE TABLE refresh_tokens (
     CONSTRAINT pk_refresh_tokens PRIMARY KEY (id), 
     CONSTRAINT fk_refresh_tokens_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 
