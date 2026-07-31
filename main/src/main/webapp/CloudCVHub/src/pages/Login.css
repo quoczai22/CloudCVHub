@@ -1,3 +1,4 @@
+/* Giao diện trang đăng ký đăng nhập */
 .chu-cau-vong {
   font-size: 25px;
   font-weight: bold;
@@ -56,6 +57,7 @@ input::-ms-clear {
     transform: translateY(-20px);
     opacity: 0;
   }
+
   to {
     transform: translateY(0);
     opacity: 1;

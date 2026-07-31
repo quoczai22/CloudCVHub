@@ -1,8 +1,9 @@
 import './Login.css'
 import { useState } from "react"
-import { Check, Mail, Lock, Eye, EyeOff, User } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff, User } from 'lucide-react';
 import Button from '../components/Button.jsx';
 import Alert from '../components/Alert.jsx';
+import LoginSidebar from '../components/sidebar/LoginSidebar.jsx';
 
 // Component Form Đăng Nhập
 function SignInForm({ onToggleSignUp }) {
@@ -21,6 +22,7 @@ function SignInForm({ onToggleSignUp }) {
 
         fetch("http://localhost:8081/api/v1/auth/login", {
             method: "POST",
+            credentials: "include",
             headers: {
                 "Content-Type": "application/json",
             },
@@ -45,6 +47,9 @@ function SignInForm({ onToggleSignUp }) {
                 if (data.result?.accessToken) {
                     localStorage.setItem("token", data.result.accessToken);
                 }
+                if (data.result?.user) {
+                    localStorage.setItem("user", JSON.stringify(data.result.user));
+                }
 
                 // Chuyển hướng về trang chủ
                 setSnackBarType("success");
@@ -66,10 +71,10 @@ function SignInForm({ onToggleSignUp }) {
     };
 
     return (
-        <div className="w-full max-w-md px-8 py-10 bg-white rounded-2xl shadow-xl border border-slate-100">
+        <div className="w-full max-w-md px-10 py-12 bg-white rounded-3xl shadow-2xl shadow-slate-200/50 border border-slate-100/80">
             <div className="mb-8 text-center">
-                <h3 className="text-2xl font-bold text-slate-800">Mừng bạn quay lại!</h3>
-                <p className="text-sm text-slate-500 mt-2">Vui lòng nhập thông tin để truy cập CloudCVHub</p>
+                <h3 className="text-2xl font-extrabold text-slate-800 tracking-tight">Mừng bạn quay lại!</h3>
+                <p className="text-sm text-slate-400 mt-2 font-medium">Vui lòng nhập thông tin để truy cập CloudCVHub</p>
             </div>
 
             <Alert
@@ -83,7 +88,7 @@ function SignInForm({ onToggleSignUp }) {
                 <div>
                     <label className="block text-sm font-semibold text-slate-700 mb-2">Địa chỉ Email</label>
                     <div className="relative">
-                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+                        <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
                             <Mail size={18} />
                         </span>
                         <input
@@ -92,7 +97,7 @@ function SignInForm({ onToggleSignUp }) {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="emailcuaban@email.com"
-                            className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:border-blue-500 focus:outline-none transition-all text-slate-800"
+                            className="w-full pl-11 pr-4 py-3.5 bg-slate-50/50 border border-slate-200 rounded-2xl focus:bg-white focus:border-indigo-600 focus:ring-4 focus:ring-indigo-100 focus:outline-none transition-all duration-200 text-slate-800 text-sm"
                         />
                     </div>
                 </div>
@@ -100,7 +105,7 @@ function SignInForm({ onToggleSignUp }) {
                 <div>
                     <label className="block text-sm font-semibold text-slate-700 mb-2">Mật khẩu</label>
                     <div className="relative">
-                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+                        <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
                             <Lock size={18} />
                         </span>
                         <input
@@ -109,34 +114,34 @@ function SignInForm({ onToggleSignUp }) {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             placeholder="••••••••"
-                            className="w-full pl-10 pr-10 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:border-blue-500 focus:outline-none transition-all text-slate-800"
+                            className="w-full pl-11 pr-10 py-3.5 bg-slate-50/50 border border-slate-200 rounded-2xl focus:bg-white focus:border-indigo-600 focus:ring-4 focus:ring-indigo-100 focus:outline-none transition-all duration-200 text-slate-800 text-sm"
                         />
                         <button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
-                            className="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400 hover:text-slate-600 focus:outline-none cursor-pointer"
+                            className="absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400 hover:text-slate-600 focus:outline-none cursor-pointer"
                         >
                             {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                         </button>
                     </div>
                 </div>
 
-                <div className="flex items-center justify-between text-sm">
-                    <label className="flex items-center gap-2 cursor-pointer text-slate-600">
-                        <input type="checkbox" className="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-slate-300" />
+                <div className="flex items-center justify-between text-sm py-1">
+                    <label className="flex items-center gap-2 cursor-pointer text-slate-600 select-none">
+                        <input type="checkbox" className="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300" />
                         <span>Ghi nhớ đăng nhập</span>
                     </label>
-                    <a href="#" className="font-semibold text-blue-600 hover:text-blue-700 hover:underline">Quên mật khẩu?</a>
+                    <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-700 hover:underline">Quên mật khẩu?</a>
                 </div>
 
-                <Button type="submit" isLoading={isLoading} loadingText="Đang đăng nhập...">
+                <Button type="submit" isLoading={isLoading} loadingText="Đang đăng nhập..." className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg shadow-indigo-500/20 active:scale-[0.98] py-3.5 font-bold">
                     Đăng nhập
                 </Button>
             </form>
 
-            <div className="mt-8 text-center text-sm text-slate-600">
+            <div className="mt-8 text-center text-sm text-slate-500">
                 <span>Chưa có tài khoản? </span>
-                <button onClick={onToggleSignUp} className="font-bold text-blue-600 hover:text-blue-700 hover:underline focus:outline-none cursor-pointer">
+                <button onClick={onToggleSignUp} className="font-bold text-indigo-600 hover:text-indigo-700 hover:underline focus:outline-none cursor-pointer">
                     Đăng ký ngay
                 </button>
             </div>
@@ -168,11 +173,19 @@ function SignUpForm({ onToggleSignIn }) {
             return;
         }
 
+        if (password.length < 7) {
+            setSnackBarType("warning");
+            setSnackBarMessage("Mật khẩu phải có ít nhất 7 ký tự!");
+            setSnackBarOpen(true);
+            return;
+        }
+
         setIsLoading(true);
         setSnackBarOpen(false);
 
         fetch("http://localhost:8081/api/v1/auth/register", {
             method: "POST",
+            credentials: "include",
             headers: {
                 "Content-Type": "application/json",
             },
@@ -212,10 +225,10 @@ function SignUpForm({ onToggleSignIn }) {
     };
 
     return (
-        <div className="w-full max-w-md px-8 py-10 bg-white rounded-2xl shadow-xl border border-slate-100">
+        <div className="w-full max-w-md px-10 py-12 bg-white rounded-3xl shadow-2xl shadow-slate-200/50 border border-slate-100/80">
             <div className="mb-8 text-center">
-                <h3 className="text-2xl font-bold text-slate-800">Tạo tài khoản mới</h3>
-                <p className="text-sm text-slate-500 mt-2">Bắt đầu lưu trữ và quản lý CV của bạn miễn phí</p>
+                <h3 className="text-2xl font-extrabold text-slate-800 tracking-tight">Tạo tài khoản mới</h3>
+                <p className="text-sm text-slate-400 mt-2 font-medium">Bắt đầu lưu trữ và quản lý CV của bạn miễn phí</p>
             </div>
 
             <Alert
@@ -229,7 +242,7 @@ function SignUpForm({ onToggleSignIn }) {
                 <div>
                     <label className="block text-sm font-semibold text-slate-700 mb-2">Họ và tên</label>
                     <div className="relative">
-                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+                        <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
                             <User size={18} />
                         </span>
                         <input
@@ -238,7 +251,7 @@ function SignUpForm({ onToggleSignIn }) {
                             value={fullName}
                             onChange={(e) => setFullName(e.target.value)}
                             placeholder="Nguyễn Văn A"
-                            className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:border-blue-500 focus:outline-none transition-all text-slate-800"
+                            className="w-full pl-11 pr-4 py-3.5 bg-slate-50/50 border border-slate-200 rounded-2xl focus:bg-white focus:border-indigo-600 focus:ring-4 focus:ring-indigo-100 focus:outline-none transition-all duration-200 text-slate-800 text-sm"
                         />
                     </div>
                 </div>
@@ -246,7 +259,7 @@ function SignUpForm({ onToggleSignIn }) {
                 <div>
                     <label className="block text-sm font-semibold text-slate-700 mb-2">Địa chỉ Email</label>
                     <div className="relative">
-                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+                        <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
                             <Mail size={18} />
                         </span>
                         <input
@@ -255,7 +268,7 @@ function SignUpForm({ onToggleSignIn }) {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="emailcuaban@email.com"
-                            className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:border-blue-500 focus:outline-none transition-all text-slate-800"
+                            className="w-full pl-11 pr-4 py-3.5 bg-slate-50/50 border border-slate-200 rounded-2xl focus:bg-white focus:border-indigo-600 focus:ring-4 focus:ring-indigo-100 focus:outline-none transition-all duration-200 text-slate-800 text-sm"
                         />
                     </div>
                 </div>
@@ -263,7 +276,7 @@ function SignUpForm({ onToggleSignIn }) {
                 <div>
                     <label className="block text-sm font-semibold text-slate-700 mb-2">Mật khẩu</label>
                     <div className="relative">
-                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+                        <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
                             <Lock size={18} />
                         </span>
                         <input
@@ -272,12 +285,12 @@ function SignUpForm({ onToggleSignIn }) {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             placeholder="••••••••"
-                            className="w-full pl-10 pr-10 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:border-blue-500 focus:outline-none transition-all text-slate-800"
+                            className="w-full pl-11 pr-10 py-3.5 bg-slate-50/50 border border-slate-200 rounded-2xl focus:bg-white focus:border-indigo-600 focus:ring-4 focus:ring-indigo-100 focus:outline-none transition-all duration-200 text-slate-800 text-sm"
                         />
                         <button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
-                            className="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400 hover:text-slate-600 focus:outline-none cursor-pointer"
+                            className="absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400 hover:text-slate-600 focus:outline-none cursor-pointer"
                         >
                             {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                         </button>
@@ -287,7 +300,7 @@ function SignUpForm({ onToggleSignIn }) {
                 <div>
                     <label className="block text-sm font-semibold text-slate-700 mb-2">Xác nhận mật khẩu</label>
                     <div className="relative">
-                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+                        <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
                             <Lock size={18} />
                         </span>
                         <input
@@ -296,26 +309,26 @@ function SignUpForm({ onToggleSignIn }) {
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
                             placeholder="••••••••"
-                            className="w-full pl-10 pr-10 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:border-blue-500 focus:outline-none transition-all text-slate-800"
+                            className="w-full pl-11 pr-10 py-3.5 bg-slate-50/50 border border-slate-200 rounded-2xl focus:bg-white focus:border-indigo-600 focus:ring-4 focus:ring-indigo-100 focus:outline-none transition-all duration-200 text-slate-800 text-sm"
                         />
                         <button
                             type="button"
                             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                            className="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400 hover:text-slate-600 focus:outline-none cursor-pointer"
+                            className="absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400 hover:text-slate-600 focus:outline-none cursor-pointer"
                         >
                             {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                         </button>
                     </div>
                 </div>
 
-                <Button type="submit" isLoading={isLoading} loadingText="Đang tạo tài khoản...">
+                <Button type="submit" isLoading={isLoading} loadingText="Đang tạo tài khoản..." className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg shadow-indigo-500/20 active:scale-[0.98] py-3.5 font-bold">
                     Đăng ký
                 </Button>
             </form>
 
-            <div className="mt-8 text-center text-sm text-slate-600">
+            <div className="mt-8 text-center text-sm text-slate-500">
                 <span>Đã có tài khoản? </span>
-                <button onClick={onToggleSignIn} className="font-bold text-blue-600 hover:text-blue-700 hover:underline focus:outline-none cursor-pointer">
+                <button onClick={onToggleSignIn} className="font-bold text-indigo-600 hover:text-indigo-700 hover:underline focus:outline-none cursor-pointer">
                     Đăng nhập
                 </button>
             </div>
@@ -327,39 +340,12 @@ function SignUpForm({ onToggleSignIn }) {
 function LoginPage() {
     const [showSignUp, setShowSignUp] = useState(false)
     return (
-        <div className='min-h-screen bg-slate-50 flex'>
-            {/* Cột bên trái: Giới thiệu dự án (Chỉ hiển thị trên màn hình lớn) */}
-            <div className='hidden lg:flex lg:w-[500px] bg-blue-600 p-12 flex-col justify-between shrink-0 margin-left-100'>
-                <div>
-                    <div className='flex items-center gap-2.5 mb-12'>
-                        <span className='text-white text-4xl font-bold tracking-tight'>&#128221;</span>
-                        <span className='text-white text-5xl font-bold tracking-tight'>CloudCVHub</span>
-                    </div>
-                    <h2 className="chu-cau-vong">
-                        Hồ sơ của bạn,mọi lúc mọi nơi.
-                    </h2>
-                    <p className="text-blue-100  leading-relaxed text-lg">
-                        Lưu trữ và chia sẻ CV an toàn trên Cloud. Có thể tiếp cận từ bất kỳ thiết bị nào.
-                    </p>
-                </div>
-                <div className="space-y-3">
-                    {[
-                        'Bảo mật AES-256',
-                        'Quản lý đa phiên bản CV',
-                        'Chia sẻ có kiểm soát',
-                    ].map((f, i) => (
-                        <div key={i} className="flex items-center gap-4">
-                            <div className="w-6 h-6 rounded-full bg-cyan-200 flex items-center justify-center">
-                                <Check size={18} className="text-cyan-500" />
-                            </div>
-                            <span className="text-md text-white">{f}</span>
-                        </div>
-                    ))}
-                </div>
-            </div>
+        <div className='min-h-screen bg-slate-50/50 flex'>
+            {/* Cột bên trái: Giới thiệu dự án (Đã được tách ra component LoginSidebar) */}
+            <LoginSidebar />
 
             {/* Cột bên phải: Form Đăng nhập hoặc Đăng ký */}
-            <div className="flex-1 flex items-center justify-center bg-slate-50 py-12 px-4 sm:px-6 lg:px-8">
+            <div className="flex-1 flex items-center justify-center bg-slate-50/50 py-12 px-4 sm:px-6 lg:px-8">
                 {showSignUp ? (
                     <SignUpForm onToggleSignIn={() => setShowSignUp(false)} />
                 ) : (
