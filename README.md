@@ -21,10 +21,6 @@ Website demo fullstack:
 
 🔗 [http://cloudcvhub.eu.cc](http://cloudcvhub.eu.cc)
 
-Backend REST API:
-
-🔗 [http://cloudcvhub.eu.cc/api](http://cloudcvhub.eu.cc/api)
-
 > Lưu ý: Đây là môi trường demo học tập chạy trên AWS EC2. HTTPS sẽ được cấu hình sau bằng Nginx và Certbot.
 
 ---
