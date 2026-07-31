@@ -19,13 +19,13 @@ Qua đó giúp sinh viên thực hành toàn bộ quy trình từ phân tích, t
 
 Website demo fullstack:
 
-🔗 [http://47.129.161.10](http://47.129.161.10)
+🔗 [http://cloudcvhub.eu.cc](http://cloudcvhub.eu.cc)
 
 Backend REST API:
 
-🔗 [http://47.129.161.10:8081](http://47.129.161.10:8081)
+🔗 [http://cloudcvhub.eu.cc/api](http://cloudcvhub.eu.cc/api)
 
-> Lưu ý: Đây là môi trường demo học tập chạy trên AWS EC2. Đường dẫn có thể thay đổi nếu EC2 bị stop/start và Public IPv4 thay đổi.
+> Lưu ý: Đây là môi trường demo học tập chạy trên AWS EC2. HTTPS sẽ được cấu hình sau bằng Nginx và Certbot.
 
 ---
 
