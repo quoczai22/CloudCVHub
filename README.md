@@ -17,11 +17,11 @@ Qua đó giúp sinh viên thực hành toàn bộ quy trình từ phân tích, t
 
 # 🌐 Demo trực quan
 
-Website demo fullstack:
+Website demo fullstack (React + Spring Boot):
 
-🔗 [http://cloudcvhub.eu.cc](http://cloudcvhub.eu.cc)
+🔗 **[Mở CloudCVHub Demo](http://cloudcvhub.eu.cc)**
 
-> Lưu ý: Đây là môi trường demo học tập chạy trên AWS EC2. HTTPS sẽ được cấu hình sau bằng Nginx và Certbot.
+> Frontend và backend được phục vụ chung qua Nginx. Demo hiện sử dụng HTTP.
 
 ---
 
@@ -132,14 +132,15 @@ CloudWatch
 
 # ☁️ Triển khai
 
-Hệ thống được triển khai trên:
+Môi trường demo hiện tại được triển khai trên máy ảo Ubuntu chạy trong Proxmox:
 
-- AWS EC2
+- Proxmox
+- Ubuntu Server
 - Amazon S3
 - MySQL
 - Docker
 - Nginx
-- GitHub Actions
+- Tailscale
 
 ---
 
@@ -209,16 +210,6 @@ Giám sát CloudWatch
 # 📸 Hình ảnh
 
 Đang cập nhật...
-
----
-
-# 📄 API
-
-Swagger UI
-
-```
-http://localhost:8080/swagger-ui/index.html
-```
 
 ---
 
