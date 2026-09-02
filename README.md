@@ -1,248 +1,266 @@
-# 📖 Giới thiệu
+# CloudCVHub
 
-Web được phát triển nhằm mô phỏng quy trình xây dựng một hệ thống thực tế trong doanh nghiệp.
+CloudCVHub là ứng dụng quản lý CV fullstack, cho phép người dùng tạo tài khoản, quản lý hồ sơ, tải lên nhiều phiên bản CV và chia sẻ CV qua liên kết.
 
-Dự án không chỉ tập trung vào chức năng Upload CV mà còn hướng đến việc áp dụng các công nghệ hiện đại như:
+## Demo trực quan
 
-- Java Spring Boot
-- React
-- Docker
-- AWS Cloud
-- CI/CD
-- DevOps
+**[Mở CloudCVHub Demo](https://cloudcvhub.eu.cc)**
 
-Qua đó giúp sinh viên thực hành toàn bộ quy trình từ phân tích, thiết kế, lập trình, triển khai cho đến vận hành hệ thống.
+Frontend React và backend Spring Boot được phục vụ chung qua Nginx. Domain được public bằng Cloudflare Tunnel.
 
----
+## Chức năng
 
-# 🌐 Demo trực quan
+### Người dùng
 
-Website demo fullstack (React + Spring Boot):
-
-🔗 **[Mở CloudCVHub Demo](http://cloudcvhub.eu.cc)**
-
-> Frontend và backend được phục vụ chung qua Nginx. Demo hiện sử dụng HTTP.
-
----
-
-# 🎯 Mục tiêu dự án
-
-- Xây dựng hệ thống quản lý CV theo kiến trúc nhiều tầng.
-- Thực hành phát triển RESTful API bằng Spring Boot.
-- Tìm hiểu quy trình DevOps.
-- Triển khai ứng dụng trên AWS.
-- Xây dựng Portfolio phục vụ học tập và xin việc.
-
----
-
-# ✨ Chức năng
-
-## Người dùng
-
-- Đăng ký tài khoản
-- Đăng nhập
-- Quản lý hồ sơ cá nhân
-- Upload CV (PDF/DOCX)
-- Xem danh sách CV
-- Tải CV
-- Xóa CV
+- Đăng ký và đăng nhập
+- Quản lý thông tin cá nhân
+- Tải lên CV PDF/DOCX
+- Xem, tải xuống và xóa CV
 - Quản lý nhiều phiên bản CV
-- Chia sẻ CV
+- Tạo liên kết chia sẻ CV
 
----
-
-## Quản trị viên
+### Quản trị viên
 
 - Quản lý người dùng
 - Quản lý CV
-- Thống kê hệ thống
-- Theo dõi nhật ký hoạt động
+- Theo dõi dữ liệu hệ thống
+- Kiểm soát quyền truy cập theo vai trò
 
----
+## Kiến trúc hệ thống
 
-# 🏗️ Kiến trúc hệ thống
-
-```
-React
-    │
-    ▼
-Nginx
-    │
-    ▼
-Spring Boot REST API
-    │
- ┌──┴───────────────┐
- ▼                  ▼
-MySQL      	Amazon S3
-    │
-    ▼
-CloudWatch
+```text
+Client browser
+     |
+     | HTTPS
+     v
+Cloudflare Tunnel
+     |
+     v
+Nginx :80
+     |
+     v
+Spring Boot :8081
+     |
+     +--> MySQL :3306
+     +--> Amazon S3 (file CV)
 ```
 
----
+Môi trường triển khai hiện tại:
 
-# 🛠️ Công nghệ sử dụng
+```text
+Dell Precision 5510
+  └── Proxmox
+       └── Ubuntu Server VM 103
+            ├── Docker + MySQL
+            ├── Spring Boot chạy bằng systemd
+            ├── Nginx reverse proxy
+            ├── Cloudflare Tunnel
+            └── Tailscale cho quản trị từ xa
+```
 
-## Frontend
+## Công nghệ sử dụng
+
+### Frontend
 
 - React
 - TypeScript
+- Vite
 - Tailwind CSS
+- React build được đóng gói vào `src/main/resources/static` để chạy chung với backend.
 
-## Backend
+### Backend
 
 - Java 21
 - Spring Boot
 - Spring Security
-- Spring Data JPA
+- Spring Data JPA và Hibernate
 - Maven
-- JWT Authentication
+- JWT access token và refresh token
+- MapStruct
 
-## Database
+### Dữ liệu và lưu trữ
 
-- MySQL
+- MySQL 8.4
+- Docker volume để giữ dữ liệu database
+- Amazon S3 để lưu trữ file CV
 
-## Cloud
+### Hạ tầng và vận hành
 
-- AWS EC2
-- AWS S3
-- AWS IAM
-- AWS CloudWatch
-
-## DevOps
-
-- Docker
-- Docker Compose
-- GitHub Actions
-- Nginx
-
----
-
-# 🔒 Bảo mật
-
-- Mã hóa mật khẩu bằng BCrypt
-- Xác thực JWT
-- Phân quyền người dùng
-- Kiểm tra dữ liệu đầu vào
-- Upload file an toàn
-- HTTPS
-- AWS IAM
-
----
-
-# ☁️ Triển khai
-
-Môi trường demo hiện tại được triển khai trên máy ảo Ubuntu chạy trong Proxmox:
-
-- Proxmox
-- Ubuntu Server
-- Amazon S3
-- MySQL
+- Proxmox và Ubuntu Server
 - Docker
 - Nginx
+- Cloudflare Tunnel
 - Tailscale
+- Git và GitHub
+- systemd
 
----
+## Các lớp bảo mật
 
-# 🔄 Quy trình CI/CD
+### Ứng dụng
 
-```
-Lập trình viên
+- Mật khẩu được băm bằng BCrypt, không lưu dạng văn bản.
+- JWT dùng để xác thực các request API.
+- Access token có thời gian sống ngắn; refresh token dùng để cấp lại access token.
+- Spring Security phân quyền theo vai trò, ví dụ `USER` và `ADMIN`.
+- CSRF và session được cấu hình phù hợp với API stateless.
+- Dữ liệu đầu vào được kiểm tra trước khi ghi vào database.
+- Các API quản trị yêu cầu quyền `ADMIN`.
 
-↓
+### Database
 
-GitHub
+- MySQL chỉ chạy trong Ubuntu VM và Docker, không public trực tiếp ra Internet.
+- Tài khoản ứng dụng được tách khỏi tài khoản root.
+- Không đưa mật khẩu database vào GitHub.
+- Database nên được backup trước các thay đổi lớn.
 
-↓
+### Mạng
 
-GitHub Actions
+- Chỉ Nginx nhận truy cập web từ bên ngoài.
+- Spring Boot chỉ được proxy nội bộ qua `127.0.0.1:8081`.
+- Cloudflare Tunnel tạo kết nối outbound, không cần mở cổng inbound trên router.
+- Tailscale chỉ dùng cho quản trị và kết nối riêng giữa các thiết bị.
+- Không mở port `3306` public.
+- Không dùng IP Tailscale làm DNS public.
 
-↓
+### Secret và cấu hình
 
-Build Docker
+Các giá trị sau phải được đặt bằng biến môi trường hoặc file cấu hình local, không commit lên GitHub:
 
-↓
+- Mật khẩu database
+- JWT secret
+- AWS access key và secret key
+- Cloudflare Tunnel credentials
+- Tailscale authentication key
 
-Kiểm thử
+Khi phát hiện secret bị lộ, cần thu hồi và tạo secret mới ngay.
 
-↓
+## Chạy local
 
-Triển khai AWS
+### Yêu cầu
 
-↓
+- Java 21
+- Maven hoặc Maven Wrapper
+- Node.js và npm nếu cần build frontend
+- Docker và Docker Compose
+- MySQL 8.4 nếu không dùng Docker
 
-Giám sát CloudWatch
-```
-
----
-
-# 📚 Những kiến thức áp dụng
-
-- Lập trình hướng đối tượng
-- RESTful API
-- Spring Boot
-- Quản lý cơ sở dữ liệu
-- Docker
-- AWS Cloud
-- Git
-- GitHub
-- CI/CD
-- DevOps
-- Kiến trúc hệ thống
-
----
-
-# 🚀 Hướng phát triển
-
-- Phân tích CV bằng AI
-- OCR đọc nội dung CV
-- Gợi ý việc làm
-- Đăng nhập Google
-- Đăng nhập GitHub
-- Redis Cache
-- Elasticsearch
-- Kubernetes
-- Terraform
-- Microservices
-
----
-
-# 📸 Hình ảnh
-
-Đang cập nhật...
-
----
-
-# ⚙️ Chạy dự án
-
-## Backend
-
-```bash
-mvn clean install
-mvn spring-boot:run
-```
-
-## Frontend
-
-```bash
-npm install
-npm run dev
-```
-
-## Docker
+### Chạy MySQL bằng Docker
 
 ```bash
 docker compose up -d
+docker ps
 ```
 
----
+### Build backend
 
-# 👨‍💻 Tác giả
+Linux:
 
-**Kiến Quốc**
+```bash
+chmod +x mvnw
+./mvnw clean package -DskipTests
+```
 
-Sinh viên ngành Công nghệ Thông tin
+Windows PowerShell:
 
-Định hướng Cloud & DevOps
+```powershell
+.\mvnw.cmd clean package -DskipTests
+```
 
----
+Chạy ứng dụng:
+
+```bash
+java -jar target/main-0.0.1-SNAPSHOT.jar
+```
+
+Backend mặc định chạy ở:
+
+```text
+http://localhost:8081
+```
+
+### Build frontend
+
+```bash
+cd src/main/webapp/CloudCVHub
+npm install
+npm run build
+```
+
+Copy nội dung thư mục `dist` vào:
+
+```text
+src/main/resources/static
+```
+
+Sau đó build lại backend để frontend được đóng gói vào JAR.
+
+## Triển khai Ubuntu/Proxmox
+
+1. Khởi động VM 103 trong Proxmox.
+2. Docker tự khởi động và chạy container MySQL với `restart: unless-stopped`.
+3. systemd tự khởi động Spring Boot service `hosohub-api.service`.
+4. Nginx nhận request web ở port 80 và proxy tới Spring Boot port 8081.
+5. Cloudflare Tunnel public domain `cloudcvhub.eu.cc`.
+
+Kiểm tra dịch vụ:
+
+```bash
+sudo systemctl status hosohub-api.service
+sudo systemctl status nginx
+sudo systemctl status cloudflared
+docker ps
+```
+
+Kiểm tra local:
+
+```bash
+curl -I http://127.0.0.1:8081/
+curl -I http://127.0.0.1/
+```
+
+Xem log backend:
+
+```bash
+sudo journalctl -u hosohub-api.service -f
+```
+
+## Quản lý VM và dịch vụ
+
+VM 103 nên bật tùy chọn `Start at boot` trong Proxmox. Khi Ubuntu khởi động, các dịch vụ được bật bằng:
+
+```bash
+sudo systemctl enable docker
+sudo systemctl enable hosohub-api.service
+sudo systemctl enable cloudflared
+```
+
+Khi không test, có thể dừng VM để tiết kiệm điện. Khi mở lại Proxmox, VM sẽ tự bật nếu đã cấu hình `Start at boot`.
+
+## Git workflow
+
+```bash
+git pull --rebase origin main
+git status
+git add .
+git commit -m "mo-ta-thay-doi"
+git push origin main
+```
+
+Không commit các file chứa mật khẩu, token, private key hoặc credentials.
+
+## Hướng phát triển
+
+- HTTPS trực tiếp trên Nginx nếu không dùng Tunnel
+- Backup tự động cho MySQL
+- Phân tích CV bằng AI và OCR
+- Gợi ý việc làm
+- Redis cache
+- CI/CD hoàn chỉnh
+- Monitoring và cảnh báo dịch vụ
+
+## Tác giả
+
+**Kiến Quốc**  
+Sinh viên ngành Công nghệ Thông tin  
+Định hướng Cloud và DevOps
+
