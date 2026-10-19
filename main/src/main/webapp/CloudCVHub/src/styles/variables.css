@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+:root {
+  /* Architectural Color System - Impeccable Standard */
+  --bg-app: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-subtle: #f1f5f9;
+  --bg-sidebar: #0b0f19;
+  --bg-sidebar-hover: #151d2f;
+  --bg-sidebar-active: #1e293b;
+
+  --border-subtle: #e2e8f0;
+  --border-strong: #cbd5e1;
+  --border-sidebar: #1e293b;
+
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  --text-sidebar-primary: #f8fafc;
+  --text-sidebar-muted: #94a3b8;
+
+  --accent-primary: #2563eb;
+  --accent-primary-hover: #1d4ed8;
+  --accent-subtle: #eff6ff;
+
+  --success: #059669;
+  --success-subtle: #ecfdf5;
+  --warning: #d97706;
+  --danger: #dc2626;
+
+  /* Typography scale */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Shadows - deliberate, soft, offset (not harsh or glowing) */
+  --shadow-subtle: 0 1px 2px 0 rgb(15 23 42 / 0.05);
+  --shadow-card: 0 1px 3px 0 rgb(15 23 42 / 0.06), 0 1px 2px -1px rgb(15 23 42 / 0.04);
+  --shadow-elevated: 0 4px 6px -1px rgb(15 23 42 / 0.07), 0 2px 4px -2px rgb(15 23 42 / 0.05);
+  --shadow-overlay: 0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.06);
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+}

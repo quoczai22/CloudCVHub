@@ -10,34 +10,33 @@ function Button({
     onClick,
     ...props
 }) {
+    const isCustomBg = className.includes('bg-');
+
     return (
         <button
             type={type}
             onClick={onClick}
             disabled={disabled || isLoading}
             className={`
-                w-full py-3.5 px-4 rounded-2xl font-semibold text-white
-                transition-all duration-200 ease-in-out
-                flex items-center justify-center gap-2
-                cursor-pointer
+                py-2.5 px-4 rounded-xl font-bold uppercase tracking-wide
+                font-mono transition-all duration-150 ease-in-out
+                flex items-center justify-center gap-2 border-2 border-black
                 
-                /* Hiệu ứng trạng thái */
                 ${(disabled || isLoading)
-                    ? 'bg-slate-400 cursor-not-allowed shadow-none'
-                    : className.includes('bg-')
-                        ? ''
-                        : 'bg-blue-600 hover:bg-blue-700 active:scale-[0.98] shadow-lg shadow-blue-500/25 hover:shadow-blue-500/35'
+                    ? 'bg-zinc-300 text-zinc-600 cursor-not-allowed shadow-none opacity-80'
+                    : isCustomBg
+                        ? 'cursor-pointer shadow-[3px_3px_0px_#000] hover:shadow-[4px_4px_0px_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#000]'
+                        : 'cursor-pointer bg-[#FF5E5B] hover:bg-[#FF4B2B] text-white shadow-[3px_3px_0px_#000] hover:shadow-[4px_4px_0px_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#000]'
                 }
                 
-                /* Hỗ trợ accessibility phím Tab */
-                focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+                focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2
                 ${className}
             `}
             {...props}
         >
             {isLoading ? (
                 <>
-                    <Loader2 className="w-5 h-5 animate-spin" />
+                    <Loader2 className="w-4 h-4 animate-spin" strokeWidth={3} />
                     <span>{loadingText}</span>
                 </>
             ) : (

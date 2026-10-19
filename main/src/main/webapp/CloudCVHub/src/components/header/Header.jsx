@@ -1,74 +1,84 @@
-import { useState, useEffect } from 'react';
 import { Menu, Bell } from 'lucide-react';
+import { Icons8Plus } from '../icons/Icons8.jsx';
 
-function Header({ title, subtitle, displayName, onMenuClick, activePage, onProfileClick }) {
-
-    const [greeting, setGreeting] = useState("");
-
-    function getLastName(fullName) {
+function Header({ title, subtitle, displayName, onMenuClick, activePage, onProfileClick, onNewCVClick }) {
+    function getInitials(fullName) {
         if (!fullName) return "U";
-
-        const nameParts = fullName.trim().split(/ +/);
-        const lastName = nameParts.pop();
-
-        return lastName.charAt(0).toUpperCase();
+        const parts = fullName.trim().split(/\s+/);
+        if (parts.length === 1) return parts[0].charAt(0).toUpperCase();
+        return (parts[0].charAt(0) + parts[parts.length - 1].charAt(0)).toUpperCase();
     }
 
-    const avatarText = getLastName(displayName || "Người dùng");
+    const initials = getInitials(displayName || "User");
 
-    useEffect(() => {
-        const updateGreeting = () => {
-            const hour = new Date().getHours();
-            let greetingText = "";
+    // Breadcrumb title map
+    const breadcrumbMap = {
+        dashboard: "BẢNG ĐIỀU KHIỂN",
+        "cv-list": "QUẢN LÝ HỒ SƠ CV",
+        upload: "TẠO CV MỚI",
+        "edit-cv": "CHỈNH SỬA HỒ SƠ",
+        profile: "HỒ SƠ CÁ NHÂN",
+    };
 
-            if (hour < 12) {
-                greetingText = "Buổi sáng";
-            } else if (hour < 18) {
-                greetingText = "Buổi chiều";
-            } else {
-                greetingText = "Buổi tối";
-            }
-            setGreeting(greetingText);
-        };
-
-        updateGreeting();
-        const interval = setInterval(updateGreeting, 60000); // Cập nhật mỗi phút
-
-        return () => clearInterval(interval);
-    }, []);
-
-    const displaySubtitle = activePage === "dashboard"
-        ? `Chào ${greeting}, ${displayName} 👋`
-        : (subtitle || "Hệ thống quản lý và tối ưu hóa hồ sơ đám mây");
+    const currentSection = breadcrumbMap[activePage] || title?.toUpperCase() || "CLOUDCVHUB";
 
     return (
-        <header className="bg-white/85 backdrop-blur-md border-b border-slate-200/80 px-6 py-4 flex items-center justify-between shrink-0 sticky top-0 z-10">
-            <div className="flex items-center gap-4">
+        <header className="bg-white border-b-2 border-black px-4 sm:px-6 py-3 flex items-center justify-between shrink-0 sticky top-0 z-20 font-mono shadow-[0_2px_0px_#000]">
+            {/* Left: Menu trigger & Page context */}
+            <div className="flex items-center gap-3 min-w-0">
                 <button
                     onClick={onMenuClick}
-                    className="p-2 -ml-2 rounded-xl text-slate-600 hover:bg-slate-100 cursor-pointer"
+                    className="p-1.5 rounded-lg border-2 border-black bg-white hover:bg-[#FFF275] hover:shadow-[2px_2px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 transition-all text-black cursor-pointer"
+                    aria-label="Thu gọn hoặc mở menu"
                 >
-                    <Menu size={20} />
+                    <Menu size={18} strokeWidth={2.5} />
                 </button>
-                <div>
-                    <h2 className="text-xl font-extrabold text-slate-800 tracking-tight leading-none">{title}</h2>
-                    {displaySubtitle && <p className="text-xs text-slate-500 mt-1.5 font-medium">{displaySubtitle}</p>}
+
+                <div className="flex items-center gap-2 text-xs font-bold text-black min-w-0">
+                    <span className="hidden sm:inline px-2 py-0.5 bg-black text-white text-[11px] rounded tracking-wide">
+                        CLOUDCVHUB
+                    </span>
+                    <span className="hidden sm:inline text-black font-extrabold">/</span>
+                    <h1 className="text-xs sm:text-sm font-extrabold text-black tracking-tight truncate uppercase">
+                        {currentSection}
+                    </h1>
                 </div>
             </div>
 
-            <div className="flex items-center gap-4">
-                <button className="relative p-2 rounded-xl text-slate-500 hover:text-slate-800 hover:bg-slate-100 transition-all cursor-pointer">
-                    <Bell size={20} />
-                    <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-blue-600 rounded-full" />
+            {/* Right: Quick actions, notifications, user profile */}
+            <div className="flex items-center gap-2 sm:gap-3">
+                {activePage !== 'upload' && onNewCVClick && (
+                    <button
+                        onClick={onNewCVClick}
+                        className="hidden md:inline-flex items-center gap-2 px-3.5 py-1.5 bg-[#FF5E5B] hover:bg-[#FF4B2B] text-white border-2 border-black rounded-lg text-xs font-bold shadow-[2px_2px_0px_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#000] transition-all cursor-pointer uppercase"
+                    >
+                        <Icons8Plus size={15} />
+                        <span>Tạo CV mới</span>
+                    </button>
+                )}
+
+                <button
+                    className="p-2 rounded-lg border-2 border-black bg-white hover:bg-[#FFF275] hover:shadow-[2px_2px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 transition-all text-black cursor-pointer relative"
+                    aria-label="Thông báo"
+                >
+                    <Bell size={17} strokeWidth={2.5} />
+                    <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-[#FF4B2B] border border-black rounded-full" />
                 </button>
+
+                {/* Profile Button */}
                 <button
                     onClick={onProfileClick}
-                    className="flex items-center gap-2 pl-4 cursor-pointer hover:opacity-85 transition-all select-none border-none bg-transparent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500/50 rounded-xl"
+                    className="flex items-center gap-2 pl-2 py-1 pr-2.5 rounded-lg border-2 border-black bg-white hover:bg-[#FFF275] hover:shadow-[2px_2px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer group"
                 >
-                    <div className="w-8.5 h-8.5 rounded-xl bg-gradient-to-tr from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-xs shadow-md shadow-blue-500/10">
-                        {avatarText || "U"}
+                    <div className="w-7 h-7 rounded bg-black text-white flex items-center justify-center font-bold text-xs tracking-wider shrink-0 border border-black">
+                        {initials}
                     </div>
-                    <span className="text-sm font-semibold text-slate-700 hidden md:inline">{displayName || "Người dùng"}</span>
+                    <div className="hidden sm:flex flex-col text-left">
+                        <span className="text-xs font-bold text-black leading-tight truncate max-w-[120px]">
+                            {displayName || "Người dùng"}
+                        </span>
+                        <span className="text-[10px] text-zinc-500 font-bold uppercase leading-none">Hội viên</span>
+                    </div>
                 </button>
             </div>
         </header>
@@ -76,3 +86,4 @@ function Header({ title, subtitle, displayName, onMenuClick, activePage, onProfi
 }
 
 export default Header;
+

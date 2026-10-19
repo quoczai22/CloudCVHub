@@ -25,3 +25,10 @@ dist-ssr
 
 # Project Context (Local only)
 project_context.md
+
+# AI Agents & Vercel
+.agents/
+.gemini/
+.vercel
+.env*.local
+

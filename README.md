@@ -6,7 +6,7 @@ CloudCVHub là ứng dụng quản lý CV fullstack, cho phép người dùng t�
 
 **[Mở CloudCVHub Demo](https://cloudcvhub.eu.cc)**
 
-Frontend React và backend Spring Boot được phục vụ chung qua Nginx. Domain được public bằng Cloudflare Tunnel.
+Frontend React và backend Spring Boot được phục vụ chung qua Nginx. Domain `cloudcvhub.eu.cc` được public bằng Cloudflare Tunnel và truy cập qua HTTPS.
 
 ## Chức năng
 
@@ -31,12 +31,12 @@ Frontend React và backend Spring Boot được phục vụ chung qua Nginx. Dom
 ```text
 Client browser
      |
-     | HTTPS
+     | HTTPS :443
      v
 Cloudflare Tunnel
      |
      v
-Nginx :80
+Nginx :80 (internal)
      |
      v
 Spring Boot :8081
@@ -66,7 +66,7 @@ Dell Precision 5510
 - TypeScript
 - Vite
 - Tailwind CSS
-- React build được đóng gói vào `src/main/resources/static` để chạy chung với backend.
+- React build được đóng gói vào `src/main/resources/static` để chạy chung với backend, không cần chạy Vite riêng khi production.
 
 ### Backend
 
@@ -250,7 +250,6 @@ Không commit các file chứa mật khẩu, token, private key hoặc credentia
 
 ## Hướng phát triển
 
-- HTTPS trực tiếp trên Nginx nếu không dùng Tunnel
 - Backup tự động cho MySQL
 - Phân tích CV bằng AI và OCR
 - Gợi ý việc làm
@@ -258,9 +257,46 @@ Không commit các file chứa mật khẩu, token, private key hoặc credentia
 - CI/CD hoàn chỉnh
 - Monitoring và cảnh báo dịch vụ
 
+## Cấu hình Cloudflare Tunnel
+
+Cloudflare Tunnel tạo kết nối outbound từ Ubuntu tới Cloudflare, vì vậy không cần mở port 80/443 trên router nhà. Domain cần sử dụng nameserver do Cloudflare cấp và bản ghi DNS phải trỏ vào Tunnel, không trỏ trực tiếp vào IP Tailscale hoặc IP LAN.
+
+Cấu hình Tunnel được lưu tại:
+
+```text
+/home/quoczai22/.cloudflared/config.yml
+```
+
+Ví dụ cấu hình:
+
+```yaml
+tunnel: <TUNNEL_ID>
+credentials-file: /home/quoczai22/.cloudflared/<TUNNEL_ID>.json
+protocol: http2
+
+ingress:
+  - hostname: cloudcvhub.eu.cc
+    service: http://127.0.0.1:80
+  - service: http_status:404
+```
+
+Chạy thử Tunnel:
+
+```bash
+cloudflared tunnel run cloudcvhub
+```
+
+Để Tunnel chạy ngầm cùng Ubuntu:
+
+```bash
+sudo cloudflared --config /home/quoczai22/.cloudflared/config.yml service install
+sudo systemctl enable --now cloudflared
+```
+
+Không đưa file credentials `.json`, `cert.pem` hoặc token Cloudflare lên GitHub.
+
 ## Tác giả
 
 **Kiến Quốc**  
 Sinh viên ngành Công nghệ Thông tin  
 Định hướng Cloud và DevOps
-

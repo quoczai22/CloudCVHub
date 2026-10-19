@@ -31,3 +31,14 @@ desktop.ini
 # Maven wrapper downloaded files
 .mvn/wrapper/maven-wrapper.jar
 main/.mvn/wrapper/maven-wrapper.jar
+
+.vercel
+.env*
+
+# AI Agent & Tools
+.agents/
+.gemini/
+**/.agents/
+**/.gemini/
+.vercel
+

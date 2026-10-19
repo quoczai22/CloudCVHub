@@ -1,63 +1,537 @@
-/* Giao diện trang đăng ký đăng nhập */
-.chu-cau-vong {
-  font-size: 25px;
+/* Neo-Brutalist Sliding Overlay Login & Register Styles */
+:root {
+  --neo-primary: #000000;
+  --neo-secondary: #FFFFFF;
+  --neo-accent: #FF5E5B;
+  --neo-blue: #2563eb;
+  --neo-blue-dark: #1d4ed8;
+  --neo-shadow: 8px 8px 0px var(--neo-primary);
+}
+
+.login-page-root {
+  min-height: 100vh;
+  background-color: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+/* Container chính với hiệu ứng Neo-Brutalist double border */
+.auth-slider-container {
+  background-color: var(--neo-secondary);
+  border: 2px solid var(--neo-primary);
+  border-radius: 16px;
+  box-shadow: var(--neo-shadow);
+  position: relative;
+  width: 880px;
+  max-width: 100%;
+  min-height: 620px;
+  overflow: hidden;
+}
+
+.auth-slider-container::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  right: -6px;
+  bottom: -6px;
+  border: 1px solid var(--neo-primary);
+  z-index: -1;
+  border-radius: 16px;
+  pointer-events: none;
+}
+
+/* Các vùng chứa Form trượt (Sign In / Sign Up) */
+.form-slide-container {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transition: all 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-form-content {
+  background-color: var(--neo-secondary);
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  flex-direction: column;
+  padding: 30px 40px;
+  height: 100%;
+  width: 100%;
+  text-align: left;
+}
+
+.sign-in-slide {
+  left: 0;
+  width: 50%;
+  z-index: 2;
+  opacity: 1;
+}
+
+.auth-slider-container.right-panel-active .sign-in-slide {
+  transform: translateX(100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sign-up-slide {
+  left: 0;
+  width: 50%;
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.auth-slider-container.right-panel-active .sign-up-slide {
+  transform: translateX(100%);
+  opacity: 1;
+  z-index: 5;
+  pointer-events: auto;
+  animation: neo-show 0.6s;
+}
+
+@keyframes neo-show {
+  0%, 49.99% {
+    opacity: 0;
+    z-index: 1;
+  }
+  50%, 100% {
+    opacity: 1;
+    z-index: 5;
+  }
+}
+
+/* Khối Overlay Trượt (Sliding Sidebar) */
+.overlay-slide-container {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+  z-index: 100;
+  border-left: 2px solid var(--neo-primary);
+}
+
+.auth-slider-container.right-panel-active .overlay-slide-container {
+  transform: translateX(-100%);
+  border-left: none;
+  border-right: 2px solid var(--neo-primary);
+}
+
+.overlay-track {
+  background: linear-gradient(135deg, #BE123C 0%, #C2410C 100%);
+  color: #FFFFFF;
+  position: relative;
+  left: -100%;
+  height: 100%;
+  width: 200%;
+  transform: translateX(0);
+  transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.auth-slider-container.right-panel-active .overlay-track {
+  transform: translateX(50%);
+}
+
+.brand-pill-tag {
+  display: inline-block;
+  padding: 4px 12px;
+  background-color: #000000;
+  color: #FFFFFF;
+  border: 1.5px solid #FFFFFF;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  box-shadow: 2px 2px 0px #000000;
+}
+
+.overlay-panel-item {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 40px;
+  text-align: center;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  transform: translateX(0);
+  transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+  user-select: none;
+}
+
+.overlay-panel-item h2 {
+  font-size: 24px;
+  font-weight: 800;
+  margin: 8px 0 8px;
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+}
+
+.overlay-panel-item p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #FFFFFF;
+  margin: 0 0 20px;
+  max-width: 320px;
+}
+
+.overlay-panel-left {
+  transform: translateX(-20%);
+}
+
+.auth-slider-container.right-panel-active .overlay-panel-left {
+  transform: translateX(0);
+}
+
+.overlay-panel-right {
+  right: 0;
+  transform: translateX(0);
+}
+
+.auth-slider-container.right-panel-active .overlay-panel-right {
+  transform: translateX(20%);
+}
+
+/* Nút Ghost viền trắng trên nền Overlay đỏ gradient */
+.ghost-neo-btn {
+  background-color: transparent;
+  border: 2px solid #FFFFFF;
+  color: #FFFFFF;
+  font-size: 13px;
   font-weight: bold;
-  animation: doi-mau 3s linear infinite;
-  text-align: justify;
-  line-height: 150%;
+  padding: 11px 32px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-family: 'Courier New', Courier, monospace;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s ease;
 }
 
-@keyframes doi-mau {
-  0% {
-    color: hsl(0, 100%, 50%);
-  }
-
-  /* Đỏ */
-  17% {
-    color: hsl(60, 100%, 50%);
-  }
-
-  /* Vàng */
-  33% {
-    color: hsl(120, 100%, 50%);
-  }
-
-  /* Xanh lá */
-  50% {
-    color: hsl(180, 100%, 50%);
-  }
-
-  /* Xanh lơ */
-  67% {
-    color: hsl(240, 100%, 50%);
-  }
-
-  /* Xanh dương */
-  83% {
-    color: hsl(300, 100%, 50%);
-  }
-
-  /* Tím */
-  100% {
-    color: hsl(360, 100%, 50%);
-  }
-
-  /* Quay lại Đỏ */
+.ghost-neo-btn:hover {
+  background-color: #FFFFFF;
+  color: #FF416C;
+  box-shadow: 4px 4px 0px var(--neo-primary);
+  transform: translate(-2px, -2px);
 }
 
-/* Ẩn con mắt mặc định của trình duyệt (ví dụ: Microsoft Edge) */
+.ghost-neo-btn:active {
+  box-shadow: 1px 1px 0px var(--neo-primary);
+  transform: translate(1px, 1px);
+}
+
+/* Thông tin xác thực & bảo mật chân Overlay Sidebar */
+.overlay-trust-badges {
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1.5px solid rgba(255, 255, 255, 0.35);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 360px;
+  text-align: left;
+}
+
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  color: #ffffff;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: -0.2px;
+}
+
+.trust-item svg {
+  flex-shrink: 0;
+  color: #ffffff;
+}
+
+/* Typography trong Form */
+.form-title {
+  color: var(--neo-primary);
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+}
+
+.form-subtitle {
+  color: #64748b;
+  text-align: center;
+  font-size: 12px;
+  margin-bottom: 20px;
+}
+
+/* Input Fields */
+.input-group {
+  margin-bottom: 14px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: bold;
+  color: var(--neo-primary);
+  font-size: 13px;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-wrapper input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 2px solid var(--neo-primary);
+  background-color: var(--neo-secondary);
+  font-size: 14px;
+  font-family: 'Courier New', Courier, monospace;
+  outline: none;
+  transition: all 0.2s ease;
+  border-radius: 6px;
+  color: var(--neo-primary);
+}
+
+.input-wrapper input::placeholder {
+  color: #52525b;
+  opacity: 1;
+}
+
+.input-wrapper input:focus {
+  box-shadow: 3px 3px 0px var(--neo-primary);
+  transform: translate(-1px, -1px);
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--neo-primary);
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Checkbox & Quên mật khẩu */
+.login-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  margin-bottom: 14px;
+  color: var(--neo-primary);
+}
+
+.login-options label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.login-options input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  border: 2px solid var(--neo-primary);
+  accent-color: var(--neo-accent);
+  cursor: pointer;
+}
+
+.login-options a {
+  color: var(--neo-primary);
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.login-options a:hover {
+  color: var(--neo-accent);
+}
+
+/* Nút Submit Neo-Brutalist màu cam đỏ #FF5E5B */
+.neo-btn {
+  width: 100%;
+  padding: 11px;
+  background-color: var(--neo-accent);
+  color: #000000;
+  border: 2px solid var(--neo-primary);
+  font-size: 14px;
+  font-weight: 800;
+  font-family: 'Courier New', Courier, monospace;
+  cursor: pointer;
+  margin-top: 6px;
+  transition: all 0.2s ease;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.neo-btn:hover:not(:disabled) {
+  box-shadow: 4px 4px 0px var(--neo-primary);
+  transform: translate(-2px, -2px);
+}
+
+.neo-btn:active:not(:disabled) {
+  box-shadow: 1px 1px 0px var(--neo-primary);
+  transform: translate(1px, 1px);
+}
+
+.neo-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* Divider & Social Buttons */
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 18px 0;
+  color: var(--neo-primary);
+  font-weight: bold;
+  font-size: 11px;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 2px solid var(--neo-primary);
+  margin: 0 8px;
+}
+
+.social-login {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.social-btn {
+  width: 42px;
+  height: 42px;
+  border: 2px solid var(--neo-primary);
+  background-color: var(--neo-secondary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 6px;
+  color: var(--neo-primary);
+}
+
+.social-btn:hover {
+  box-shadow: 3px 3px 0px var(--neo-primary);
+  transform: translate(-2px, -2px);
+  background-color: #FFF275;
+}
+
+/* Mobile responsive fallback: Khi màn hình bé hơn 768px, hiển thị dạng chuyển tab trực quan */
+.mobile-toggle-strip {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .auth-slider-container {
+    min-height: auto;
+    overflow: visible;
+    box-shadow: 6px 6px 0px var(--neo-primary);
+  }
+
+  .overlay-slide-container {
+    display: none;
+  }
+
+  .form-slide-container {
+    position: relative;
+    width: 100%;
+    transform: none !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
+  .sign-in-slide,
+  .sign-up-slide {
+    display: none;
+  }
+
+  .auth-slider-container:not(.right-panel-active) .sign-in-slide {
+    display: flex;
+  }
+
+  .auth-slider-container.right-panel-active .sign-up-slide {
+    display: flex;
+  }
+
+  .auth-form-content {
+    padding: 24px 20px;
+  }
+
+  .mobile-toggle-strip {
+    display: flex;
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 2px dashed var(--neo-primary);
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    gap: 6px;
+  }
+
+  .mobile-toggle-strip button {
+    background: #FFF275;
+    border: 1.5px solid var(--neo-primary);
+    color: var(--neo-primary);
+    font-weight: 800;
+    cursor: pointer;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 6px;
+    box-shadow: 2px 2px 0px var(--neo-primary);
+    text-transform: uppercase;
+  }
+}
+
+/* Ẩn con mắt mặc định Edge */
 input::-ms-reveal,
 input::-ms-clear {
   display: none;
 }
 
-/* Animation cho Alert/Toast xuất hiện từ góc trên bên phải */
+/* Animation toast Alert */
 @keyframes slide-in {
   from {
-    transform: translateY(-20px);
+    transform: translateY(-16px);
     opacity: 0;
   }
-
   to {
     transform: translateY(0);
     opacity: 1;
@@ -65,5 +539,5 @@ input::-ms-clear {
 }
 
 .animate-slide-in {
-  animation: slide-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: slide-in 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
