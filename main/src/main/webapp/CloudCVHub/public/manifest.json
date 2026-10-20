@@ -1,0 +1,15 @@
+{
+  "short_name": "CloudCVHub",
+  "name": "CloudCVHub - Vault Storage & Resume Builder",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/svg+xml"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#ffe600",
+  "background_color": "#f5f5f0"
+}
