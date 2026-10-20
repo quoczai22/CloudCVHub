@@ -15,14 +15,24 @@ export default function Topbar({
         <b>{section?.toUpperCase() || "TỔNG QUAN"}</b>
       </div>
       <div className="top-actions">
-        <label className="search">
-          <Icon name="search" size={18} />
-          <input
-            type="search"
-            placeholder="TÌM KIẾM HỒ SƠ..."
-            onChange={(e) => onSearch?.(e.target.value)}
-          />
-          <kbd>⌘ K</kbd>
+        {/* HyperUI Neobrutalism Search Component requested by user */}
+        <label htmlFor="TopSearch" className="neo-search-wrapper block relative">
+          <span className="sr-only">Tìm kiếm</span>
+          <div className="neo-search-box flex border-2 border-black shadow-[4px_4px_0_0] shadow-black focus-within:ring-2 focus-within:ring-yellow-300 bg-white">
+            <input
+              type="search"
+              id="TopSearch"
+              placeholder="TÌM KIẾM HỒ SƠ..."
+              className="neo-search-input w-44 sm:w-60 border-none bg-white text-black px-3 py-1.5 focus:ring-0 sm:text-xs font-mono outline-none"
+              onChange={(e) => onSearch?.(e.target.value)}
+            />
+            <button
+              type="button"
+              className="neo-search-btn bg-yellow-300 border-l-2 border-black px-3 py-1.5 text-xs/none font-bold tracking-wide uppercase hover:bg-yellow-400 focus:bg-yellow-400 focus:outline-0 cursor-pointer font-mono"
+            >
+              Search
+            </button>
+          </div>
         </label>
         <button className="square-btn" aria-label="Thông báo">
           <Icon name="bell" />

@@ -97,6 +97,49 @@
 .search:focus-within { border-color: var(--ink); box-shadow: 2px 2px 0 var(--coral); background: white; }
 .search input { width: 100%; border: 0; outline: 0; background: transparent; font: 9px 'DM Mono', monospace; color: var(--ink); }
 .search kbd { white-space: nowrap; padding: 3px 5px; border: 1px solid #aaa; background: white; font: 8px 'DM Mono', monospace; user-select: none; }
+
+/* HyperUI Neobrutalism Search Component */
+.neo-search-box {
+  display: flex;
+  align-items: center;
+  border: 2px solid #000000;
+  box-shadow: 4px 4px 0px 0px #000000;
+  background-color: #ffffff;
+  transition: all 0.15s ease;
+}
+.neo-search-box:focus-within {
+  box-shadow: 4px 4px 0px 0px #000000, 0 0 0 2px #fde047;
+}
+.neo-search-input {
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  color: #000000;
+  padding: 6px 12px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  outline: none;
+}
+.neo-search-btn {
+  background-color: #fde047 !important;
+  border: none;
+  border-left: 2px solid #000000 !important;
+  padding: 6px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #000000;
+  font-family: 'DM Mono', monospace;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  white-space: nowrap;
+}
+.neo-search-btn:hover,
+.neo-search-btn:focus {
+  background-color: #facc15 !important;
+  outline: none;
+}
 .square-btn { position: relative; width: 36px; height: 36px; display: grid; place-items: center; background: white; border: 1.5px solid var(--ink); cursor: pointer; }
 .square-btn i { position: absolute; right: -3px; top: -3px; width: 8px; height: 8px; border: 1px solid var(--ink); background: var(--coral); }
 .system-online { padding: 9px 10px; background: var(--ink); color: white; font: 8px 'DM Mono', monospace; }
@@ -391,7 +434,7 @@
   .topbar { height: 62px; padding: 0 14px; }
   .topbar > div:first-child { align-items: center; }
   .topbar > div:first-child > span { display: none; }
-  .top-actions .search, .system-online { display: none; }
+  .top-actions .search, .top-actions .neo-search-wrapper, .system-online { display: none; }
   .product-app .page { min-height: calc(100vh - 62px); padding: 24px 16px 38px; }
   .page-heading, .detail-heading { align-items: flex-start; gap: 18px; flex-direction: column; }
   .page-heading h2, .detail-heading h2 { font-size: 32px; }
