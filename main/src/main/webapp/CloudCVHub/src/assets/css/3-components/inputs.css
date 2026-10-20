@@ -24,8 +24,8 @@
   font-size: 13px;
   box-shadow: 2px 2px 0 transparent;
   transition: all 0.2s ease;
-  border-radius: var(--radius-sm);
 }
+
 
 .field input:focus, .field select:focus, .field textarea:focus {
   box-shadow: 4px 4px 0 var(--coral);

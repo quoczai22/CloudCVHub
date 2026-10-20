@@ -1,18 +1,20 @@
-/* 4-pages/home.css - Chỉ dùng riêng cho trang chủ (Dashboard / Tổng quan) */
 .sparkline {
   width: 112px;
   height: 40px;
   overflow: visible;
+  flex-shrink: 0;
 }
 
-.sparkline path {
+.sparkline path,
+.sparkline polyline {
   fill: none;
   stroke: var(--coral);
   stroke-width: 3;
   vector-effect: non-scaling-stroke;
 }
 
-.stat-yellow .sparkline path:not(.spark-grid) {
+.stat-yellow .sparkline path:not(.spark-grid),
+.stat-yellow .sparkline polyline {
   stroke: var(--ink);
 }
 
@@ -21,6 +23,7 @@
   stroke-width: .6;
   stroke-dasharray: 2 2;
 }
+
 
 .recent-title {
   margin-top: 24px;

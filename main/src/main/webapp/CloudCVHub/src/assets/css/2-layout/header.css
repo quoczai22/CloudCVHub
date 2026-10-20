@@ -37,6 +37,13 @@
   gap: 8px;
   border: 1.5px solid var(--ink);
   background: var(--paper);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.search:focus-within {
+  border-color: var(--ink);
+  box-shadow: 2px 2px 0 var(--coral);
+  background: white;
 }
 
 .search input {
@@ -45,7 +52,9 @@
   outline: 0;
   background: transparent;
   font: 9px var(--font-mono);
+  color: var(--ink);
 }
+
 
 .search kbd {
   white-space: nowrap;

@@ -1,9 +1,7 @@
-import Input from '../../Atoms/Input/Input'
-import Button from '../../Atoms/Button/Button'
 import Icon from '../../Atoms/Icon/Icon'
 
 export default function SearchBar({
-  placeholder = "Tìm theo tên, kỹ năng...",
+  placeholder = "TÌM KIẾM...",
   value,
   onChange,
   onSearch,
@@ -15,21 +13,18 @@ export default function SearchBar({
   }
 
   return (
-    <form onSubmit={handleSubmit} className={`flex border-2 border-black shadow-[4px_4px_0_0] shadow-black focus-within:ring-2 focus-within:ring-yellow-300 bg-white ${className}`.trim()}>
-      <Input
+    <form onSubmit={handleSubmit} className={`search ${className}`.trim()}>
+      <Icon name="search" size={18} />
+      <input
         type="search"
         placeholder={placeholder}
         value={value}
-        onChange={onChange}
-        className="w-full border-none bg-white text-black px-3 py-2 text-xs font-mono focus:outline-none"
+        onChange={(e) => {
+          onChange?.(e)
+          onSearch?.(e.target.value)
+        }}
       />
-      <Button
-        type="submit"
-        variant="yellow"
-        className="border-none border-l-2 border-black rounded-none px-4 py-2 font-mono text-xs font-bold uppercase tracking-wider"
-      >
-        <Icon name="search" size={14} />
-      </Button>
+      <kbd>⌘ K</kbd>
     </form>
   )
 }

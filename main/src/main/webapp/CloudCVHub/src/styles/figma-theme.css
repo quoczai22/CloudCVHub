@@ -93,9 +93,10 @@
 .topbar > div:first-child { display: flex; gap: 8px; font: 10px 'DM Mono', monospace; }
 .topbar > div:first-child span { color: #8e8a82; }
 .top-actions { display: flex; align-items: center; gap: 12px; }
-.search { height: 36px; width: 250px; padding: 0 9px; display: flex; align-items: center; gap: 8px; border: 1.5px solid var(--ink); background: var(--paper); }
-.search input { width: 100%; border: 0; outline: 0; background: transparent; font: 9px 'DM Mono', monospace; }
-.search kbd { white-space: nowrap; padding: 3px 5px; border: 1px solid #aaa; background: white; font: 8px 'DM Mono', monospace; }
+.search { height: 36px; width: 250px; padding: 0 9px; display: flex; align-items: center; gap: 8px; border: 1.5px solid var(--ink); background: var(--paper); transition: border-color 0.15s, box-shadow 0.15s; }
+.search:focus-within { border-color: var(--ink); box-shadow: 2px 2px 0 var(--coral); background: white; }
+.search input { width: 100%; border: 0; outline: 0; background: transparent; font: 9px 'DM Mono', monospace; color: var(--ink); }
+.search kbd { white-space: nowrap; padding: 3px 5px; border: 1px solid #aaa; background: white; font: 8px 'DM Mono', monospace; user-select: none; }
 .square-btn { position: relative; width: 36px; height: 36px; display: grid; place-items: center; background: white; border: 1.5px solid var(--ink); cursor: pointer; }
 .square-btn i { position: absolute; right: -3px; top: -3px; width: 8px; height: 8px; border: 1px solid var(--ink); background: var(--coral); }
 .system-online { padding: 9px 10px; background: var(--ink); color: white; font: 8px 'DM Mono', monospace; }
@@ -121,9 +122,9 @@
 .stat-foot { height: 45px; display: flex; align-items: flex-end; justify-content: space-between; }
 .stat-foot > span { white-space: nowrap; color: #157241; font: 8px 'DM Mono', monospace; }
 .stat-foot .dark-chip { padding: 4px; color: white; background: var(--ink); }
-.sparkline { width: 112px; height: 40px; overflow: visible; }
-.sparkline path { fill: none; stroke: var(--coral); stroke-width: 3; vector-effect: non-scaling-stroke; }
-.stat-yellow .sparkline path:not(.spark-grid) { stroke: var(--ink); }
+.sparkline { width: 112px; height: 40px; overflow: visible; flex-shrink: 0; }
+.sparkline path, .sparkline polyline { fill: none; stroke: var(--coral); stroke-width: 3; vector-effect: non-scaling-stroke; }
+.stat-yellow .sparkline path:not(.spark-grid), .stat-yellow .sparkline polyline { stroke: var(--ink); }
 .sparkline .spark-grid { stroke: #ccc; stroke-width: .6; stroke-dasharray: 2 2; }
 .dash-columns { margin-top: 28px; display: grid; grid-template-columns: 1fr 310px; gap: 22px; }
 .quick-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }

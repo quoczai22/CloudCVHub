@@ -1,38 +1,26 @@
-/* 1-base/typography.css - Cấu hình font cho body, headings, links, code */
-
-body {
-  font-family: var(--font-display);
+/* 1-base/typography.css - Cấu hình typography mặc định với zero-specificity để không đè component */
+:where(body) {
+  font-family: 'Syne', -apple-system, BlinkMacSystemFont, sans-serif;
   color: var(--ink);
   background-color: var(--paper);
-  font-size: var(--text-base);
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-display);
+:where(h1, h2, h3, h4, h5, h6) {
+  font-family: 'Syne', sans-serif;
   font-weight: 700;
-  line-height: 1.1;
   color: var(--ink);
   letter-spacing: -0.04em;
 }
 
-h1 { font-size: var(--text-4xl); }
-h2 { font-size: var(--text-3xl); }
-h3 { font-size: var(--text-2xl); }
-h4 { font-size: var(--text-xl); }
-
-p {
-  line-height: 1.6;
-}
-
-code, kbd, pre, samp {
-  font-family: var(--font-mono);
+:where(code, kbd, pre, samp) {
+  font-family: 'DM Mono', monospace;
 }
 
 .kicker {
   display: flex;
   gap: 8px;
   align-items: center;
-  font: 600 11px var(--font-mono);
+  font: 600 11px 'DM Mono', monospace;
   letter-spacing: .12em;
   text-transform: uppercase;
 }
