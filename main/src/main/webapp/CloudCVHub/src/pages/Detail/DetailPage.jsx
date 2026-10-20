@@ -1,6 +1,6 @@
-import Kicker from '../components/UI/Kicker'
-import Button from '../components/UI/Button'
-import AppShell from '../layouts/AppShell'
+import Kicker from '../../components/UI/Kicker'
+import Button from '../../components/UI/Button'
+import AppShell from '../../layouts/AppShell'
 
 export default function DetailPage(props) {
   return (

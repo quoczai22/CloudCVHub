@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import Icon from '../components/UI/Icon'
-import Kicker from '../components/UI/Kicker'
-import Button from '../components/UI/Button'
-import AppShell from '../layouts/AppShell'
+import Icon from '../../components/UI/Icon'
+import Kicker from '../../components/UI/Kicker'
+import Button from '../../components/UI/Button'
+import AppShell from '../../layouts/AppShell'
 
 export default function SettingsPage(props) {
   const [saved, setSaved] = useState(false)

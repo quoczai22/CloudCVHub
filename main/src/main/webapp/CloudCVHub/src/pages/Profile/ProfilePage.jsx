@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import Icon from '../components/UI/Icon'
-import Kicker from '../components/UI/Kicker'
-import Button from '../components/UI/Button'
-import Sidebar from '../layouts/Sidebar'
-import Topbar from '../layouts/Topbar'
+import Icon from '../../components/UI/Icon'
+import Kicker from '../../components/UI/Kicker'
+import Button from '../../components/UI/Button'
+import Sidebar from '../../components/Common/Sidebar'
+import Header from '../../components/Common/Header'
 
 export default function ProfilePage(props) {
   const { onNavigate, drawerOpen, onMenu, onClose, user, onLogout } = props
@@ -28,7 +28,7 @@ export default function ProfilePage(props) {
         onLogout={onLogout}
       />
       <main className="app-main">
-        <Topbar section="Hồ sơ / Danh tính" onMenu={onMenu} />
+        <Header section="Hồ sơ / Danh tính" onMenu={onMenu} />
         <div className="page profile-page">
           <div className="page-heading">
             <div>

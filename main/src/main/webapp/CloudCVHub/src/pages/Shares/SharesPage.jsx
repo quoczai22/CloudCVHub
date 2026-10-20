@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import Icon from '../components/UI/Icon'
-import Kicker from '../components/UI/Kicker'
-import Button from '../components/UI/Button'
-import Field from '../components/UI/Field'
-import AppShell from '../layouts/AppShell'
+import Icon from '../../components/UI/Icon'
+import Kicker from '../../components/UI/Kicker'
+import Button from '../../components/UI/Button'
+import Field from '../../components/UI/Field'
+import AppShell from '../../layouts/AppShell'
 
 export default function SharesPage(props) {
   const [dialog, setDialog] = useState(false)

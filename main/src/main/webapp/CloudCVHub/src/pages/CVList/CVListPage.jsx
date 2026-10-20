@@ -1,9 +1,9 @@
 import { useState, useMemo } from 'react'
-import Icon from '../components/UI/Icon'
-import Kicker from '../components/UI/Kicker'
-import Button from '../components/UI/Button'
-import Sidebar from '../layouts/Sidebar'
-import Topbar from '../layouts/Topbar'
+import Icon from '../../components/UI/Icon'
+import Kicker from '../../components/UI/Kicker'
+import Button from '../../components/UI/Button'
+import Sidebar from '../../components/Common/Sidebar'
+import Header from '../../components/Common/Header'
 
 const cvs = [
   {
@@ -75,7 +75,7 @@ export default function CVListPage(props) {
         onLogout={onLogout}
       />
       <main className="app-main">
-        <Topbar
+        <Header
           section="CV của tôi"
           onSearch={(value) => {
             setSearch(value)

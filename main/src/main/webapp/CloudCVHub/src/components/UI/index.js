@@ -1,6 +1,7 @@
 export { default as Button } from './Button'
-export { default as Icon } from './Icon'
+export { default as Input } from './Input'
 export { default as Field } from './Field'
+export { default as Icon } from './Icon'
 export { default as Kicker } from './Kicker'
 export { default as ProgressBar } from './ProgressBar'
 export { default as Sparkline } from './Sparkline'
