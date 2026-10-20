@@ -752,8 +752,20 @@ function DashboardScreen({
                   <small>TOTAL SPACE</small>
                 </span>
               </div>
-              <div className="storage-bar">
-                <i />
+              <div
+                role="progressbar"
+                aria-valuenow={62}
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-label="Progress"
+                className="my-3 w-full"
+              >
+                <div className="w-full border-2 border-white bg-black p-1 shadow-[2px_2px_0_0] shadow-white">
+                  <div
+                    className="h-3 bg-[repeating-linear-gradient(45deg,#facc15_0,#facc15_10px,#eab308_10px,#eab308_20px)] transition-all duration-300"
+                    style={{ width: "62%" }}
+                  />
+                </div>
               </div>
               <div className="file-breakdown">
                 <div>

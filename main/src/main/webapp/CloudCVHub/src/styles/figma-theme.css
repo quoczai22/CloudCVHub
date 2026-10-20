@@ -167,8 +167,8 @@
 .storage-numbers > span + span { padding-left: 18px; border-left: 1px solid #555; }
 .storage-numbers b { font-size: 13px; font-weight: 700; }
 .storage-numbers small { color: #888; font: 7px 'DM Mono', monospace; }
-.storage-bar { height: 8px; background: #3b3b3b; border: 1px solid #777; }
-.storage-bar i { display: block; width: 62%; height: 100%; background: linear-gradient(90deg, var(--coral), var(--orange)); }
+.storage-bar { height: 20px; background: #000; border: 2px solid #fff; padding: 2px; box-shadow: 2px 2px 0 0 #fff; margin: 12px 0; }
+.storage-bar i { display: block; height: 100%; width: 62%; background: repeating-linear-gradient(45deg, #facc15 0, #facc15 10px, #eab308 10px, #eab308 20px); }
 .file-breakdown { padding: 10px 0; display: grid; gap: 5px; }
 .file-breakdown div { display: grid; grid-template-columns: 10px 1fr auto; align-items: center; font: 7px 'DM Mono', monospace; }
 .file-breakdown i { width: 6px; height: 6px; }
