@@ -66,3 +66,32 @@
     opacity: 1;
   }
 }
+
+/* HyperUI Neobrutalism Alert Styles */
+.neo-alert {
+  border: 2px solid #000000;
+  padding: 16px;
+  box-shadow: 4px 4px 0px 0px #000000;
+  font-family: var(--font-mono);
+}
+
+.neo-alert-info {
+  background-color: #dbeafe; /* blue-100 */
+  color: #1e3a8a; /* blue-900 */
+}
+
+.neo-alert-success {
+  background-color: #dcfce7; /* green-100 */
+  color: #14532d; /* green-900 */
+}
+
+.neo-alert-error {
+  background-color: #fee2e2; /* red-100 */
+  color: #7f1d1d; /* red-900 */
+}
+
+.neo-alert-warning {
+  background-color: #fef9c3; /* yellow-100 */
+  color: #713f12; /* yellow-900 */
+}
+
