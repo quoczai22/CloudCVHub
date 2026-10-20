@@ -74,7 +74,7 @@ function SideBar({ activePage, setPage, onLogout, mobileMenuOpen, setMobileMenuO
                 title={isCollapsed ? item.label : undefined}
                 className={`w-full flex items-center rounded-xl text-xs font-bold transition-all duration-150 cursor-pointer group ${
                   isActive
-                    ? "bg-white text-black font-black border-2 border-black shadow-[3px_3px_0px_#000] -translate-x-0.5 -translate-y-0.5"
+                    ? "bg-[#FFF275] text-black font-black border-2 border-black shadow-[3px_3px_0px_#000] -translate-x-0.5 -translate-y-0.5"
                     : "text-white border-2 border-transparent hover:border-black hover:bg-black/20 hover:text-white"
                 } ${isCollapsed ? "justify-center p-2.5" : "gap-3 px-3.5 py-2.5"}`}
               >

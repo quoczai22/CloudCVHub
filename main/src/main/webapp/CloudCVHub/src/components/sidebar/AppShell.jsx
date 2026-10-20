@@ -18,7 +18,7 @@ function AppShell({ children, activePage, setPage, onLogout, title, subtitle, di
     }
 
     return (
-        <div className="min-h-screen bg-[#f1f5f9] flex text-black font-mono antialiased selection:bg-[#FF5E5B] selection:text-white">
+        <div className="app-shell min-h-screen bg-[#f5f2e9] flex text-black antialiased selection:bg-[#FFF275] selection:text-black">
             <SideBar
                 activePage={activePage}
                 setPage={setPage}
@@ -45,7 +45,7 @@ function AppShell({ children, activePage, setPage, onLogout, title, subtitle, di
                     onNewCVClick={() => setPage("upload")}
                 />
 
-                <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto">
+                <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-none w-full">
                     {children}
                 </main>
             </div>

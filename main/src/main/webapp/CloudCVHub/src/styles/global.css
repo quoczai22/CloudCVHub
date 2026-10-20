@@ -15,6 +15,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.app-shell .rounded-xl,
+.app-shell .rounded-2xl {
+  border-radius: 0;
+}
+
 /* Custom scrollbars that feel integrated into OS/app */
 ::-webkit-scrollbar {
   width: 6px;
@@ -36,6 +41,6 @@ body {
 
 /* Selection tinting */
 ::selection {
-  background-color: #dbeafe;
-  color: #1e3a8a;
+  background-color: #fff275;
+  color: #111111;
 }
