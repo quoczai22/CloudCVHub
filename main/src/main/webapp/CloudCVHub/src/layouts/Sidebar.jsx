@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Icon from '../components/UI/Icon'
 
 const navItems = [
@@ -22,6 +23,8 @@ export default function Sidebar({
   user,
   onLogout,
 }) {
+  const [avatarSelected, setAvatarSelected] = useState(false)
+
   const initials = user?.fullName
     ? user.fullName
         .split(" ")
@@ -32,9 +35,7 @@ export default function Sidebar({
         .toUpperCase()
     : "AK"
 
-  const renderItem = (
-    item, index,
-  ) => (
+  const renderItem = (item, index) => (
     <button
       key={item.id}
       className={active === item.id ? "active" : ""}
@@ -49,12 +50,43 @@ export default function Sidebar({
       {active === item.id && <Icon name="arrow" size={16} />}
     </button>
   )
+
+  const logo = (
+    <div className="logo">
+      <div className="logo-mark">
+        <Icon name="cloud" size={24} />
+      </div>
+      <span>
+        CloudCV<span>Hub</span>
+      </span>
+    </div>
+  )
+
   return (
     <aside className={`sidebar ${open ? "open" : ""}`}>
       {logo}
-      <button className="drawer-close" onClick={onClose} aria-label="Đóng menu">
-        ×
-      </button>
+
+      {/* Animated Avatar beneath CloudCVHub logo */}
+      <div className="sidebar-avatar-wrap">
+        <div
+          className={`img-wrap ${avatarSelected ? "selected" : ""}`}
+          data-role={user?.role || "Developer"}
+          onClick={() => setAvatarSelected(prev => !prev)}
+          title="Nhấp để phóng to / thu nhỏ avatar"
+        >
+          <img
+            src="https://avataaars.io/?avatarStyle=Transparent&topType=LongHairMiaWallace&accessoriesType=Blank&hairColor=Platinum&facialHairType=Blank&clotheType=ShirtScoopNeck&clotheColor=Gray02&eyeType=Default&eyebrowType=Default&mouthType=Serious&skinColor=Light"
+            alt="Avatar"
+          />
+        </div>
+      </div>
+
+      {open && (
+        <button className="drawer-close" onClick={onClose} aria-label="Đóng menu">
+          ×
+        </button>
+      )}
+
       <div className="nav-label">KHÔNG GIAN LÀM VIỆC</div>
       <nav>{navItems.map(renderItem)}</nav>
       <div className="nav-label admin-label">QUẢN TRỊ</div>

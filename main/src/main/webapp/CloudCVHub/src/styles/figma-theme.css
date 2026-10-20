@@ -421,3 +421,121 @@
   .auth-screen { grid-template-columns: 1fr; }
   .auth-left { display: none; }
 }
+
+
+/* ===================================================
+   Sidebar Animated Wobble Avatar Widget
+   =================================================== */
+.sidebar-avatar-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 16px 0 10px;
+  position: relative;
+}
+
+.img-wrap {
+  height: 96px;
+  width: 96px;
+  transition: 350ms all cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  animation-name: avatarWobble;
+  animation-delay: 0s;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+.img-wrap.selected {
+  width: 140px;
+  height: 140px;
+}
+
+.img-wrap:before {
+  content: "";
+  z-index: 1;
+  position: absolute;
+  width: 90%;
+  height: 80%;
+  bottom: 4px;
+  left: 50%;
+  border-radius: 100%;
+  transform: translateX(-50%);
+  background-color: #f6cf64;
+  border: 2px solid #111111;
+  box-shadow: 2px 2px 0px #111111;
+}
+
+.img-wrap img {
+  position: relative;
+  z-index: 2;
+  border-radius: 120px;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.img-wrap:after {
+  background-color: #ffe600;
+  color: #111111;
+  font-weight: 800;
+  box-shadow: 2px 2px 0px #111111;
+  border: 1.5px solid #111111;
+  content: attr(data-role);
+  font-size: 9px;
+  font-family: 'DM Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  position: absolute;
+  transition: 300ms all;
+  bottom: -2px;
+  left: 50%;
+  display: block;
+  padding: 1px 7px;
+  border-radius: 4px;
+  z-index: 12;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+@keyframes avatarWobble {
+  0%, 100% {
+    transform: translateX(0%);
+  }
+  15% {
+    transform: translateX(-2%) translateY(-2%);
+  }
+  30% {
+    transform: translateX(2%) translateY(-2%);
+  }
+  45% {
+    transform: translateX(2%) translateY(2%);
+  }
+  60% {
+    transform: translateX(-2%) translateY(2%);
+  }
+  75% {
+    transform: translateX(2%) translateY(0);
+  }
+  90% {
+    transform: translateX(-2%) translateY(0);
+  }
+}
+
+.drawer-close {
+  display: none;
+}
+
+@media (max-width: 991px) {
+  .product-app .sidebar.open .drawer-close {
+    display: grid !important;
+  }
+}
