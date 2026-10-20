@@ -1,0 +1,51 @@
+/* 5-utilities/helpers.css - Các class bổ trợ nhanh (Helpers, Display, Align, Icons) */
+.hidden { display: none !important; }
+.block { display: block !important; }
+.inline-block { display: inline-block !important; }
+.flex { display: flex !important; }
+.inline-flex { display: inline-flex !important; }
+.grid { display: grid !important; }
+
+.flex-col { flex-direction: column !important; }
+.flex-row { flex-direction: row !important; }
+.items-center { align-items: center !important; }
+.items-start { align-items: flex-start !important; }
+.items-end { align-items: flex-end !important; }
+.justify-center { justify-content: center !important; }
+.justify-between { justify-content: space-between !important; }
+.justify-end { justify-content: flex-end !important; }
+
+.text-center { text-align: center !important; }
+.text-left { text-align: left !important; }
+.text-right { text-align: right !important; }
+
+.font-mono { font-family: var(--font-mono) !important; }
+.font-display { font-family: var(--font-display) !important; }
+
+.w-full { width: 100% !important; }
+.h-full { height: 100% !important; }
+
+.cursor-pointer { cursor: pointer !important; }
+.select-none { user-select: none !important; }
+
+/* Họa tiết chấm hạt Neo-Brutalist Pixel Grid */
+.pixel-grid {
+  position: absolute;
+  right: 28px;
+  top: 28px;
+  width: 80px;
+  height: 80px;
+  background-image: radial-gradient(var(--ink) 2px, transparent 2px);
+  background-size: 10px 10px;
+  pointer-events: none;
+}
+
+/* Biểu tượng vector hệ thống */
+.icon {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+  flex: 0 0 auto;
+}

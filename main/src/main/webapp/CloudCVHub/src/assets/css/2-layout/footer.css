@@ -1,0 +1,27 @@
+/* 2-layout/footer.css - Khu vực chân trang & Thanh thông tin cuối trang */
+.auth-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font: 10px var(--font-mono);
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.05em;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.page-foot {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font: 10px var(--font-mono);
+  color: var(--muted);
+}
+
+.page-foot a {
+  text-decoration: underline;
+  font-weight: 600;
+}

@@ -1,0 +1,50 @@
+/* 1-base/variables.css - Khai báo biến toàn cục (Màu sắc, font chữ, cỡ chữ, shadow) */
+:root {
+  /* Bảng màu chính Neo-Brutalist CloudCVHub */
+  --ink: #111111;
+  --paper: #f5f2e9;
+  --white: #fffdf8;
+  --coral: #ff416c;
+  --orange: #ff4b2b;
+  --yellow: #fff275;
+  --muted: #6d6a63;
+  --success: #157241;
+  --success-light: #b8ffcd;
+
+  /* Aliases cho các form và component */
+  --neo-primary: var(--ink);
+  --neo-secondary: var(--white);
+  --neo-accent: var(--coral);
+  --neo-orange: var(--orange);
+  --neo-yellow: var(--yellow);
+  --neo-paper: var(--paper);
+  --neo-muted: var(--muted);
+
+  /* Viền và Đổ bóng */
+  --line: 2px solid var(--ink);
+  --line-thick: 2.5px solid var(--ink);
+  --shadow: 4px 4px 0px var(--ink);
+  --shadow-sm: 2px 2px 0px var(--ink);
+  --shadow-lg: 8px 8px 0px var(--ink);
+  --neo-shadow: 8px 8px 0px var(--ink);
+
+  /* Font chữ chính */
+  --font-display: 'Syne', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'DM Mono', monospace;
+
+  /* Cỡ chữ */
+  --text-xs: 10px;
+  --text-sm: 12px;
+  --text-base: 14px;
+  --text-lg: 16px;
+  --text-xl: 20px;
+  --text-2xl: 24px;
+  --text-3xl: 32px;
+  --text-4xl: 40px;
+
+  /* Bo góc */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-full: 9999px;
+}

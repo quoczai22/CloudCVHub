@@ -1,0 +1,309 @@
+/* 4-pages/login.css - Chỉ dùng riêng cho trang đăng nhập & đăng ký (Hộp nhỏ gọn trượt ngang) */
+.login-page-root {
+  min-height: 100vh;
+  background-color: var(--neo-paper);
+  background-image: radial-gradient(var(--neo-primary) 1.2px, transparent 1.2px);
+  background-size: 24px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+  font-family: var(--font-mono);
+  box-sizing: border-box;
+}
+
+/* Container chính với kích thước hộp nhỏ gọn ("nhỏ nhỏ như lúc đầu") */
+.auth-slider-container {
+  background-color: var(--neo-secondary);
+  border: 2.5px solid var(--neo-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--neo-shadow);
+  position: relative;
+  width: 880px;
+  max-width: 100%;
+  min-height: 610px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.auth-slider-container::before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: -5px;
+  bottom: -5px;
+  border: 1px solid var(--neo-primary);
+  z-index: -1;
+  border-radius: var(--radius-lg);
+  pointer-events: none;
+}
+
+/* Các vùng chứa Form trượt (Sign In / Sign Up) */
+.form-slide-container {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transition: all 0.65s cubic-bezier(0.65, 0, 0.35, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.auth-form-content {
+  background-color: var(--neo-secondary);
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  flex-direction: column;
+  padding: 28px 36px;
+  height: 100%;
+  width: 100%;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+.sign-in-slide {
+  left: 0;
+  width: 50%;
+  z-index: 2;
+  opacity: 1;
+}
+
+.auth-slider-container.right-panel-active .sign-in-slide {
+  transform: translateX(100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sign-up-slide {
+  left: 0;
+  width: 50%;
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.auth-slider-container.right-panel-active .sign-up-slide {
+  transform: translateX(100%);
+  opacity: 1;
+  z-index: 5;
+  pointer-events: auto;
+  animation: neo-show 0.65s;
+}
+
+@keyframes neo-show {
+  0%, 49.99% {
+    opacity: 0;
+    z-index: 1;
+  }
+  50%, 100% {
+    opacity: 1;
+    z-index: 5;
+  }
+}
+
+/* Khối Overlay Trượt (Sliding Sidebar) */
+.overlay-slide-container {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  transition: transform 0.65s cubic-bezier(0.65, 0, 0.35, 1);
+  z-index: 100;
+  border-left: 2.5px solid var(--neo-primary);
+  box-sizing: border-box;
+}
+
+.auth-slider-container.right-panel-active .overlay-slide-container {
+  transform: translateX(-100%);
+  border-left: none;
+  border-right: 2.5px solid var(--neo-primary);
+}
+
+.overlay-track {
+  background: linear-gradient(145deg, var(--neo-accent) 0%, var(--neo-orange) 100%);
+  color: #FFFFFF;
+  position: relative;
+  left: -100%;
+  height: 100%;
+  width: 200%;
+  transform: translateX(0);
+  transition: transform 0.65s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.auth-slider-container.right-panel-active .overlay-track {
+  transform: translateX(50%);
+}
+
+.overlay-panel-item {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 36px;
+  text-align: center;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  transform: translateX(0);
+  transition: transform 0.65s cubic-bezier(0.65, 0, 0.35, 1);
+  user-select: none;
+  box-sizing: border-box;
+}
+
+.overlay-panel-item h2 {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 800;
+  margin: 8px 0;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  line-height: 1.15;
+}
+
+.overlay-panel-item p {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.6;
+  color: #FFFFFF;
+  margin: 0 0 18px;
+  max-width: 320px;
+}
+
+.overlay-panel-left {
+  transform: translateX(-20%);
+}
+
+.auth-slider-container.right-panel-active .overlay-panel-left {
+  transform: translateX(0);
+}
+
+.overlay-panel-right {
+  right: 0;
+  transform: translateX(0);
+}
+
+.auth-slider-container.right-panel-active .overlay-panel-right {
+  transform: translateX(20%);
+}
+
+.overlay-trust-badges {
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.35);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 340px;
+  text-align: left;
+}
+
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+}
+
+.trust-item svg {
+  flex-shrink: 0;
+  color: var(--neo-yellow);
+}
+
+.form-title {
+  font-family: var(--font-display);
+  color: var(--neo-primary);
+  font-size: 24px;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 2px;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+}
+
+.form-subtitle {
+  font-family: var(--font-mono);
+  color: var(--neo-muted);
+  text-align: center;
+  font-size: 11px;
+  margin-bottom: 16px;
+}
+
+/* Mobile responsive fallback */
+.mobile-toggle-strip {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .auth-slider-container {
+    min-height: auto;
+    overflow: visible;
+    box-shadow: 5px 5px 0px var(--neo-primary);
+  }
+
+  .overlay-slide-container {
+    display: none;
+  }
+
+  .form-slide-container {
+    position: relative;
+    width: 100%;
+    transform: none !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
+  .sign-in-slide,
+  .sign-up-slide {
+    display: none;
+  }
+
+  .auth-slider-container:not(.right-panel-active) .sign-in-slide {
+    display: flex;
+  }
+
+  .auth-slider-container.right-panel-active .sign-up-slide {
+    display: flex;
+  }
+
+  .auth-form-content {
+    padding: 24px 20px;
+  }
+
+  .mobile-toggle-strip {
+    display: flex;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 2px dashed var(--neo-primary);
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    gap: 6px;
+    font-family: var(--font-mono);
+  }
+
+  .mobile-toggle-strip button {
+    background: var(--neo-yellow);
+    border: 1.5px solid var(--neo-primary);
+    color: var(--neo-primary);
+    font-weight: 800;
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: var(--radius-sm);
+    box-shadow: 2px 2px 0px var(--neo-primary);
+    text-transform: uppercase;
+  }
+}

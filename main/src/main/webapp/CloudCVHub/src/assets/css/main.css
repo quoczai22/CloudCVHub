@@ -1,0 +1,33 @@
+/* ==========================================================================
+   CloudCVHub Main Stylesheet (Cây thư mục CSS chuẩn hóa)
+   ========================================================================== */
+
+/* 1. Base: Cấu hình nền tảng, thiết lập mặc định toàn bộ trang */
+@import "./1-base/reset.css";
+@import "./1-base/variables.css";
+@import "./1-base/typography.css";
+
+/* 2. Layout: Bố cục khung lớn của giao diện */
+@import "./2-layout/header.css";
+@import "./2-layout/footer.css";
+@import "./2-layout/sidebar.css";
+@import "./2-layout/grid.css";
+
+/* 3. Components: Các thành phần giao diện nhỏ, có tính tái sử dụng cao */
+@import "./3-components/buttons.css";
+@import "./3-components/cards.css";
+@import "./3-components/inputs.css";
+@import "./3-components/modal.css";
+
+/* 4. Pages: CSS đặc thù, chỉ áp dụng riêng cho một trang nhất định */
+@import "./4-pages/home.css";
+@import "./4-pages/product-detail.css";
+@import "./4-pages/cart.css";
+@import "./4-pages/login.css";
+
+/* 5. Utilities: Các class bổ trợ nhanh (Helper classes) */
+@import "./5-utilities/spacing.css";
+@import "./5-utilities/helpers.css";
+
+/* Đồng bộ màn hình ứng dụng Figma Mockup */
+@import "../../styles/figma-theme.css";

@@ -1,0 +1,145 @@
+/* 4-pages/home.css - Chỉ dùng riêng cho trang chủ (Dashboard / Tổng quan) */
+.sparkline {
+  width: 112px;
+  height: 40px;
+  overflow: visible;
+}
+
+.sparkline path {
+  fill: none;
+  stroke: var(--coral);
+  stroke-width: 3;
+  vector-effect: non-scaling-stroke;
+}
+
+.stat-yellow .sparkline path:not(.spark-grid) {
+  stroke: var(--ink);
+}
+
+.sparkline .spark-grid {
+  stroke: #ccc;
+  stroke-width: .6;
+  stroke-dasharray: 2 2;
+}
+
+.recent-title {
+  margin-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.recent-title button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border: 0;
+  background: none;
+  font: 8px var(--font-mono);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.quick-grid > button {
+  position: relative;
+  height: 127px;
+  padding: 13px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  background: var(--white);
+  border: var(--line);
+  box-shadow: 3px 3px 0 var(--ink);
+  cursor: pointer;
+  transition: transform .15s, box-shadow .15s;
+}
+
+.quick-grid > button:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+.quick-grid > button > .icon {
+  position: absolute;
+  right: 12px;
+  top: 16px;
+}
+
+.quick-grid b {
+  margin-top: 12px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.quick-grid small {
+  margin-top: 3px;
+  color: var(--muted);
+  font: 8px var(--font-mono);
+}
+
+/* Bảng thống kê và hàng quản trị */
+.admin-banner {
+  margin: 20px 0 16px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--yellow);
+  border: var(--line);
+  box-shadow: var(--shadow);
+  font: 11px var(--font-mono);
+}
+
+.admin-banner b {
+  display: block;
+}
+
+.admin-banner small {
+  color: var(--muted);
+}
+
+.admin-banner code {
+  margin-left: auto;
+  padding: 4px 8px;
+  background: var(--ink);
+  color: white;
+  font-size: 10px;
+}
+
+.admin-table {
+  display: grid;
+  gap: 2px;
+  background: var(--ink);
+  border: var(--line);
+}
+
+.admin-head, .admin-row {
+  display: grid;
+  grid-template-columns: 2fr 2fr 1.2fr 1.2fr 1.2fr;
+  padding: 12px 16px;
+  background: var(--white);
+  align-items: center;
+  font-size: 12px;
+}
+
+.admin-head {
+  background: var(--paper);
+  font: 700 10px var(--font-mono);
+  letter-spacing: 0.05em;
+}
+
+.admin-row:hover {
+  background: #fff;
+}
+
+.status.live {
+  color: var(--success);
+  font-weight: 700;
+  font-family: var(--font-mono);
+}
+
+.status.draft {
+  color: var(--muted);
+  font-family: var(--font-mono);
+}

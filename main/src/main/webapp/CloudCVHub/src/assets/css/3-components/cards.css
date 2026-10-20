@@ -1,0 +1,121 @@
+/* 3-components/cards.css - Các khối nội dung tin tức, hồ sơ, thẻ thông số (Cards) */
+.content-card {
+  background: var(--white);
+  border: var(--line);
+  box-shadow: var(--shadow);
+  padding: 20px;
+}
+
+.stat-card {
+  height: 153px;
+  padding: 15px 17px;
+  background: var(--white);
+  border: var(--line);
+  box-shadow: var(--shadow);
+}
+
+.stat-yellow {
+  background: var(--yellow);
+}
+
+.stat-head {
+  display: flex;
+  justify-content: space-between;
+  font: 9px var(--font-mono);
+}
+
+.stat-head b {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 20px;
+  background: var(--ink);
+  color: white;
+  font-size: 8px;
+}
+
+.stat-value {
+  margin-top: 8px;
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -.07em;
+  font-family: var(--font-display);
+}
+
+.stat-foot {
+  height: 45px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.stat-foot > span {
+  white-space: nowrap;
+  color: var(--success);
+  font: 8px var(--font-mono);
+}
+
+.stat-foot .dark-chip {
+  padding: 4px;
+  color: white;
+  background: var(--ink);
+}
+
+/* Thẻ Terminal mô phỏng console bảo mật */
+.terminal-card {
+  background: var(--ink);
+  border: 1.5px solid #333;
+  color: #fff;
+  padding: 14px;
+  box-shadow: 4px 4px 0 var(--yellow);
+  margin-top: 18px;
+}
+
+.terminal-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #333;
+  margin-bottom: 10px;
+}
+
+.terminal-bar span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ff5f56;
+}
+
+.terminal-bar span:nth-child(2) { background: #ffbd2e; }
+.terminal-bar span:nth-child(3) { background: #27c93f; }
+
+.terminal-bar b {
+  margin-left: auto;
+  font: 8px var(--font-mono);
+  color: #888;
+}
+
+.terminal-card code {
+  font: 10px/1.7 var(--font-mono);
+  color: #eee;
+  display: block;
+}
+
+.terminal-card code strong {
+  color: #69f4a9;
+}
+
+/* Thẻ Icon hành động */
+.action-icon {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border: var(--line);
+}
+
+.action-icon.coral { background: var(--coral); }
+.action-icon.yellow { background: var(--yellow); }
+.action-icon.white { background: white; }

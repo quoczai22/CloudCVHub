@@ -1,0 +1,148 @@
+/* 3-components/inputs.css - Giao diện ô nhập liệu, input fields, checkboxes, form elements */
+.field {
+  display: block;
+  margin: 0 0 16px;
+}
+
+.field > span {
+  display: block;
+  margin-bottom: 6px;
+  font: 600 10px var(--font-mono);
+  letter-spacing: .08em;
+  color: var(--ink);
+  text-transform: uppercase;
+}
+
+.field input, .field select, .field textarea {
+  width: 100%;
+  height: 48px;
+  padding: 0 14px;
+  background: var(--white);
+  border: var(--line);
+  outline: none;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  box-shadow: 2px 2px 0 transparent;
+  transition: all 0.2s ease;
+  border-radius: var(--radius-sm);
+}
+
+.field input:focus, .field select:focus, .field textarea:focus {
+  box-shadow: 4px 4px 0 var(--coral);
+  border-color: var(--ink);
+}
+
+/* Form Login input group */
+.input-group {
+  margin-bottom: 12px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 700;
+  color: var(--neo-primary);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  font-family: var(--font-mono);
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-wrapper input {
+  width: 100%;
+  padding: 9px 12px;
+  border: 2px solid var(--neo-primary);
+  background-color: var(--neo-secondary);
+  font-size: 13px;
+  font-family: var(--font-mono);
+  outline: none;
+  transition: all 0.2s ease;
+  border-radius: var(--radius-sm);
+  color: var(--neo-primary);
+}
+
+.input-wrapper input::placeholder {
+  color: #71717a;
+  opacity: 1;
+}
+
+.input-wrapper input:focus {
+  box-shadow: 3px 3px 0px var(--neo-accent);
+  border-color: var(--neo-accent);
+  transform: translate(-1px, -1px);
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--neo-primary);
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Checkbox & Options */
+.login-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  margin-bottom: 12px;
+  color: var(--neo-primary);
+  font-family: var(--font-mono);
+}
+
+.login-options label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.login-options input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  border: 2px solid var(--neo-primary);
+  accent-color: var(--neo-accent);
+  cursor: pointer;
+}
+
+.login-options a {
+  color: var(--neo-primary);
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.login-options a:hover {
+  color: var(--neo-accent);
+}
+
+/* Đường phân cách Divider */
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 14px 0 10px;
+  color: var(--neo-muted);
+  font-weight: 600;
+  font-size: 10px;
+  font-family: var(--font-mono);
+  letter-spacing: 0.06em;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1.5px solid #d4d4d8;
+  margin: 0 8px;
+}

@@ -1,0 +1,54 @@
+/* 4-pages/product-detail.css - Chỉ dùng riêng cho trang chi tiết sản phẩm / CV */
+.detail-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 24px;
+}
+
+.cv-preview-container {
+  background: var(--white);
+  border: var(--line);
+  box-shadow: var(--shadow);
+  padding: 24px;
+  min-height: 580px;
+  display: flex;
+  flex-direction: column;
+}
+
+.version-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.version-card {
+  padding: 12px 14px;
+  background: var(--white);
+  border: var(--line);
+  box-shadow: 2px 2px 0 var(--ink);
+  transition: transform 0.15s;
+}
+
+.version-card:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+.version-card.active {
+  background: var(--yellow);
+}
+
+.file-meta-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  background: var(--ink);
+  color: white;
+  font: 9px var(--font-mono);
+  margin-right: 6px;
+}
+
+@media (max-width: 900px) {
+  .detail-layout {
+    grid-template-columns: 1fr;
+  }
+}

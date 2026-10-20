@@ -1,0 +1,101 @@
+/* 2-layout/header.css - Khu vực đầu trang & Thanh điều hướng trên cùng (Topbar) */
+.topbar {
+  height: 70px;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--white);
+  border-bottom: var(--line);
+  position: sticky;
+  top: 0;
+  z-index: 30;
+}
+
+.topbar > div:first-child {
+  display: flex;
+  gap: 8px;
+  font: 10px var(--font-mono);
+}
+
+.topbar > div:first-child span {
+  color: #8e8a82;
+}
+
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.search {
+  height: 36px;
+  width: 250px;
+  padding: 0 9px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1.5px solid var(--ink);
+  background: var(--paper);
+}
+
+.search input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font: 9px var(--font-mono);
+}
+
+.search kbd {
+  white-space: nowrap;
+  padding: 3px 5px;
+  border: 1px solid #aaa;
+  background: white;
+  font: 8px var(--font-mono);
+}
+
+.square-btn {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  background: white;
+  border: 1.5px solid var(--ink);
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.square-btn:hover {
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+.square-btn i {
+  position: absolute;
+  right: -3px;
+  top: -3px;
+  width: 8px;
+  height: 8px;
+  border: 1px solid var(--ink);
+  background: var(--coral);
+}
+
+.system-online {
+  padding: 9px 10px;
+  background: var(--ink);
+  color: white;
+  font: 8px var(--font-mono);
+  display: inline-flex;
+  align-items: center;
+}
+
+.system-online i {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: #69f4a9;
+  box-shadow: 0 0 6px #69f4a9;
+}

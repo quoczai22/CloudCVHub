@@ -1,0 +1,137 @@
+/* 3-components/buttons.css - Các kiểu nút bấm Neo-Brutalist */
+.btn {
+  min-height: 48px;
+  padding: 0 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: var(--line);
+  font: 600 12px var(--font-mono);
+  letter-spacing: .04em;
+  box-shadow: var(--shadow);
+  transition: transform .15s, box-shadow .15s;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.btn:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+.btn:active {
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+
+.btn-dark {
+  background: var(--ink);
+  color: white;
+}
+
+.btn-light {
+  background: var(--white);
+  color: var(--ink);
+}
+
+.btn-yellow {
+  background: var(--yellow);
+  color: var(--ink);
+}
+
+.btn-danger {
+  background: var(--coral);
+  color: white;
+}
+
+/* Nút Submit Form Neo-Brutalist */
+.neo-btn {
+  width: 100%;
+  padding: 11px 14px;
+  background-color: var(--neo-primary);
+  color: #ffffff;
+  border: 2px solid var(--neo-primary);
+  font-size: 12px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  cursor: pointer;
+  margin-top: 4px;
+  transition: all 0.2s ease;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  box-shadow: 3px 3px 0px var(--neo-primary);
+}
+
+.neo-btn:hover:not(:disabled) {
+  box-shadow: 5px 5px 0px var(--neo-accent);
+  background-color: var(--neo-accent);
+  transform: translate(-2px, -2px);
+}
+
+.neo-btn:active:not(:disabled) {
+  box-shadow: 1px 1px 0px var(--neo-primary);
+  transform: translate(1px, 1px);
+}
+
+.neo-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* Nút viền trắng trên nền Overlay đỏ gradient */
+.ghost-neo-btn {
+  background-color: transparent;
+  border: 2px solid #FFFFFF;
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 10px 28px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  box-shadow: 3px 3px 0 var(--neo-primary);
+  transition: all 0.2s ease;
+}
+
+.ghost-neo-btn:hover {
+  background-color: var(--neo-yellow);
+  color: var(--neo-primary);
+  border-color: var(--neo-primary);
+  box-shadow: 5px 5px 0px var(--neo-primary);
+  transform: translate(-2px, -2px);
+}
+
+.ghost-neo-btn:active {
+  box-shadow: 1px 1px 0px var(--neo-primary);
+  transform: translate(1px, 1px);
+}
+
+/* Nút đăng nhập mạng xã hội */
+.social-btn {
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--neo-primary);
+  background-color: var(--neo-secondary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: var(--radius-sm);
+  color: var(--neo-primary);
+  box-shadow: 2px 2px 0px var(--neo-primary);
+}
+
+.social-btn:hover {
+  box-shadow: 4px 4px 0px var(--neo-primary);
+  transform: translate(-2px, -2px);
+  background-color: var(--neo-yellow);
+}

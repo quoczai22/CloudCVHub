@@ -1,0 +1,44 @@
+/* 1-base/typography.css - Cấu hình font cho body, headings, links, code */
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Syne:wght@500;600;700;800&display=swap");
+
+body {
+  font-family: var(--font-display);
+  color: var(--ink);
+  background-color: var(--paper);
+  font-size: var(--text-base);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--ink);
+  letter-spacing: -0.04em;
+}
+
+h1 { font-size: var(--text-4xl); }
+h2 { font-size: var(--text-3xl); }
+h3 { font-size: var(--text-2xl); }
+h4 { font-size: var(--text-xl); }
+
+p {
+  line-height: 1.6;
+}
+
+code, kbd, pre, samp {
+  font-family: var(--font-mono);
+}
+
+.kicker {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font: 600 11px var(--font-mono);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.kicker span {
+  color: var(--coral);
+  font-weight: 700;
+}
