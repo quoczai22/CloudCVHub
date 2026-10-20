@@ -40,7 +40,7 @@ function GithubIcon() {
   );
 }
 
-function LoginPage() {
+function LoginPage({ onLoginSuccess }) {
   const [isRightPanelActive, setIsRightPanelActive] = useState(false);
 
   // States Đăng nhập
@@ -101,8 +101,12 @@ function LoginPage() {
         }
         showAlert(data.message || 'Đăng nhập thành công!', 'success');
         setTimeout(() => {
-          window.location.href = '/';
-        }, 800);
+          if (onLoginSuccess) {
+            onLoginSuccess(data.result?.accessToken, data.result?.user);
+          } else {
+            window.location.href = '/';
+          }
+        }, 500);
       })
       .catch((error) => {
         showAlert(error.message || 'Không thể kết nối đến máy chủ.');
@@ -223,6 +227,36 @@ function LoginPage() {
 
             <button type="submit" disabled={isLoginLoading} className="neo-btn">
               {isLoginLoading ? 'ĐANG XỬ LÝ...' : 'ĐĂNG NHẬP'}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                const demoToken = "demo-token-pro-access";
+                const demoUser = { fullName: "Nguyễn Minh Anh", email: "minhanh.nguyen@cloudcv.io", role: "PRO" };
+                localStorage.setItem("token", demoToken);
+                localStorage.setItem("user", JSON.stringify(demoUser));
+                showAlert("Đang kích hoạt chế độ Demo...", "success");
+                setTimeout(() => {
+                  if (onLoginSuccess) {
+                    onLoginSuccess(demoToken, demoUser);
+                  } else {
+                    window.location.href = "/";
+                  }
+                }, 400);
+              }}
+              className="neo-btn"
+              style={{
+                marginTop: "10px",
+                backgroundColor: "#FFF275",
+                color: "#000000",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "8px",
+              }}
+            >
+              ⚡ TRẢI NGHIỆM CHẾ ĐỘ DEMO
             </button>
 
             <div className="divider">HOẶC TIẾP TỤC VỚI</div>
