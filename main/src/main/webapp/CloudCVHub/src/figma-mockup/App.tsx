@@ -1,5 +1,6 @@
 import { useMemo, useState, useEffect, type ReactNode } from "react"
 import { apiUrl } from "../apis/apiClient"
+import LoginPage from "../pages/Login.jsx"
 
 type IconName = "grid" | "file" | "cloud" | "user" | "settings" | "search" | "plus" | "upload" | "edit" | "link" | "history" | "trash" | "shield" | "check" | "arrow" | "menu" | "bell" | "logout" | "lock"
 
@@ -1745,7 +1746,7 @@ function AdminScreen({
   )
 }
 
-export default function App() {
+export default function App({ onLogout: parentLogout }: { onLogout?: () => void } = {}) {
   const [token, setToken] = useState<string | null>(() => localStorage.getItem("token"))
   const [user, setUser] = useState<any>(() => {
     try {
@@ -1762,6 +1763,7 @@ export default function App() {
     localStorage.removeItem("user")
     setToken(null)
     setUser(null)
+    parentLogout?.()
   }
 
   const handleLoginSuccess = (newToken: string, newUser: any) => {
@@ -1773,7 +1775,7 @@ export default function App() {
   }
 
   if (!token) {
-    return <AuthScreen onLoginSuccess={handleLoginSuccess} />
+    return <LoginPage onLoginSuccess={handleLoginSuccess} />
   }
 
   const props: ScreenProps = {

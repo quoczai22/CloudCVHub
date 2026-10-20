@@ -5,7 +5,31 @@ import Alert from '../components/Alert.jsx';
 import { apiUrl } from '../config/api.js';
 
 function BrandMark() {
-  return null;
+  return (
+    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
+      <span style={{
+        width: '28px',
+        height: '28px',
+        display: 'grid',
+        placeItems: 'center',
+        background: '#FFF275',
+        border: '2px solid #111111',
+        boxShadow: '2px 2px 0 #111111',
+        fontWeight: 800,
+        fontSize: '14px',
+        color: '#111111'
+      }}>C</span>
+      <span style={{
+        fontFamily: "'Syne', sans-serif",
+        fontWeight: 800,
+        fontSize: '18px',
+        letterSpacing: '-0.04em',
+        color: '#111111'
+      }}>
+        Cloud<span style={{ color: '#FF416C' }}>CV</span>Hub
+      </span>
+    </div>
+  );
 }
 
 
@@ -180,6 +204,7 @@ function LoginPage({ onLoginSuccess }) {
         {/* ================= 1. FORM ĐĂNG NHẬP (TRÁI) ================= */}
         <div className="form-slide-container sign-in-slide">
           <form onSubmit={handleLoginSubmit} className="auth-form-content">
+            <BrandMark />
             <h1 className="form-title">ĐĂNG NHẬP</h1>
             <p className="form-subtitle">Quản lý hồ sơ đám mây CloudCVHub</p>
 
@@ -293,6 +318,7 @@ function LoginPage({ onLoginSuccess }) {
         {/* ================= 2. FORM ĐĂNG KÝ (PHẢI TRƯỢT SANG) ================= */}
         <div className="form-slide-container sign-up-slide">
           <form onSubmit={handleRegisterSubmit} className="auth-form-content">
+            <BrandMark />
             <h1 className="form-title">TẠO TÀI KHOẢN</h1>
             <p className="form-subtitle">Bắt đầu lưu trữ & chia sẻ CV miễn phí</p>
 
