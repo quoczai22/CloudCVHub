@@ -913,8 +913,10 @@ function CVTableScreen(props: ScreenProps) {
               </button>
             </div>
           </div>
-          <div className="table-shell">
-            <div className="table-head">
+          <div className="neo-dashed-card group relative block">
+            <span className="absolute inset-0 border-2 border-dashed border-black pointer-events-none" aria-hidden="true" />
+            <div className="relative border-2 border-black bg-white transition-transform duration-200 group-hover:-translate-x-2 group-hover:-translate-y-2 table-shell shadow-[4px_4px_0_#000]">
+              <div className="table-head">
               <span>DOCUMENT / TITLE</span>
               <span>LAST MODIFIED</span>
               <span>VIEWS</span>
@@ -1016,6 +1018,7 @@ function CVTableScreen(props: ScreenProps) {
                 <button>NEXT →</button>
               </div>
             </div>
+          </div>
           </div>
           <div className="table-note">
             <Icon name="shield" size={16} /> ALL DOCUMENTS ARE ENCRYPTED AT REST
@@ -1152,111 +1155,120 @@ function ProfileScreen(props: ScreenProps) {
               </div>
             </div>
             <div className="profile-content">
-              <div className="spec-panel">
-                <div className="panel-heading">
-                  <span>
-                    <Kicker>CORE SPECIFICATIONS</Kicker>
-                    <h3>Identity data</h3>
-                  </span>
-                  <b>02 / PROFILE</b>
-                </div>
-                <div className="spec-grid">
-                  <label>
-                    <span>DISPLAY NAME</span>
-                    <input defaultValue="Nguyễn Minh Anh" readOnly={!editing} />
-                  </label>
-                  <label>
-                    <span>ROLE / TITLE</span>
-                    <input
-                      defaultValue="Senior Product Designer"
-                      readOnly={!editing}
-                    />
-                  </label>
-                  <label>
-                    <span>PRIMARY EMAIL</span>
-                    <input
-                      defaultValue="minhanh@cloudcvhub.vn"
-                      readOnly={!editing}
-                    />
-                  </label>
-                  <label>
-                    <span>BASE LOCATION</span>
-                    <input
-                      defaultValue="Hà Nội, Việt Nam"
-                      readOnly={!editing}
-                    />
-                  </label>
-                  <label className="wide">
-                    <span>PUBLIC PROFILE URL</span>
-                    <div>
-                      <code>cloudcvhub.dev/u/</code>
+              {/* 1. Core Specifications Panel with Dashed Frame */}
+              <div className="neo-dashed-card group relative block">
+                <span className="absolute inset-0 border-2 border-dashed border-black pointer-events-none" aria-hidden="true" />
+                <div className="relative border-2 border-black bg-[#fffdf8] transition-transform duration-200 group-hover:-translate-x-2 group-hover:-translate-y-2 spec-panel shadow-[4px_4px_0_#000]">
+                  <div className="panel-heading">
+                    <span>
+                      <Kicker>CORE SPECIFICATIONS</Kicker>
+                      <h3>Identity data</h3>
+                    </span>
+                    <b>02 / PROFILE</b>
+                  </div>
+                  <div className="spec-grid">
+                    <label>
+                      <span>DISPLAY NAME</span>
+                      <input defaultValue="Nguyễn Minh Anh" readOnly={!editing} />
+                    </label>
+                    <label>
+                      <span>ROLE / TITLE</span>
                       <input
-                        defaultValue="nguyen-minh-anh"
+                        defaultValue="Senior Product Designer"
                         readOnly={!editing}
                       />
-                      <button>
-                        <Icon name="link" />
-                      </button>
-                    </div>
-                  </label>
+                    </label>
+                    <label>
+                      <span>PRIMARY EMAIL</span>
+                      <input
+                        defaultValue="minhanh@cloudcvhub.vn"
+                        readOnly={!editing}
+                      />
+                    </label>
+                    <label>
+                      <span>BASE LOCATION</span>
+                      <input
+                        defaultValue="Hà Nội, Việt Nam"
+                        readOnly={!editing}
+                      />
+                    </label>
+                    <label className="wide">
+                      <span>PUBLIC PROFILE URL</span>
+                      <div>
+                        <code>cloudcvhub.dev/u/</code>
+                        <input
+                          defaultValue="nguyen-minh-anh"
+                          readOnly={!editing}
+                        />
+                        <button type="button" aria-label="Sao chép liên kết hồ sơ">
+                          <Icon name="link" />
+                        </button>
+                      </div>
+                    </label>
+                  </div>
                 </div>
               </div>
-              <div className="security-panel">
-                <div className="panel-heading">
-                  <span>
-                    <Kicker>SECURITY CAPABILITIES</Kicker>
-                    <h3>Access & protection</h3>
-                  </span>
-                  <div className="clearance">
-                    <i /> CLEARANCE: MAX
-                  </div>
-                </div>
-                <div className="capability-list">
-                  <div>
-                    <span className="cap-icon">
-                      <Icon name="lock" />
-                    </span>
+
+              {/* 2. Security Capabilities Panel with Dashed Frame */}
+              <div className="neo-dashed-card group relative block">
+                <span className="absolute inset-0 border-2 border-dashed border-black pointer-events-none" aria-hidden="true" />
+                <div className="relative border-2 border-black bg-[#fffdf8] transition-transform duration-200 group-hover:-translate-x-2 group-hover:-translate-y-2 security-panel shadow-[4px_4px_0_#000]">
+                  <div className="panel-heading">
                     <span>
-                      <b>TWO-FACTOR AUTHENTICATION</b>
-                      <small>Authenticator app enabled</small>
+                      <Kicker>SECURITY CAPABILITIES</Kicker>
+                      <h3>Access & protection</h3>
                     </span>
-                    <i className="status live">ACTIVE</i>
-                    <button>
-                      MANAGE <Icon name="arrow" size={14} />
-                    </button>
+                    <div className="clearance">
+                      <i /> CLEARANCE: MAX
+                    </div>
                   </div>
-                  <div>
-                    <span className="cap-icon yellow">
-                      <Icon name="shield" />
-                    </span>
+                  <div className="capability-list">
+                    <div>
+                      <span className="cap-icon">
+                        <Icon name="lock" />
+                      </span>
+                      <span>
+                        <b>TWO-FACTOR AUTHENTICATION</b>
+                        <small>Authenticator app enabled</small>
+                      </span>
+                      <i className="status live">ACTIVE</i>
+                      <button type="button">
+                        MANAGE <Icon name="arrow" size={14} />
+                      </button>
+                    </div>
+                    <div>
+                      <span className="cap-icon yellow">
+                        <Icon name="shield" />
+                      </span>
+                      <span>
+                        <b>END-TO-END ENCRYPTION</b>
+                        <small>AES-256 / All vault documents</small>
+                      </span>
+                      <i className="status live">ENFORCED</i>
+                      <button type="button">
+                        DETAILS <Icon name="arrow" size={14} />
+                      </button>
+                    </div>
+                    <div>
+                      <span className="cap-icon">
+                        <Icon name="history" />
+                      </span>
+                      <span>
+                        <b>SESSION CONTROL</b>
+                        <small>3 authorized devices</small>
+                      </span>
+                      <i className="status draft">3 DEVICES</i>
+                      <button type="button">
+                        REVIEW <Icon name="arrow" size={14} />
+                      </button>
+                    </div>
+                  </div>
+                  <div className="security-foot">
                     <span>
-                      <b>END-TO-END ENCRYPTION</b>
-                      <small>AES-256 / All vault documents</small>
+                      <Icon name="check" /> LAST SECURITY AUDIT: 12 MAY 2025
                     </span>
-                    <i className="status live">ENFORCED</i>
-                    <button>
-                      DETAILS <Icon name="arrow" size={14} />
-                    </button>
+                    <b>NO ANOMALIES DETECTED</b>
                   </div>
-                  <div>
-                    <span className="cap-icon">
-                      <Icon name="history" />
-                    </span>
-                    <span>
-                      <b>SESSION CONTROL</b>
-                      <small>3 authorized devices</small>
-                    </span>
-                    <i className="status draft">3 DEVICES</i>
-                    <button>
-                      REVIEW <Icon name="arrow" size={14} />
-                    </button>
-                  </div>
-                </div>
-                <div className="security-foot">
-                  <span>
-                    <Icon name="check" /> LAST SECURITY AUDIT: 12 MAY 2025
-                  </span>
-                  <b>NO ANOMALIES DETECTED</b>
                 </div>
               </div>
             </div>
@@ -1712,34 +1724,37 @@ function AdminScreen({
           </span>
           <code>ADMIN_8842</code>
         </div>
-        <div className="content-card admin-table">
-          <div className="admin-head">
-            <span>{mode === "users" ? "NGƯỜI DÙNG" : "TÀI LIỆU"}</span>
-            <span>{mode === "users" ? "EMAIL" : "CHỦ SỞ HỮU"}</span>
-            <span>{mode === "users" ? "GÓI" : "DUNG LƯỢNG"}</span>
-            <span>{mode === "users" ? "TÀI NGUYÊN" : "TRUY CẬP"}</span>
-            <span>TRẠNG THÁI</span>
-          </div>
-          {rows.map((row) => (
-            <div className="admin-row" key={row[0]}>
-              {row.map((cell, index) => (
-                <span
-                  key={cell}
-                  className={
-                    index === 4
-                      ? `status ${
-                          cell === "HOẠT ĐỘNG" || cell === "AN TOÀN"
-                            ? "live"
-                            : "draft"
-                        }`
-                      : ""
-                  }
-                >
-                  {index === 0 ? <b>{cell}</b> : cell}
-                </span>
-              ))}
+        <div className="neo-dashed-card group relative block">
+          <span className="absolute inset-0 border-2 border-dashed border-black pointer-events-none" aria-hidden="true" />
+          <div className="relative border-2 border-black bg-white transition-transform duration-200 group-hover:-translate-x-2 group-hover:-translate-y-2 content-card admin-table shadow-[4px_4px_0_#000]">
+            <div className="admin-head">
+              <span>{mode === "users" ? "NGƯỜI DÙNG" : "TÀI LIỆU"}</span>
+              <span>{mode === "users" ? "EMAIL" : "CHỦ SỞ HỮU"}</span>
+              <span>{mode === "users" ? "GÓI" : "DUNG LƯỢNG"}</span>
+              <span>{mode === "users" ? "TÀI NGUYÊN" : "TRUY CẬP"}</span>
+              <span>TRẠNG THÁI</span>
             </div>
-          ))}
+            {rows.map((row) => (
+              <div className="admin-row" key={row[0]}>
+                {row.map((cell, index) => (
+                  <span
+                    key={cell}
+                    className={
+                      index === 4
+                        ? `status ${
+                            cell === "HOẠT ĐỘNG" || cell === "AN TOÀN"
+                              ? "live"
+                              : "draft"
+                          }`
+                        : ""
+                    }
+                  >
+                    {index === 0 ? <b>{cell}</b> : cell}
+                  </span>
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </AppShell>

@@ -1,4 +1,24 @@
 /* 3-components/cards.css - Các khối nội dung tin tức, hồ sơ, thẻ thông số (Cards) */
+
+/* Neo-Brutalist Dashed Offset Card Container */
+.neo-dashed-card {
+  position: relative;
+  display: block;
+}
+
+.neo-dashed-card > span[aria-hidden="true"] {
+  border-color: var(--ink);
+}
+
+.spec-panel, .security-panel {
+  position: relative;
+  background: var(--white);
+  border: var(--line);
+  box-shadow: 4px 4px 0px var(--ink);
+  padding: 24px 28px;
+  box-sizing: border-box;
+}
+
 .content-card {
   background: var(--white);
   border: var(--line);
