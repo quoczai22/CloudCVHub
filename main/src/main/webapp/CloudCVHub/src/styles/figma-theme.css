@@ -58,6 +58,10 @@
 .divider { height: 44px; display: flex; align-items: center; }
 .divider::before, .divider::after { content: ''; flex: 1; border-top: 1px solid var(--ink); }
 .divider span { padding: 0 13px; font: 9px 'DM Mono', monospace; }
+.social-login { display: flex; justify-content: center; align-items: center; gap: 16px; margin: 12px 0 16px; width: 100%; }
+.social-btn { width: 44px; height: 44px; border: 2px solid var(--ink); background-color: var(--white); display: inline-flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1); border-radius: 6px; color: var(--ink); box-shadow: 3px 3px 0px var(--ink); }
+.social-btn:hover { box-shadow: 5px 5px 0px var(--ink); transform: translate(-2px, -2px); background-color: var(--yellow); }
+.social-btn:active { box-shadow: 1px 1px 0px var(--ink); transform: translate(2px, 2px); }
 .google-g { font: 700 18px Arial, sans-serif; color: var(--coral); }
 .signup { margin-top: 24px; text-align: center; font: 10px 'DM Mono', monospace; }
 .signup button { color: var(--coral); }

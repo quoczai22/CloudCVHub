@@ -240,10 +240,22 @@
   margin-bottom: 16px;
 }
 
+/* Khối nút đăng nhập xã hội căn chính giữa hàng ngang */
+.social-login {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 16px !important;
+  width: 100% !important;
+  margin: 12px 0 16px !important;
+}
+
 /* Mobile responsive fallback */
 .mobile-toggle-strip {
   display: none;
 }
+
 
 @media (max-width: 768px) {
   .auth-slider-container {

@@ -284,7 +284,9 @@ function LoginPage({ onLoginSuccess }) {
               ⚡ TRẢI NGHIỆM CHẾ ĐỘ DEMO
             </button>
 
-            <div className="divider">HOẶC TIẾP TỤC VỚI</div>
+            <div className="divider">
+              <span>HOẶC TIẾP TỤC VỚI</span>
+            </div>
 
             <div className="social-login">
               <button
