@@ -233,27 +233,45 @@ function AuthScreen({
 
   return (
     <section
-      className="artboard auth-screen"
+      className={`artboard auth-screen ${isRegister ? "register-active" : ""}`}
       aria-label="Authentication screen"
     >
-      <div className="auth-left">
+      {/* Sliding Brand Panel */}
+      <div className="auth-brand-panel">
         <div className="auth-top">
           {logo}
-          <span className="version-tag">SYS.V2.4</span>
+          <span className="version-tag">{isRegister ? "SYS.REGISTER" : "SYS.V2.4"}</span>
         </div>
         <div className="welcome-card">
-          <Kicker>YOUR CAREER. ENCRYPTED.</Kicker>
-          <h1>
-            BUILD.
-            <br />
-            STORE.
-            <br />
-            <em>STAND OUT.</em>
-          </h1>
-          <p>
-            Your private command center for creating, versioning and sharing
-            career-defining CVs.
-          </p>
+          <Kicker>{isRegister ? "JOIN THE NETWORK" : "YOUR CAREER. ENCRYPTED."}</Kicker>
+          {isRegister ? (
+            <>
+              <h1>
+                JOIN.
+                <br />
+                ENCRYPT.
+                <br />
+                <em>STAND OUT.</em>
+              </h1>
+              <p>
+                Khởi tạo kho lưu trữ CV bảo mật đám mây, đa phiên bản và sẵn sàng kết nối cùng nhà tuyển dụng.
+              </p>
+            </>
+          ) : (
+            <>
+              <h1>
+                BUILD.
+                <br />
+                STORE.
+                <br />
+                <em>STAND OUT.</em>
+              </h1>
+              <p>
+                Your private command center for creating, versioning and sharing
+                career-defining CVs.
+              </p>
+            </>
+          )}
           <div className="terminal-card">
             <div className="terminal-bar">
               <span></span>
@@ -262,15 +280,30 @@ function AuthScreen({
               <b>secure_terminal</b>
             </div>
             <code>
-              <i>$</i> vault.status
+              <i>$</i> {isRegister ? "user.register --init" : "vault.status"}
               <br />
-              <strong>✓ ALL SYSTEMS SECURE</strong>
+              <strong>{isRegister ? "✓ VAULT READY FOR ONBOARDING" : "✓ ALL SYSTEMS SECURE"}</strong>
               <br />
               <i>$</i> encryption
               <br />
-              <strong>AES-256-GCM</strong>
+              <strong>AES-256-GCM + SHA-256</strong>
               <span className="cursor">_</span>
             </code>
+          </div>
+
+          <div className="auth-trust-badges">
+            <div className="auth-trust-item">
+              <span><Icon name="shield" size={14} /></span>
+              <b>Mã hóa AES-256 & Xác thực SHA-256</b>
+            </div>
+            <div className="auth-trust-item">
+              <span><Icon name="file" size={14} /></span>
+              <b>Quản lý lịch sử đa phiên bản CV</b>
+            </div>
+            <div className="auth-trust-item">
+              <span><Icon name="lock" size={14} /></span>
+              <b>Chia sẻ link bảo mật có thời hạn</b>
+            </div>
           </div>
         </div>
         <div className="auth-foot">
@@ -278,7 +311,9 @@ function AuthScreen({
           <span>END-TO-END ENCRYPTED</span>
         </div>
       </div>
-      <div className="auth-right">
+
+      {/* Sliding Forms Panel */}
+      <div className="auth-forms-panel">
         <div className="pixel-grid" />
         <div className="login-wrap">
           <div className="login-index">{isRegister ? "02 / REGISTER" : "01 / ACCESS"}</div>
@@ -371,7 +406,7 @@ function AuthScreen({
             <Icon name="shield" size={16} /> TRẢI NGHIỆM CHẾ ĐỘ DEMO (PRO VAULT)
           </Button>
           <p className="signup">
-            {isRegister ? "ĐÃ CÓ TÀI KHOẢN? " : "NEW TO THE NETWORK? "}
+            {isRegister ? "ĐÃ CÓ TÀI KHOẢN? " : "CHƯA CÓ TÀI KHOẢN? "}
             <button
               type="button"
               onClick={() => {
@@ -380,7 +415,7 @@ function AuthScreen({
                 setMessage("")
               }}
             >
-              {isRegister ? "ĐĂNG NHẬP →" : "CREATE ACCOUNT →"}
+              {isRegister ? "← ĐĂNG NHẬP" : "TẠO TÀI KHOẢN →"}
             </button>
           </p>
         </div>
