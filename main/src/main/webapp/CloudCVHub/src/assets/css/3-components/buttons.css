@@ -45,6 +45,34 @@
   color: white;
 }
 
+/* Nút kết hợp đổi màu vàng (yellow-200) và hiệu ứng hover nhấn lún (translate-1 shadow-none) */
+.btn-neo-press {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #000000;
+  background-color: #ffffff;
+  padding: 12px 20px;
+  font-weight: 600;
+  color: #000000;
+  box-shadow: 4px 4px 0px 0px #000000;
+  transition: all 0.15s ease-in-out;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: var(--font-mono);
+}
+
+.btn-neo-press:hover {
+  background-color: #fef08a; /* yellow-200 */
+  transform: translate(4px, 4px);
+  box-shadow: none;
+}
+
+.btn-neo-press:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #fde047;
+}
+
 /* Nút Submit Form Neo-Brutalist */
 .neo-btn {
   width: 100%;
