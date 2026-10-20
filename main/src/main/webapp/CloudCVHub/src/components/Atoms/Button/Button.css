@@ -1,0 +1,5 @@
+/* Button Atom Styles (Inherits Neobrutalism theme) */
+.btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: none !important;
+}
