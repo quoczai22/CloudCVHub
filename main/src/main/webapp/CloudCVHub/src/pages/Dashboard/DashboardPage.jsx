@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import Icon from '../../components/UI/Icon'
-import Kicker from '../../components/UI/Kicker'
-import Button from '../../components/UI/Button'
 import Sidebar from '../../components/Common/Sidebar'
 import Header from '../../components/Common/Header'
-import StatGrid from './components/StatGrid'
+import DashboardSummary from './components/DashboardSummary'
+import DashboardChart from './components/DashboardChart'
 import QuickActions from './components/QuickActions'
 import RecentEdits from './components/RecentEdits'
 import VaultMonitor from './components/VaultMonitor'
+import './DashboardPage.css'
 
 export default function DashboardPage({
   onNavigate,
@@ -36,22 +36,8 @@ export default function DashboardPage({
       <main className="app-main">
         <Header section="Tổng quan" onMenu={onMenu} />
         <div className="page dashboard-page">
-          <div className="page-heading">
-            <div>
-              <Kicker>THỨ HAI, 12 THÁNG 5</Kicker>
-              <h2>
-                Trung tâm điều hành<span>.</span>
-              </h2>
-              <p>
-                Chào Minh Anh. Kho CV của bạn đang an toàn và hoạt động ổn định.
-              </p>
-            </div>
-            <Button icon="plus" onClick={() => onNavigate("upload")}>
-              TẠO CV MỚI
-            </Button>
-          </div>
-
-          <StatGrid />
+          <DashboardSummary onNavigate={onNavigate} />
+          <DashboardChart />
 
           <div className="dash-columns">
             <div>
