@@ -1,0 +1,279 @@
+import { useState, useMemo } from 'react'
+import Icon from '../components/UI/Icon'
+import Kicker from '../components/UI/Kicker'
+import Button from '../components/UI/Button'
+import Sidebar from '../layouts/Sidebar'
+import Topbar from '../layouts/Topbar'
+
+const cvs = [
+  {
+    title: "Product Designer cấp cao",
+    type: "SẢN PHẨM / UX",
+    modified: "2 GIỜ TRƯỚC",
+    views: 184,
+    status: "LIVE",
+    version: "v8.2",
+  },
+  {
+    title: "Trưởng nhóm Design System",
+    type: "VẬN HÀNH THIẾT KẾ",
+    modified: "HÔM QUA",
+    views: 92,
+    status: "DRAFT",
+    version: "v4.0",
+  },
+  {
+    title: "Hồ sơ nghiên cứu người dùng",
+    type: "NGHIÊN CỨU UX",
+    modified: "03 THÁNG 5 2025",
+    views: 56,
+    status: "LIVE",
+    version: "v3.1",
+  },
+  {
+    title: "Giám đốc sáng tạo",
+    type: "LÃNH ĐẠO",
+    modified: "28 THÁNG 4 2025",
+    views: 211,
+    status: "ARCHIVED",
+    version: "v6.4",
+  },
+  {
+    title: "Product Designer tự do",
+    type: "FREELANCE",
+    modified: "14 THÁNG 4 2025",
+    views: 38,
+    status: "DRAFT",
+    version: "v2.0",
+  },
+]
+
+export default function CVListPage(props) {
+  const { onNavigate, drawerOpen, onMenu, onClose, user, onLogout } = props
+  const [filter, setFilter] = useState("ALL CVS")
+  const [search, setSearch] = useState("")
+  const [menu, setMenu] = useState("Product Designer cấp cao")
+  const [loading, setLoading] = useState(false)
+  const [deleteTarget, setDeleteTarget] = useState(null)
+  const filtered = useMemo(
+    () =>
+      cvs.filter(
+        (cv) =>
+          (filter === "ALL CVS" || cv.status === filter) &&
+          cv.title.toLowerCase().includes(search.toLowerCase()),
+      ),
+    [filter, search],
+  )
+  return (
+    <section className="artboard app-screen" aria-label="CV management screen">
+      <Sidebar
+        active="cvs"
+        onNavigate={onNavigate}
+        open={drawerOpen}
+        onClose={onClose}
+        user={user}
+        onLogout={onLogout}
+      />
+      <main className="app-main">
+        <Topbar
+          section="CV của tôi"
+          onSearch={(value) => {
+            setSearch(value)
+            setLoading(true)
+            window.setTimeout(() => setLoading(false), 280)
+          }}
+          onMenu={onMenu}
+        />
+        <div className="page cv-page">
+          <div className="page-heading">
+            <div>
+              <Kicker>DOCUMENT REGISTRY</Kicker>
+              <h2>
+                Your CVs<span>.</span>
+              </h2>
+              <p>Create, manage and deploy your professional identities.</p>
+            </div>
+            <Button icon="plus" onClick={() => onNavigate("upload")}>
+              TẠO CV MỚI
+            </Button>
+          </div>
+          <div className="toolbar">
+            <div className="filter-pills">
+              {["ALL CVS", "LIVE", "DRAFT", "ARCHIVED"].map((item) => (
+                <button
+                  key={item}
+                  onClick={() => setFilter(item)}
+                  className={filter === item ? "active" : ""}
+                >
+                  {item}
+                  <span>
+                    {item === "ALL CVS"
+                      ? 12
+                      : item === "LIVE"
+                        ? 6
+                        : item === "DRAFT"
+                          ? 4
+                          : 2}
+                  </span>
+                </button>
+              ))}
+            </div>
+            <div className="view-tools">
+              <span>{filtered.length.toString().padStart(2, "0")} RESULTS</span>
+              <button className="active">
+                <Icon name="menu" />
+              </button>
+              <button>
+                <Icon name="grid" />
+              </button>
+            </div>
+          </div>
+          <div className="neo-dashed-card group relative block">
+            <span className="absolute inset-0 border-2 border-dashed border-black pointer-events-none" aria-hidden="true" />
+            <div className="relative border-2 border-black bg-white transition-transform duration-200 group-hover:-translate-x-2 group-hover:-translate-y-2 table-shell shadow-[4px_4px_0_#000]">
+              <div className="table-head">
+              <span>DOCUMENT / TITLE</span>
+              <span>LAST MODIFIED</span>
+              <span>VIEWS</span>
+              <span>STATUS</span>
+              <span>VERSION</span>
+              <span>ACTIONS</span>
+            </div>
+            <div className="table-body">
+              {loading &&
+                [0, 1, 2, 3].map((item) => (
+                  <div className="table-row skeleton-row" key={item}>
+                    <i />
+                    <i />
+                    <i />
+                    <i />
+                  </div>
+                ))}
+              {!loading &&
+                filtered.map((cv, i) => (
+                  <div className="table-row" key={cv.title}>
+                    <div className="document-cell">
+                      <span className={`doc-icon doc-${i % 3}`}>
+                        <Icon name="file" />
+                      </span>
+                      <span>
+                        <b>{cv.title}</b>
+                        <small>{cv.type} • PDF</small>
+                      </span>
+                    </div>
+                    <span className="mono-cell">{cv.modified}</span>
+                    <span className="view-cell">
+                      ↗ <b>{cv.views}</b>
+                    </span>
+                    <span>
+                      <i className={`status ${cv.status.toLowerCase()}`}>
+                        {cv.status}
+                      </i>
+                    </span>
+                    <span className="version">{cv.version}</span>
+                    <div className="row-actions">
+                      <button
+                        title="Xem chi tiết"
+                        onClick={() => onNavigate("detail")}
+                      >
+                        <Icon name="edit" />
+                      </button>
+                      <button
+                        title="Chia sẻ"
+                        onClick={() => onNavigate("shares")}
+                      >
+                        <Icon name="link" />
+                      </button>
+                      <button
+                        title="More actions"
+                        className={menu === cv.title ? "active" : ""}
+                        onClick={() =>
+                          setMenu(menu === cv.title ? null : cv.title)
+                        }
+                      >
+                        <Icon name="menu" />
+                      </button>
+                      {menu === cv.title && (
+                        <div className="action-menu">
+                          <button onClick={() => onNavigate("detail")}>
+                            <Icon name="edit" /> EDIT DOCUMENT
+                          </button>
+                          <button onClick={() => onNavigate("shares")}>
+                            <Icon name="link" /> SHARE LINK
+                          </button>
+                          <button>
+                            <Icon name="history" /> VERSION HISTORY
+                          </button>
+                          <button
+                            className="danger"
+                            onClick={() => setDeleteTarget(cv.title)}
+                          >
+                            <Icon name="trash" /> MOVE TO TRASH
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              {!loading && !filtered.length && (
+                <div className="empty-state">
+                  NO DOCUMENTS MATCH THIS QUERY.
+                </div>
+              )}
+            </div>
+            <div className="table-footer">
+              <span>
+                SHOWING 1—{filtered.length} OF {filtered.length}
+              </span>
+              <div>
+                <button disabled>← PREV</button>
+                <button className="active">01</button>
+                <button>02</button>
+                <button>03</button>
+                <button>NEXT →</button>
+              </div>
+            </div>
+          </div>
+          </div>
+          <div className="table-note">
+            <Icon name="shield" size={16} /> ALL DOCUMENTS ARE ENCRYPTED AT REST
+            AND IN TRANSIT <span>•</span> LAST SYNC: 12 SEC AGO
+          </div>
+        </div>
+      </main>
+      {deleteTarget && (
+        <div
+          className="dialog-backdrop"
+          onMouseDown={() => setDeleteTarget(null)}
+        >
+          <div
+            className="dialog danger-dialog"
+            onMouseDown={(event) => event.stopPropagation()}
+          >
+            <Kicker>DESTRUCTIVE ACTION</Kicker>
+            <h3>Xóa CV này?</h3>
+            <p>
+              “{deleteTarget}” sẽ được chuyển vào thùng rác. Các liên kết chia
+              sẻ liên quan sẽ ngừng hoạt động ngay lập tức.
+            </p>
+            <div className="dialog-actions">
+              <Button variant="light" onClick={() => setDeleteTarget(null)}>
+                HỦY
+              </Button>
+              <Button
+                variant="danger"
+                icon="trash"
+                onClick={() => {
+                  setDeleteTarget(null)
+                  setMenu(null)
+                }}
+              >
+                XÁC NHẬN XÓA
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+    </section>
+  )
+}
