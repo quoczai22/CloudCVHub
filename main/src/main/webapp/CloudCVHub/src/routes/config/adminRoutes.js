@@ -15,13 +15,6 @@ export const adminRoutes = [
     role: "ADMIN",
     mode: "cvs",
   },
-  {
-    id: "settings",
-    path: "/dashboard/settings",
-    title: "Cấu hình hệ thống",
-    component: "SettingsPage",
-    role: "ADMIN",
-  },
 ]
 
 export default adminRoutes

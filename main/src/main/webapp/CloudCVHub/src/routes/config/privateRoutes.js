@@ -35,6 +35,12 @@ export const privateRoutes = [
     title: "Hồ sơ cá nhân",
     component: "ProfilePage",
   },
+  {
+    id: "settings",
+    path: "/dashboard/settings",
+    title: "Cài đặt tài khoản",
+    component: "SettingsPage",
+  },
 ]
 
 export default privateRoutes

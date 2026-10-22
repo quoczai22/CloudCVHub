@@ -62,11 +62,7 @@ export default function MainRouter({ onLogout: parentLogout } = {}) {
     if (currentAdminRoute) {
       return (
         <RenderConfig token={token} user={user} requiredRole={currentAdminRoute.role}>
-          {page === "settings" ? (
-            <SettingsPage {...commonProps} />
-          ) : (
-            <AdminPage {...commonProps} mode={currentAdminRoute.mode || "users"} />
-          )}
+          <AdminPage {...commonProps} mode={currentAdminRoute.mode || "users"} />
         </RenderConfig>
       )
     }
@@ -84,6 +80,8 @@ export default function MainRouter({ onLogout: parentLogout } = {}) {
         return <SharesPage {...commonProps} />
       case "profile":
         return <ProfilePage {...commonProps} />
+      case "settings":
+        return <SettingsPage {...commonProps} />
       default:
         return <DashboardPage {...commonProps} />
     }
