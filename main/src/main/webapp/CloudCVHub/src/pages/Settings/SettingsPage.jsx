@@ -17,7 +17,7 @@ export default function SettingsPage(props) {
             </h2>
             <p>Tùy chỉnh bảo mật, thông báo và trải nghiệm tài khoản.</p>
           </div>
-          <Button icon="check" onClick={() => setSaved(true)}>
+          <Button variant="yellow" icon="check" onClick={() => setSaved(true)}>
             LƯU THAY ĐỔI
           </Button>
         </div>

@@ -38,7 +38,7 @@ export default function UploadPage(props) {
               label="VỊ TRÍ ỨNG TUYỂN"
               defaultValue="Senior Product Designer"
             />
-            <Button icon="upload" onClick={() => setUploaded(true)}>
+            <Button variant="yellow" icon="upload" onClick={() => setUploaded(true)}>
               TẢI LÊN AN TOÀN
             </Button>
           </div>

@@ -41,7 +41,7 @@ export default function ProfilePage(props) {
               <p>Manage your public identity and security clearance.</p>
             </div>
             {editing ? (
-              <Button icon="check" onClick={save}>
+              <Button variant="yellow" icon="check" onClick={save}>
                 SAVE CHANGES
               </Button>
             ) : (

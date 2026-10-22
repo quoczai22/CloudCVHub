@@ -28,21 +28,64 @@
 .btn-dark {
   background: var(--ink);
   color: white;
+  border-color: var(--ink);
+  box-shadow: 4px 4px 0 var(--coral);
+}
+
+.btn-dark:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--yellow);
+}
+
+.btn-dark:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--coral);
+}
+
+.btn-yellow,
+.btn-adam {
+  background: #fbca1f;
+  color: var(--ink);
+  border: 2.5px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+  font-weight: 800;
+}
+
+.btn-yellow:hover,
+.btn-adam:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--coral);
+  background: #ffd633;
+}
+
+.btn-yellow:active,
+.btn-adam:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--ink);
 }
 
 .btn-light {
   background: var(--white);
   color: var(--ink);
+  border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
 }
 
-.btn-yellow {
-  background: var(--yellow);
-  color: var(--ink);
+.btn-light:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--coral);
 }
 
 .btn-danger {
   background: var(--coral);
   color: white;
+  border-color: var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+.btn-danger:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--yellow);
 }
 
 /* Nút kết hợp đổi màu vàng (yellow-200) và hiệu ứng hover nhấn lún (translate-1 shadow-none) */

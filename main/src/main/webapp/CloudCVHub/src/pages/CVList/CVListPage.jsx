@@ -93,7 +93,7 @@ export default function CVListPage(props) {
               </h2>
               <p>Create, manage and deploy your professional identities.</p>
             </div>
-            <Button icon="plus" onClick={() => onNavigate("upload")}>
+            <Button variant="yellow" icon="plus" onClick={() => onNavigate("upload")}>
               TẠO CV MỚI
             </Button>
           </div>

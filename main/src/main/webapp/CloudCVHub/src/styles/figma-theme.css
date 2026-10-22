@@ -47,36 +47,94 @@ html, body, button, input, select, textarea {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  border: var(--line);
-  font: 600 12px 'DM Mono', monospace;
+  border: 2px solid var(--ink);
+  font: 700 13px 'DM Mono', monospace;
   letter-spacing: .04em;
-  box-shadow: var(--shadow);
+  box-shadow: 4px 4px 0 var(--ink);
   transition: transform .15s, box-shadow .15s;
   cursor: pointer;
+  text-transform: uppercase;
 }
 
 .btn:hover {
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0 var(--ink);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--ink);
 }
 
+.btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+
+/* Nút Đen: Đổ bóng San Hô (var(--coral)) nổi bần bật - KHÔNG BAO GIỜ BỊ CHÌM ĐEN VÀO BÓNG */
 .btn-dark {
   background: var(--ink);
   color: white;
+  border-color: var(--ink);
+  box-shadow: 4px 4px 0 var(--coral);
 }
 
+.btn-dark:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--yellow);
+}
+
+.btn-dark:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--coral);
+}
+
+/* Nút Vàng (adamgiebl style): Nền vàng tươi #fbca1f, viền đen dày, bóng đen đổ khối sắc nét */
+.btn-yellow,
+.btn-adam {
+  background: #fbca1f;
+  color: var(--ink);
+  border: 2.5px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+  font-weight: 800;
+}
+
+.btn-yellow:hover,
+.btn-adam:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--coral);
+  background: #ffd633;
+}
+
+.btn-yellow:active,
+.btn-adam:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+
+/* Nút Trắng */
 .btn-light {
   background: var(--white);
   color: var(--ink);
+  border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
 }
 
-.btn-yellow {
-  background: var(--yellow);
+.btn-light:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--coral);
+}
+
+.btn-light:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--ink);
 }
 
 .btn-danger {
   background: var(--coral);
   color: white;
+  border-color: var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+.btn-danger:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--yellow);
 }
 
 /* Auth Sliding Split-Screen */
