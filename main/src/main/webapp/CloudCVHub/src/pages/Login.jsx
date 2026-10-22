@@ -271,16 +271,7 @@ function LoginPage({ onLoginSuccess }) {
                   }
                 }, 400);
               }}
-              className="neo-btn"
-              style={{
-                marginTop: "10px",
-                backgroundColor: "#FFF275",
-                color: "#000000",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "8px",
-              }}
+              className="neo-btn neo-btn-demo" style={{ marginTop: "10px" }}
             >
               ⚡ TRẢI NGHIỆM CHẾ ĐỘ DEMO
             </button>

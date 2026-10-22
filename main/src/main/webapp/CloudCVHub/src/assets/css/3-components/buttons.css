@@ -73,73 +73,105 @@
   box-shadow: 0 0 0 2px #fde047;
 }
 
-/* Nút Submit Form Neo-Brutalist */
-.neo-btn {
-  width: 100%;
-  padding: 11px 14px;
-  background-color: var(--neo-primary);
-  color: #ffffff;
-  border: 2px solid var(--neo-primary);
-  font-size: 12px;
-  font-weight: 700;
-  font-family: var(--font-mono);
+/* ============================================================
+   Uiverse.io by adamgiebl - High Contrast Brutalist Primary Button
+   ============================================================ */
+.neo-btn,
+.adam-btn {
+  background: #fbca1f !important;
+  color: #000000 !important;
+  font-family: inherit;
+  padding: 12px 24px;
+  font-weight: 900 !important;
+  font-size: 15px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border: 3px solid #000000 !important;
+  border-radius: 0.4em;
+  box-shadow: 4px 4px 0px #000000 !important;
   cursor: pointer;
-  margin-top: 4px;
-  transition: all 0.2s ease;
-  border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  box-shadow: 3px 3px 0px var(--neo-primary);
+  width: 100%;
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-sizing: border-box;
 }
 
-.neo-btn:hover:not(:disabled) {
-  box-shadow: 5px 5px 0px var(--neo-accent);
-  background-color: var(--neo-accent);
-  transform: translate(-2px, -2px);
+.neo-btn:hover:not(:disabled),
+.adam-btn:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 7px 7px 0px #000000 !important;
+  background-color: #ffd633 !important;
+  color: #000000 !important;
 }
 
-.neo-btn:active:not(:disabled) {
-  box-shadow: 1px 1px 0px var(--neo-primary);
-  transform: translate(1px, 1px);
+.neo-btn:active:not(:disabled),
+.adam-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px #000000 !important;
 }
 
 .neo-btn:disabled {
   opacity: 0.65;
   cursor: not-allowed;
+  transform: none !important;
 }
 
-/* Nút viền trắng trên nền Overlay đỏ gradient */
+/* Nút phụ Demo - Phân cấp thị giác rõ ràng với nút Login chính */
+.neo-btn-demo {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 2.5px solid #000000 !important;
+  box-shadow: 3px 3px 0px #000000 !important;
+  font-weight: 800 !important;
+}
+
+.neo-btn-demo:hover {
+  background: #f4f1e8 !important;
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0px #000000 !important;
+}
+
+.neo-btn-demo:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0px #000000 !important;
+}
+
+/* Nút chuyển tab trên nền Overlay đỏ gradient (Luôn vàng nổi bật, không bị chìm) */
 .ghost-neo-btn {
-  background-color: transparent;
-  border: 2px solid #FFFFFF;
-  color: #FFFFFF;
-  font-size: 12px;
-  font-weight: 700;
-  padding: 10px 28px;
+  background: #fbca1f !important;
+  border: 3px solid #000000 !important;
+  color: #000000 !important;
+  font-size: 13px;
+  font-weight: 900 !important;
+  padding: 12px 28px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  font-family: var(--font-mono);
+  font-family: inherit;
   cursor: pointer;
-  border-radius: var(--radius-sm);
-  box-shadow: 3px 3px 0 var(--neo-primary);
-  transition: all 0.2s ease;
+  border-radius: 0.4em;
+  box-shadow: 4px 4px 0 #000000 !important;
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
 }
 
 .ghost-neo-btn:hover {
-  background-color: var(--neo-yellow);
-  color: var(--neo-primary);
-  border-color: var(--neo-primary);
-  box-shadow: 5px 5px 0px var(--neo-primary);
-  transform: translate(-2px, -2px);
+  background-color: #ffd633 !important;
+  color: #000000 !important;
+  border-color: #000000 !important;
+  box-shadow: 7px 7px 0px #000000 !important;
+  transform: translate(-3px, -3px);
 }
 
 .ghost-neo-btn:active {
-  box-shadow: 1px 1px 0px var(--neo-primary);
-  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0px #000000 !important;
+  transform: translate(2px, 2px);
 }
 
 /* Khối nút mạng xã hội - căn chính giữa theo hàng ngang */

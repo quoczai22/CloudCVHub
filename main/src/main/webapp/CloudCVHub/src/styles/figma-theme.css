@@ -3178,3 +3178,105 @@ html, body, button, input, select, textarea {
 .uiverse-btn-discord .uiverse-shimmer {
   background: linear-gradient(90deg, transparent, rgba(88, 101, 242, 0.35), transparent);
 }
+
+
+/* ============================================================
+   Uiverse.io by adamgiebl - High Contrast Brutalist Primary Button
+   ============================================================ */
+.neo-btn,
+.adam-btn {
+  background: #fbca1f !important;
+  color: #000000 !important;
+  font-family: inherit;
+  padding: 12px 24px;
+  font-weight: 900 !important;
+  font-size: 15px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border: 3px solid #000000 !important;
+  border-radius: 0.4em;
+  box-shadow: 4px 4px 0px #000000 !important;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-sizing: border-box;
+}
+
+.neo-btn:hover:not(:disabled),
+.adam-btn:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 7px 7px 0px #000000 !important;
+  background-color: #ffd633 !important;
+  color: #000000 !important;
+}
+
+.neo-btn:active:not(:disabled),
+.adam-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px #000000 !important;
+}
+
+.neo-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* Nút phụ Demo - Phân cấp thị giác rõ ràng với nút Login chính */
+.neo-btn-demo {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 2.5px solid #000000 !important;
+  box-shadow: 3px 3px 0px #000000 !important;
+  font-weight: 800 !important;
+}
+
+.neo-btn-demo:hover {
+  background: #f4f1e8 !important;
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0px #000000 !important;
+}
+
+.neo-btn-demo:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0px #000000 !important;
+}
+
+/* Nút chuyển tab trên nền Overlay đỏ gradient (Luôn vàng nổi bật, không bị chìm) */
+.ghost-neo-btn {
+  background: #fbca1f !important;
+  border: 3px solid #000000 !important;
+  color: #000000 !important;
+  font-size: 13px;
+  font-weight: 900 !important;
+  padding: 12px 28px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-family: inherit;
+  cursor: pointer;
+  border-radius: 0.4em;
+  box-shadow: 4px 4px 0 #000000 !important;
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.ghost-neo-btn:hover {
+  background-color: #ffd633 !important;
+  color: #000000 !important;
+  border-color: #000000 !important;
+  box-shadow: 7px 7px 0px #000000 !important;
+  transform: translate(-3px, -3px);
+}
+
+.ghost-neo-btn:active {
+  box-shadow: 1px 1px 0px #000000 !important;
+  transform: translate(2px, 2px);
+}
