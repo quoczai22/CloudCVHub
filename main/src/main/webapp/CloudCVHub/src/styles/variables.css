@@ -29,7 +29,8 @@
   --danger: #dc2626;
 
   /* Typography scale */
-  --font-sans: "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-sans: "Otomanopee One", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: "Otomanopee One", sans-serif;
   --font-mono: "DM Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
   /* Shadows - deliberate, soft, offset (not harsh or glowing) */
