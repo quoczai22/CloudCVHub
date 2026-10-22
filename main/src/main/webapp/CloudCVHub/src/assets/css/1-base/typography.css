@@ -1,15 +1,15 @@
 /* 1-base/typography.css - Cấu hình typography mặc định với zero-specificity để không đè component */
 :where(body) {
-  font-family: 'Otomanopee One', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   color: var(--ink);
   background-color: var(--paper);
 }
 
 :where(h1, h2, h3, h4, h5, h6) {
-  font-family: 'Otomanopee One', sans-serif;
-  font-weight: 700;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 800;
   color: var(--ink);
-  letter-spacing: -0.04em;
+  letter-spacing: -0.02em;
 }
 
 :where(code, kbd, pre, samp) {
