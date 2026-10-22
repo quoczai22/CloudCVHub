@@ -3,6 +3,7 @@ import Button from '../../../../components/UI/Button'
 import Field from '../../../../components/UI/Field'
 import Icon from '../../../../components/UI/Icon'
 import styles from './LoginForm.module.css'
+import SocialAuthButtons from '../../../../components/UI/SocialAuthButtons'
 
 export default function LoginForm({ onLoginSuccess, onSwitchToRegister }) {
   const {
@@ -63,6 +64,10 @@ export default function LoginForm({ onLoginSuccess, onSwitchToRegister }) {
           </button>
         )}
 
+        <div className="auth-demo-divider">
+          <span>HOẶC TIẾP TỤC VỚI</span>
+        </div>
+        <SocialAuthButtons />
         <div className="auth-demo-divider">
           <span>HOẶC</span>
         </div>

@@ -2,6 +2,7 @@ import '../assets/css/4-pages/login.css';
 import { useState } from 'react';
 import { Eye, EyeOff, ShieldCheck, Layers, Lock } from 'lucide-react';
 import Alert from '../components/Alert.jsx';
+import SocialAuthButtons from '../components/UI/SocialAuthButtons.jsx';
 import { apiUrl } from '../config/api.js';
 
 function BrandMark() {
@@ -288,24 +289,7 @@ function LoginPage({ onLoginSuccess }) {
               <span>HOẶC TIẾP TỤC VỚI</span>
             </div>
 
-            <div className="social-login">
-              <button
-                type="button"
-                className="social-btn"
-                title="Google"
-                onClick={() => alert('Đang kết nối Google OAuth...')}
-              >
-                <GoogleIcon />
-              </button>
-              <button
-                type="button"
-                className="social-btn"
-                title="GitHub"
-                onClick={() => alert('Đang kết nối GitHub OAuth...')}
-              >
-                <GithubIcon />
-              </button>
-            </div>
+            <SocialAuthButtons />
 
             {/* Chuyển tab cho màn hình di động */}
             <div className="mobile-toggle-strip">

@@ -3,6 +3,7 @@ import Button from '../../../../components/UI/Button'
 import Field from '../../../../components/UI/Field'
 import Icon from '../../../../components/UI/Icon'
 import styles from './RegisterForm.module.css'
+import SocialAuthButtons from '../../../../components/UI/SocialAuthButtons'
 
 export default function RegisterForm({ onRegisterSuccess, onSwitchToLogin }) {
   const {
@@ -58,6 +59,10 @@ export default function RegisterForm({ onRegisterSuccess, onSwitchToLogin }) {
           <Icon name="plus" size={16} />
           {loading ? "ĐANG TẠO TÀI KHOẢN..." : "ĐĂNG KÝ NGAY"}
         </Button>
+        <div className="auth-demo-divider" style={{ margin: "16px 0 8px" }}>
+          <span>HOẶC ĐĂNG KÝ VỚI</span>
+        </div>
+        <SocialAuthButtons />
       </form>
 
       <div className="auth-footer">
