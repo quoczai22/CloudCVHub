@@ -1192,49 +1192,167 @@ html, body, button, input, select, textarea {
 }
 
 .toolbar {
-  height: 51px;
+  min-height: 54px;
+  height: auto;
+  padding-bottom: 8px;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   border-bottom: var(--line);
 }
 
+/* Uiverse 0xnihilism Brutalist Filter Buttons */
 .filter-pills {
   display: flex;
-  gap: 7px;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 2px;
 }
 
 .filter-pills button {
-  height: 33px;
-  padding: 0 10px;
-  display: flex;
+  position: relative;
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
-  border: 1.5px solid var(--ink);
-  background: var(--white);
-  font: 8px 'DM Mono', monospace;
+  gap: 10px;
+  height: 38px;
+  padding: 0 14px;
+  background-color: var(--white, #ffffff);
+  color: var(--ink, #000000);
+  text-decoration: none;
+  font-family: var(--font-comic, 'Otomanopee One', sans-serif);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border: 2.5px solid #000000;
+  outline: 2px solid transparent;
+  box-shadow: 4px 4px 0 #000000;
   cursor: pointer;
+  overflow: hidden;
+  box-sizing: border-box;
+  transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+  white-space: nowrap;
+}
+
+.filter-pills button::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(255, 255, 255, 0.75),
+    transparent
+  );
+  transform: rotate(45deg);
+  transition: 0.5s;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.filter-pills button:hover::before {
+  animation: brutalistGlare 1.3s infinite;
+}
+
+@keyframes brutalistGlare {
+  0% {
+    transform: rotate(45deg) translateY(-100%);
+    opacity: 0;
+  }
+  50% {
+    transform: rotate(45deg) translateY(100%);
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(45deg) translateY(100%);
+    opacity: 0;
+  }
 }
 
 .filter-pills button span {
   display: grid;
   place-items: center;
-  min-width: 17px;
-  height: 17px;
-  padding: 0 3px;
-  background: #d8d5cd;
-  border: 1px solid var(--ink);
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  background: #f4f1e8;
+  color: #000000;
+  border: 1.5px solid #000000;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  position: relative;
+  z-index: 2;
+  transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
+.filter-pills button::after {
+  content: "►";
+  font-size: 9px;
+  line-height: 1;
+  color: #ff4500;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  z-index: 2;
+  margin-left: -4px;
+}
+
+.filter-pills button:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 6px 6px 0 #ff4500;
+  background-color: #000000;
+  color: #ffffff;
+  border-color: #000000;
+}
+
+.filter-pills button:hover span {
+  background-color: #ffb900;
+  color: #000000;
+  border-color: #000000;
+  transform: scale(1.1);
+}
+
+.filter-pills button:hover::after {
+  opacity: 1;
+  transform: translateX(0);
+  margin-left: 2px;
+}
+
+.filter-pills button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0px 0px 0 #ff4500;
+  transition: all 0.1s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Active Selected State */
 .filter-pills button.active {
-  background: var(--ink);
-  color: white;
-  box-shadow: 3px 3px 0 var(--coral);
+  background-color: #000000;
+  color: #ffffff;
+  border: 2.5px solid #000000;
+  box-shadow: 5px 5px 0 #ff4500;
 }
 
 .filter-pills button.active span {
-  color: var(--ink);
-  background: var(--yellow);
+  background-color: #ffb900;
+  color: #000000;
+  border: 1.5px solid #000000;
+  font-weight: 700;
+}
+
+.filter-pills button.active::after {
+  opacity: 1;
+  transform: translateX(0);
+  margin-left: 2px;
+}
+
+.filter-pills button.active:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 8px 8px 0 #ff4500;
 }
 
 .view-tools {
