@@ -406,7 +406,7 @@ h1, h2, h3, h4, h5, h6,
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   border-radius: 6px;
   color: var(--ink);
   box-shadow: 3px 3px 0px var(--ink);
@@ -2972,6 +2972,15 @@ h1, h2, h3, h4, h5, h6,
 }
 
 /* Pure CSS Avatar in Sidebar matching Profile Operator ID */
+@keyframes avatarFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
 .sidebar-neo-avatar {
   position: relative;
   display: inline-flex;
@@ -2979,8 +2988,8 @@ h1, h2, h3, h4, h5, h6,
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  animation: avatarWobble 4s ease-in-out infinite;
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: avatarFloat 4s ease-in-out infinite;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
 }
 
@@ -2990,7 +2999,7 @@ h1, h2, h3, h4, h5, h6,
   margin: 0;
   border: 2.5px solid var(--ink);
   box-shadow: 3px 3px 0 var(--ink);
-  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .sidebar-neo-avatar .avatar-large .avatar-face {
@@ -3033,9 +3042,9 @@ h1, h2, h3, h4, h5, h6,
 .img-wrap {
   height: 96px;
   width: 96px;
-  transition: 350ms all cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: 350ms all cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
-  animation-name: avatarWobble;
+  animation-name: avatarFloat;
   animation-delay: 0s;
   animation-duration: 4s;
   animation-iteration-count: infinite;
@@ -3232,7 +3241,7 @@ h1, h2, h3, h4, h5, h6,
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 3px 3px 0 var(--ink, #111);
   cursor: pointer;
   overflow: hidden;
-  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   padding: 0;
 }
 

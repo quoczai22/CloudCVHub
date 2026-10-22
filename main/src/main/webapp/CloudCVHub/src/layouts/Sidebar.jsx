@@ -115,7 +115,10 @@ export default function Sidebar({
           <span className="text-[10px] px-1 bg-black text-[#fbca1f] font-mono">AREA →</span>
         </button>
       </div>
-      <div className="integrity">
+      <div
+        className="integrity"
+        title="Mã băm mật mã SHA-256 xác thực tính toàn vẹn hệ thống và chống can thiệp dữ liệu"
+      >
         <div>
           <Icon name="shield" size={22} />
           <span>

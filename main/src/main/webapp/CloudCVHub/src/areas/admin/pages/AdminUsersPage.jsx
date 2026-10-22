@@ -3,9 +3,12 @@ import Icon from '../../../components/UI/Icon'
 import Kicker from '../../../components/UI/Kicker'
 import Button from '../../../components/UI/Button'
 
+import ConfirmModal from '../../../components/UI/ConfirmModal'
+
 export default function AdminUsersPage() {
   const [searchTerm, setSearchTerm] = useState("")
   const [filterRole, setFilterRole] = useState("ALL")
+  const [pendingUser, setPendingUser] = useState(null)
   const [users, setUsers] = useState([
     { id: "USR-001", name: "Nguyễn Minh Anh", email: "minhanh@cloudcvhub.vn", plan: "PRO", cvs: 12, role: "USER", status: "HOẠT ĐỘNG" },
     { id: "USR-002", name: "Trần Thùy Dương", email: "duong.tran@pixel.vn", plan: "TEAM", cvs: 8, role: "USER", status: "HOẠT ĐỘNG" },
@@ -15,16 +18,18 @@ export default function AdminUsersPage() {
     { id: "USR-006", name: "Đặng Thu Thảo", email: "thao.dang@techcorp.vn", plan: "FREE", cvs: 1, role: "USER", status: "HOẠT ĐỘNG" },
   ])
 
-  const toggleStatus = (id) => {
+  const confirmToggleStatus = () => {
+    if (!pendingUser) return
     setUsers((prev) =>
       prev.map((u) => {
-        if (u.id === id) {
+        if (u.id === pendingUser.id) {
           const nextStatus = u.status === "HOẠT ĐỘNG" ? "TẠM KHÓA" : "HOẠT ĐỘNG"
           return { ...u, status: nextStatus }
         }
         return u
       })
     )
+    setPendingUser(null)
   }
 
   const filteredUsers = users.filter((u) => {
@@ -148,7 +153,7 @@ export default function AdminUsersPage() {
                   <td className="p-3 text-center">
                     <button
                       type="button"
-                      onClick={() => toggleStatus(u.id)}
+                      onClick={() => setPendingUser(u)}
                       className={`px-2 py-1 text-[11px] font-bold border border-black shadow-[1px_1px_0_#000] transition-all hover:-translate-y-0.5 ${
                         u.status === "HOẠT ĐỘNG"
                           ? "bg-[#fff0f0] text-[#d93025] hover:bg-[#ff416c] hover:text-white"
@@ -169,6 +174,21 @@ export default function AdminUsersPage() {
         <span>Hiển thị {filteredUsers.length} trên tổng số {users.length} tài khoản</span>
         <span className="font-bold">TRANG 1 / 1</span>
       </div>
+
+      {/* Confirm Action Modal */}
+      <ConfirmModal
+        isOpen={Boolean(pendingUser)}
+        title={pendingUser?.status === "HOẠT ĐỘNG" ? "Xác nhận khóa tài khoản" : "Mở khóa tài khoản"}
+        message={
+          pendingUser?.status === "HOẠT ĐỘNG"
+            ? `Bạn có chắc muốn tạm khóa tài khoản của ${pendingUser?.name} (${pendingUser?.email})? Người dùng này sẽ bị đình chỉ quyền đăng nhập và tải tài liệu lên CloudCVHub.`
+            : `Mở khóa và khôi phục toàn bộ quyền truy cập cho ${pendingUser?.name} (${pendingUser?.email})?`
+        }
+        confirmLabel={pendingUser?.status === "HOẠT ĐỘNG" ? "KHÓA TÀI KHOẢN" : "MỞ KHÓA"}
+        confirmVariant={pendingUser?.status === "HOẠT ĐỘNG" ? "danger" : "yellow"}
+        onConfirm={confirmToggleStatus}
+        onCancel={() => setPendingUser(null)}
+      />
     </div>
   )
 }

@@ -3,9 +3,12 @@ import Icon from '../../../components/UI/Icon'
 import Kicker from '../../../components/UI/Kicker'
 import Button from '../../../components/UI/Button'
 
+import ConfirmModal from '../../../components/UI/ConfirmModal'
+
 export default function AdminCVsPage() {
   const [searchTerm, setSearchTerm] = useState("")
   const [filterScan, setFilterScan] = useState("ALL")
+  const [pendingDeleteDoc, setPendingDeleteDoc] = useState(null)
   const [docs, setDocs] = useState([
     { id: "DOC-8921", title: "CV Product Designer 2026.pdf", owner: "Nguyễn Minh Anh", size: "2.8 MB", views: 184, scan: "AN TOÀN", date: "22/10/2026" },
     { id: "DOC-8922", title: "Design Lead Portfolio.pdf", owner: "Trần Thùy Dương", size: "4.1 MB", views: 92, scan: "AN TOÀN", date: "21/10/2026" },
@@ -21,8 +24,10 @@ export default function AdminCVsPage() {
     )
   }
 
-  const deleteDoc = (id) => {
-    setDocs((prev) => prev.filter((d) => d.id !== id))
+  const confirmDeleteDoc = () => {
+    if (!pendingDeleteDoc) return
+    setDocs((prev) => prev.filter((d) => d.id !== pendingDeleteDoc.id))
+    setPendingDeleteDoc(null)
   }
 
   const filteredDocs = docs.filter((d) => {
@@ -152,7 +157,7 @@ export default function AdminCVsPage() {
                       )}
                       <button
                         type="button"
-                        onClick={() => deleteDoc(d.id)}
+                        onClick={() => setPendingDeleteDoc(d)}
                         className="px-2 py-1 text-[11px] font-bold border border-black bg-[#fff0f0] text-[#d93025] hover:bg-[#ff416c] hover:text-white transition-all shadow-[1px_1px_0_#000]"
                         title="Xóa tài liệu khỏi hệ thống"
                       >
@@ -171,6 +176,17 @@ export default function AdminCVsPage() {
         <span>Hiển thị {filteredDocs.length} tài liệu trong kho lưu trữ</span>
         <span className="font-bold">TRANG 1 / 1</span>
       </div>
+
+      {/* Confirm Delete Document Modal */}
+      <ConfirmModal
+        isOpen={Boolean(pendingDeleteDoc)}
+        title="Xác nhận xóa vĩnh viễn tệp CV"
+        message={`Bạn có chắc chắn muốn xóa hồ sơ "${pendingDeleteDoc?.title}" (Mã: ${pendingDeleteDoc?.id} - Tác giả: ${pendingDeleteDoc?.owner}) khỏi máy chủ CloudCVHub? Tệp tin sẽ bị hủy hoàn toàn và không thể khôi phục.`}
+        confirmLabel="XÓA TỆP VĨNH VIỄN"
+        confirmVariant="danger"
+        onConfirm={confirmDeleteDoc}
+        onCancel={() => setPendingDeleteDoc(null)}
+      />
     </div>
   )
 }

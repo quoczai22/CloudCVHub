@@ -89,7 +89,10 @@ export default function AdminSidebar({
       </div>
 
       {/* System Integrity Fingerprint */}
-      <div className="integrity mt-auto">
+      <div
+        className="integrity mt-auto"
+        title="Mã xác thực chữ ký số SHA-256 xác nhận cụm máy chủ AP-HN-01 an toàn"
+      >
         <div>
           <Icon name="shield" size={20} />
           <span>
