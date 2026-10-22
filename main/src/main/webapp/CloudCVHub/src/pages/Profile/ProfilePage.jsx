@@ -4,9 +4,11 @@ import Kicker from '../../components/UI/Kicker'
 import Button from '../../components/UI/Button'
 import Sidebar from '../../components/Common/Sidebar'
 import Header from '../../components/Common/Header'
+import { getAvatarUrl, getCurrentAvatarGender, setAvatarGender } from '../../config/avatar'
 
 export default function ProfilePage(props) {
   const { onNavigate, drawerOpen, onMenu, onClose, user, onLogout } = props
+  const [gender, setGender] = useState(getCurrentAvatarGender)
   const [editing, setEditing] = useState(false)
   const [saved, setSaved] = useState(false)
   const save = () => {
@@ -62,10 +64,34 @@ export default function ProfilePage(props) {
                 </div>
                 <div className="avatar-large">
                   <img
-                    src="https://avataaars.io/?avatarStyle=Transparent&topType=LongHairMiaWallace&accessoriesType=Blank&hairColor=Platinum&facialHairType=Blank&clotheType=ShirtScoopNeck&clotheColor=Gray02&eyeType=Default&eyebrowType=Default&mouthType=Serious&skinColor=Light"
+                    src={getAvatarUrl(gender)}
                     alt="Operator Avatar"
                   />
                   <i />
+                </div>
+                <div className="avatar-gender-switcher" role="group" aria-label="Chọn avatar Nam hoặc Nữ">
+                  <button
+                    type="button"
+                    className={`btn-pill ${gender === 'male' ? 'active' : ''}`}
+                    onClick={() => {
+                      setGender('male')
+                      setAvatarGender('male')
+                    }}
+                    title="Avatar Đàn ông (Nam)"
+                  >
+                    👨 Nam
+                  </button>
+                  <button
+                    type="button"
+                    className={`btn-pill ${gender === 'female' ? 'active' : ''}`}
+                    onClick={() => {
+                      setGender('female')
+                      setAvatarGender('female')
+                    }}
+                    title="Avatar Đàn bà (Nữ)"
+                  >
+                    👩 Nữ
+                  </button>
                 </div>
                 <h3>
                   MINH

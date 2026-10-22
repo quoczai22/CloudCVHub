@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { getAvatarUrl } from '../../config/avatar'
 import Icon from '../UI/Icon'
 
 const navItems = [
@@ -24,6 +25,13 @@ export default function Sidebar({
   onLogout,
 }) {
   const [avatarSelected, setAvatarSelected] = useState(false)
+  const [avatarUrl, setAvatarUrl] = useState(() => getAvatarUrl())
+
+  useEffect(() => {
+    const handleAvatarChange = () => setAvatarUrl(getAvatarUrl())
+    window.addEventListener('avatar_change', handleAvatarChange)
+    return () => window.removeEventListener('avatar_change', handleAvatarChange)
+  }, [])
 
   const initials = user?.fullName
     ? user.fullName
@@ -75,7 +83,7 @@ export default function Sidebar({
           title="Nhấp để phóng to / thu nhỏ avatar"
         >
           <img
-            src="https://avataaars.io/?avatarStyle=Transparent&topType=LongHairMiaWallace&accessoriesType=Blank&hairColor=Platinum&facialHairType=Blank&clotheType=ShirtScoopNeck&clotheColor=Gray02&eyeType=Default&eyebrowType=Default&mouthType=Serious&skinColor=Light"
+            src={avatarUrl}
             alt="Avatar"
           />
         </div>

@@ -649,3 +649,42 @@
     display: grid !important;
   }
 }
+
+/* Avatar gender toggle buttons */
+.avatar-gender-switcher {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 10px auto 14px;
+}
+
+.avatar-gender-switcher .btn-pill {
+  padding: 4px 10px;
+  font-family: var(--font-mono, 'DM Mono', monospace);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  border: 1.5px solid var(--ink, #111);
+  background: #ffffff;
+  color: var(--ink, #111);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 2px 2px 0 var(--ink, #111);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.avatar-gender-switcher .btn-pill:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--ink, #111);
+}
+
+.avatar-gender-switcher .btn-pill.active {
+  background: var(--ink, #111);
+  color: #ffffff;
+  box-shadow: 2px 2px 0 var(--coral, #f05a28);
+}
+
