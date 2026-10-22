@@ -40,9 +40,9 @@
   );
   background-size: var(--s) var(--s);
 
-  /* Chuyển động GPU-accelerated: êm dịu, không giật lag, không hao pin */
+  /* Chuyển động GPU-accelerated: sống động, mượt mà, không giật lag */
   will-change: transform;
-  animation: ambientMove 32s infinite linear;
+  animation: ambientMove 14s infinite linear;
 }
 
 /* Animation tối ưu với transform translate3d (Zero Repaint) */
