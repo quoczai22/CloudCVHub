@@ -2,6 +2,14 @@
 @import "tailwindcss";
 @import "./assets/css/main.css";
 
+@font-face {
+  font-family: 'SVN-Determination Sans';
+  src: url('./assets/fonts/SVN-Determination-Sans.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 #root {
   width: 100%;
   min-height: 100vh;

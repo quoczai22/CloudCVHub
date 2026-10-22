@@ -9,13 +9,26 @@
   --muted: #6d6a63;
   --line: 2px solid var(--ink);
   --shadow: 4px 4px 0 var(--ink);
-  --font-comic: 'Open Sans', sans-serif;
+  --font-pixel: 'SVN-Determination Sans', sans-serif;
   font-family: 'Open Sans', sans-serif;
   color: var(--ink);
 }
 
-html, body, button, input, select, textarea {
-  font-family: 'Open Sans', sans-serif;
+html, body, input, select, textarea {
+  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6,
+.preTitle,
+.comic-title,
+.kicker,
+.btn,
+.sidebar nav button b,
+.section-title h3,
+.status,
+.uiverse-pixel-toggle {
+  font-family: 'SVN-Determination Sans', sans-serif;
+  letter-spacing: 0.03em;
 }
 
 .icon {
@@ -48,7 +61,7 @@ html, body, button, input, select, textarea {
   justify-content: center;
   gap: 10px;
   border: 2px solid var(--ink);
-  font: 700 13px 'DM Mono', monospace;
+  font: 14px 'SVN-Determination Sans', sans-serif;
   letter-spacing: .04em;
   box-shadow: 4px 4px 0 var(--ink);
   transition: transform .15s, box-shadow .15s;

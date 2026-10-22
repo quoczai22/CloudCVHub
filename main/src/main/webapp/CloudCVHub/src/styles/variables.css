@@ -30,7 +30,8 @@
 
   /* Typography scale */
   --font-sans: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-display: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: "SVN-Determination Sans", sans-serif;
+  --font-pixel: "SVN-Determination Sans", sans-serif;
   --font-mono: "DM Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
   /* Shadows - deliberate, soft, offset (not harsh or glowing) */
