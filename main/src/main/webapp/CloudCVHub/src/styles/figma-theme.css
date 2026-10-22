@@ -14,10 +14,7 @@
   color: var(--ink);
 }
 
-html, body, input, select, textarea {
-  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-}
-
+html, body, button, input, select, textarea,
 h1, h2, h3, h4, h5, h6,
 .preTitle,
 .comic-title,
@@ -25,10 +22,8 @@ h1, h2, h3, h4, h5, h6,
 .btn,
 .sidebar nav button b,
 .section-title h3,
-.status,
-.uiverse-pixel-toggle {
-  font-family: 'SVN-Determination Sans', sans-serif;
-  letter-spacing: 0.03em;
+.status {
+  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 .icon {
@@ -61,7 +56,7 @@ h1, h2, h3, h4, h5, h6,
   justify-content: center;
   gap: 10px;
   border: 2px solid var(--ink);
-  font: 14px 'SVN-Determination Sans', sans-serif;
+  font: 700 13px 'Open Sans', sans-serif;
   letter-spacing: .04em;
   box-shadow: 4px 4px 0 var(--ink);
   transition: transform .15s, box-shadow .15s;

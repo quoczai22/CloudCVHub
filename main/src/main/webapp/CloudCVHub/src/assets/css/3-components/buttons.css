@@ -7,7 +7,7 @@
   justify-content: center;
   gap: 10px;
   border: var(--line);
-  font: 14px 'SVN-Determination Sans', sans-serif;
+  font: 700 13px 'Open Sans', sans-serif;
   letter-spacing: .04em;
   box-shadow: var(--shadow);
   transition: transform .15s, box-shadow .15s;
