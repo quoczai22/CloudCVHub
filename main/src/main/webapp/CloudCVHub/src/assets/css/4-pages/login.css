@@ -1,19 +1,70 @@
 /* 4-pages/login.css - Chỉ dùng riêng cho trang đăng nhập & đăng ký (Hộp nhỏ gọn trượt ngang) */
+/* 4-pages/login.css - Chỉ dùng riêng cho trang đăng nhập & đăng ký (Hộp nhỏ gọn trượt ngang) */
 .login-page-root {
+  position: relative;
   min-height: 100vh;
-  background-color: var(--neo-paper);
-  background-image: radial-gradient(var(--neo-primary) 1.2px, transparent 1.2px);
-  background-size: 24px 24px;
+  background-color: var(--neo-paper, #f5f2e9);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 32px 16px;
   font-family: var(--font-mono);
   box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Lớp Background động siêu mượt - 100% GPU Hardware Acceleration, 0% CPU */
+.login-page-root::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  z-index: 0;
+  pointer-events: none;
+
+  /* Bảng màu kem giấy & vàng san hô ấm áp, tôn vinh chiếc hộp đăng nhập */
+  --s: 90px;
+  --c-inner: rgba(255, 242, 117, 0.5);
+  --c-outer: rgba(255, 65, 108, 0.15);
+  --c-outer2: rgba(255, 255, 255, 0.85);
+
+  background: radial-gradient(
+    circle at 50% 99%,
+    transparent 12%,
+    var(--c-inner) 12% 28%,
+    var(--c-outer) 28% 55%,
+    var(--c-outer2) 55% 100%,
+    transparent 100%
+  );
+  background-size: var(--s) var(--s);
+
+  /* Chuyển động GPU-accelerated: êm dịu, không giật lag, không hao pin */
+  will-change: transform;
+  animation: ambientMove 32s infinite linear;
+}
+
+/* Animation tối ưu với transform translate3d (Zero Repaint) */
+@keyframes ambientMove {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(90px, 0, 0);
+  }
+}
+
+/* Tự động tắt chuyển động nếu máy bật chế độ tiết kiệm pin/giảm chuyển động */
+@media (prefers-reduced-motion: reduce) {
+  .login-page-root::before {
+    animation: none;
+  }
 }
 
 /* Container chính với kích thước hộp nhỏ gọn ("nhỏ nhỏ như lúc đầu") */
 .auth-slider-container {
+  z-index: 1;
   background-color: var(--neo-secondary);
   border: 2.5px solid var(--neo-primary);
   border-radius: var(--radius-lg);
