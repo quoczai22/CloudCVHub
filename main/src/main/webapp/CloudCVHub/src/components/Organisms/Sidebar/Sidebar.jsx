@@ -69,19 +69,15 @@ export default function Sidebar({
       {/* Animated Pure CSS Avatar beneath CloudCVHub logo matching Operator ID */}
       <div className="sidebar-avatar-wrap">
         <div
-          className={`sidebar-neo-avatar ${avatarSelected ? "selected" : ""}`}
+          className={`img-wrap ${avatarSelected ? "selected" : ""}`}
           data-role={user?.role || "Developer"}
           onClick={() => setAvatarSelected(prev => !prev)}
           title="Nhấp để phóng to / thu nhỏ avatar"
         >
-          <div className="avatar-large">
-            <div className="avatar-face">
-              <span className="hair" />
-              <span className="head" />
-              <span className="body" />
-            </div>
-            <i />
-          </div>
+          <img
+            src="https://avataaars.io/?avatarStyle=Transparent&topType=LongHairMiaWallace&accessoriesType=Blank&hairColor=Platinum&facialHairType=Blank&clotheType=ShirtScoopNeck&clotheColor=Gray02&eyeType=Default&eyebrowType=Default&mouthType=Serious&skinColor=Light"
+            alt="Avatar"
+          />
         </div>
       </div>
 

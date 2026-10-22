@@ -61,11 +61,10 @@ export default function ProfilePage(props) {
                   <b>PRO</b>
                 </div>
                 <div className="avatar-large">
-                  <div className="avatar-face">
-                    <span className="hair" />
-                    <span className="head" />
-                    <span className="body" />
-                  </div>
+                  <img
+                    src="https://avataaars.io/?avatarStyle=Transparent&topType=LongHairMiaWallace&accessoriesType=Blank&hairColor=Platinum&facialHairType=Blank&clotheType=ShirtScoopNeck&clotheColor=Gray02&eyeType=Default&eyebrowType=Default&mouthType=Serious&skinColor=Light"
+                    alt="Operator Avatar"
+                  />
                   <i />
                 </div>
                 <h3>
