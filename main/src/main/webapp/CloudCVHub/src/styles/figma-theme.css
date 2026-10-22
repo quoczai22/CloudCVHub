@@ -2169,8 +2169,44 @@ html, body, button, input, select, textarea {
   margin-top: 20px;
 }
 
-.upload-grid .btn {
+.upload-grid .btn,
+.btn-adam,
+.btn-special {
+  background: #fbca1f !important;
+  color: #000000 !important;
+  font-family: var(--font-comic, 'Otomanopee One', sans-serif);
+  font-weight: 900 !important;
+  font-size: 15px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border: 3px solid #000000 !important;
+  border-radius: 0.4em !important;
+  box-shadow: 4px 4px 0px #000000 !important;
+  cursor: pointer;
+  min-height: 52px;
   width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+  margin-top: 14px;
+}
+
+.upload-grid .btn:hover,
+.btn-adam:hover,
+.btn-special:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 7px 7px 0px #000000 !important;
+  background-color: #ffd633 !important;
+  color: #000000 !important;
+}
+
+.upload-grid .btn:active,
+.btn-adam:active,
+.btn-special:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px #000000 !important;
 }
 
 .upload-rules {
