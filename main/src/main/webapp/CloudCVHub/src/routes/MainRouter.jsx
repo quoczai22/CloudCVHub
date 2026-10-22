@@ -1,6 +1,4 @@
 import { useState } from "react"
-import { adminRoutes } from "./config/adminRoutes"
-import RenderConfig from "./RenderConfig"
 
 import LoginPage from "../pages/Login.jsx"
 import DashboardPage from "../pages/Dashboard/DashboardPage.jsx"
@@ -10,7 +8,7 @@ import DetailPage from "../pages/Detail/DetailPage.jsx"
 import SharesPage from "../pages/Shares/SharesPage.jsx"
 import ProfilePage from "../pages/Profile/ProfilePage.jsx"
 import SettingsPage from "../pages/Settings/SettingsPage.jsx"
-import AdminPage from "../pages/Admin/AdminPage.jsx"
+import AdminArea from "../areas/admin/AdminArea.jsx"
 
 export default function MainRouter({ onLogout: parentLogout } = {}) {
   const [token, setToken] = useState(() => localStorage.getItem("token"))
@@ -51,19 +49,23 @@ export default function MainRouter({ onLogout: parentLogout } = {}) {
     onLogout: handleLogout,
   }
 
-  // Helper check admin route
-  const currentAdminRoute = adminRoutes.find(r => r.id === page)
-
   const renderActiveScreen = () => {
     if (!token) {
       return <LoginPage onLoginSuccess={handleLoginSuccess} />
     }
 
-    if (currentAdminRoute) {
+    // Phân vùng Admin (Admin Area)
+    if (page.startsWith("admin-")) {
       return (
-        <RenderConfig token={token} user={user} requiredRole={currentAdminRoute.role}>
-          <AdminPage {...commonProps} mode={currentAdminRoute.mode || "users"} />
-        </RenderConfig>
+        <AdminArea
+          {...commonProps}
+          activeTab={page}
+          onElevateToAdmin={() => {
+            const elevated = { ...(user || {}), role: "ADMIN" }
+            setUser(elevated)
+            localStorage.setItem("user", JSON.stringify(elevated))
+          }}
+        />
       )
     }
 

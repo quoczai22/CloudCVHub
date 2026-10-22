@@ -97,10 +97,24 @@ export default function Sidebar({
 
       <div className="nav-label">KHÔNG GIAN LÀM VIỆC</div>
       <nav>{navItems.map(renderItem)}</nav>
-      <div className="nav-label admin-label">QUẢN TRỊ</div>
-      <nav>
-        {adminNavItems.map((item, index) => renderItem(item, index + 6))}
-      </nav>
+      <div className="nav-label admin-label">PHÂN VÙNG QUẢN TRỊ</div>
+      <div className="px-3 my-2">
+        <button
+          type="button"
+          onClick={() => {
+            onNavigate?.("admin-dashboard")
+            onClose?.()
+          }}
+          className="w-full flex items-center justify-between p-2.5 text-xs font-mono font-bold uppercase bg-[#fbca1f] text-black border-2 border-black shadow-[3px_3px_0_#000] hover:bg-[#ffe066] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
+          title="Chuyển sang Phân vùng Quản trị (Admin Area)"
+        >
+          <div className="flex items-center gap-2">
+            <Icon name="shield" size={16} />
+            <span>Admin Portal</span>
+          </div>
+          <span className="text-[10px] px-1 bg-black text-[#fbca1f] font-mono">AREA →</span>
+        </button>
+      </div>
       <div className="integrity">
         <div>
           <Icon name="shield" size={22} />
