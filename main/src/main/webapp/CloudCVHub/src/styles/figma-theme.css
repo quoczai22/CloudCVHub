@@ -9,6 +9,7 @@
   --muted: #6d6a63;
   --line: 2px solid var(--ink);
   --shadow: 4px 4px 0 var(--ink);
+  --font-comic: 'Otomanopee One', sans-serif;
   font-family: 'Syne', sans-serif;
   color: var(--ink);
 }
@@ -287,8 +288,21 @@
 .avatar-face .head::before { left: 14px; }.avatar-face .head::after { right: 14px; }
 .avatar-face .hair { position: absolute; z-index: 2; width: 70px; height: 43px; left: 34px; top: 23px; background: var(--ink); border-radius: 55% 45% 30% 20%; transform: rotate(-6deg); }
 .avatar-face .body { position: absolute; width: 112px; height: 75px; left: 14px; top: 103px; background: var(--coral); border: 2px solid var(--ink); border-radius: 50% 50% 0 0; }
-.id-card h3 { margin: 0; font-size: 37px; line-height: .82; letter-spacing: -.07em; font-weight: 700; }
-.id-card h3 span { color: var(--coral); -webkit-text-stroke: 1.5px var(--ink); }
+.id-card h3 {
+  margin: 0;
+  font-family: var(--font-comic, 'Otomanopee One', sans-serif);
+  font-size: 28px;
+  line-height: 1.05;
+  letter-spacing: 0.04em;
+  font-weight: 700;
+  color: #f84356;
+  -webkit-text-stroke: 2px var(--ink);
+  text-transform: uppercase;
+}
+.id-card h3 span {
+  color: var(--yellow);
+  -webkit-text-stroke: 2px var(--ink);
+}
 .id-card > p { margin: 13px 0 16px; font: 700 9px 'DM Mono', monospace; letter-spacing: .05em; }
 .id-code { padding: 9px 0; display: flex; justify-content: space-between; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); font: 7px 'DM Mono', monospace; }
 .barcode { margin: 10px 0 8px; height: 34px; overflow: hidden; color: var(--ink); font: 24px/1 'DM Mono', monospace; letter-spacing: -4px; transform: scaleY(1.4); }
@@ -688,3 +702,25 @@
   box-shadow: 2px 2px 0 var(--coral, #f05a28);
 }
 
+
+
+/* Comic / Manga Otomanopee One Typography */
+.preTitle, .comic-title {
+  font-family: var(--font-comic, 'Otomanopee One', sans-serif);
+  font-size: 28px;
+  color: #f84356;
+  -webkit-text-stroke: 2px var(--ink, #000);
+  letter-spacing: 0.04em;
+}
+
+.comic-text {
+  font-family: var(--font-comic, 'Otomanopee One', sans-serif);
+  font-size: 20px;
+  color: #555555;
+}
+
+.comic-subtext {
+  font-family: var(--font-comic, 'Otomanopee One', sans-serif);
+  font-size: 15px;
+  color: #222222;
+}
