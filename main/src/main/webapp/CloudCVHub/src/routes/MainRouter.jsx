@@ -1,5 +1,42 @@
-import { useState, lazy, Suspense, useCallback, useMemo } from "react"
+import { Component, useState, lazy, Suspense, useCallback, useMemo } from "react"
 import AppShell from "../layouts/AppShell.jsx"
+
+// Error Boundary để chặn màn hình trắng khi có component con bị lỗi
+class ErrorBoundary extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { hasError: false, error: null }
+  }
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error }
+  }
+  componentDidCatch(error, errorInfo) {
+    console.error("ErrorBoundary caught an error:", error, errorInfo)
+  }
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="flex flex-col items-center justify-center min-h-[350px] w-full p-8 font-mono">
+          <div className="flex flex-col items-center gap-3 p-6 bg-white border-4 border-black shadow-[6px_6px_0_#ff3d3d] max-w-md text-center">
+            <h3 className="text-base font-black uppercase text-[#ff3d3d]">⚠️ ĐÃ XẢY RA LỖI TẢI PHÂN VÙNG</h3>
+            <p className="text-xs text-gray-700 font-sans">{this.state.error?.message || "Vui lòng làm mới trang."}</p>
+            <button
+              type="button"
+              onClick={() => {
+                this.setState({ hasError: false, error: null })
+                window.location.reload()
+              }}
+              className="mt-2 px-4 py-2 bg-[#fbca1f] border-2 border-black font-bold uppercase text-xs shadow-[3px_3px_0_#000] active:translate-x-0.5 active:translate-y-0.5"
+            >
+              LÀM MỚI TRANG
+            </button>
+          </div>
+        </div>
+      )
+    }
+    return this.props.children
+  }
+}
 
 // =========================================================================
 // [TỐI ƯU HIỆU NĂNG 02 - DYNAMIC IMPORT / ROUTE-BASED CODE SPLITTING]
@@ -134,9 +171,11 @@ export default function MainRouter({ onLogout: parentLogout } = {}) {
 
   return (
     <div className="product-app">
-      <Suspense fallback={<RouteLoadingFallback />}>
-        {renderActiveScreen()}
-      </Suspense>
+      <ErrorBoundary>
+        <Suspense fallback={<RouteLoadingFallback />}>
+          {renderActiveScreen()}
+        </Suspense>
+      </ErrorBoundary>
       {sidebarOpen && (
         <button
           type="button"

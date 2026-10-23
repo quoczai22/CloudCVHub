@@ -7,7 +7,8 @@ import Header from '../../components/Common/Header'
 import { getAvatarUrl, getCurrentAvatarGender, setAvatarGender } from '../../config/avatar'
 
 export default function ProfilePage(props) {
-  const { onNavigate, drawerOpen, onMenu, onClose, user, onLogout } = props
+  const { onNavigate, drawerOpen, sidebarOpen, onMenu, onClose, user, onLogout } = props
+  const isSidebarVisible = sidebarOpen !== undefined ? sidebarOpen : drawerOpen
   const [gender, setGender] = useState(getCurrentAvatarGender)
   const [editing, setEditing] = useState(false)
   const [saved, setSaved] = useState(false)
