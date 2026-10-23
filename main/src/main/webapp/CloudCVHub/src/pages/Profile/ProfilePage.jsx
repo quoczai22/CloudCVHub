@@ -134,44 +134,70 @@ export default function ProfilePage(props) {
                     <b>02 / PROFILE</b>
                   </div>
                   <div className="spec-grid">
-                    <label>
-                      <span>DISPLAY NAME</span>
-                      <input defaultValue="Nguyễn Minh Anh" readOnly={!editing} />
-                    </label>
-                    <label>
-                      <span>ROLE / TITLE</span>
+                    <div className="input__container" data-label="DISPLAY NAME">
+                      <div className="shadow__input" />
                       <input
+                        className="input__search"
+                        defaultValue="Nguyễn Minh Anh"
+                        readOnly={!editing}
+                        placeholder="Họ và tên..."
+                      />
+                    </div>
+
+                    <div className="input__container" data-label="ROLE / TITLE">
+                      <div className="shadow__input" />
+                      <input
+                        className="input__search"
                         defaultValue="Senior Product Designer"
                         readOnly={!editing}
+                        placeholder="Chức vụ / Vị trí..."
                       />
-                    </label>
-                    <label>
-                      <span>PRIMARY EMAIL</span>
+                    </div>
+
+                    <div className="input__container" data-label="PRIMARY EMAIL">
+                      <div className="shadow__input" />
                       <input
+                        className="input__search"
                         defaultValue="minhanh@cloudcvhub.vn"
                         readOnly={!editing}
+                        placeholder="Email liên hệ..."
                       />
-                    </label>
-                    <label>
-                      <span>BASE LOCATION</span>
+                    </div>
+
+                    <div className="input__container" data-label="BASE LOCATION">
+                      <div className="shadow__input" />
                       <input
+                        className="input__search"
                         defaultValue="Hà Nội, Việt Nam"
                         readOnly={!editing}
+                        placeholder="Địa điểm làm việc..."
                       />
-                    </label>
-                    <label className="wide">
-                      <span>PUBLIC PROFILE URL</span>
-                      <div>
+                    </div>
+
+                    <div className="input__container wide" data-label="PUBLIC PROFILE URL">
+                      <div className="shadow__input" />
+                      <div className="url-prefix-box">
                         <code>cloudcvhub.dev/u/</code>
-                        <input
-                          defaultValue="nguyen-minh-anh"
-                          readOnly={!editing}
-                        />
-                        <button type="button" aria-label="Sao chép liên kết hồ sơ">
-                          <Icon name="link" />
-                        </button>
                       </div>
-                    </label>
+                      <input
+                        className="input__search"
+                        defaultValue="nguyen-minh-anh"
+                        readOnly={!editing}
+                        placeholder="duong-dan-ho-so"
+                      />
+                      <button
+                        type="button"
+                        className="input__button__shadow"
+                        aria-label="Sao chép liên kết hồ sơ"
+                        title="Sao chép liên kết hồ sơ"
+                        onClick={() => {
+                          navigator.clipboard?.writeText("https://cloudcvhub.dev/u/nguyen-minh-anh");
+                          alert("Đã sao chép liên kết hồ sơ vào bộ nhớ tạm!");
+                        }}
+                      >
+                        <Icon name="link" size={18} />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
