@@ -6,19 +6,26 @@ export default function Field({
   value,
   onChange,
   className = "",
+  style,
   ...props
 }) {
   return (
-    <label className={`field ${className}`.trim()}>
-      <span>{label}</span>
+    <div
+      className={`input__container ${className}`.trim()}
+      data-label={label || ""}
+      style={style}
+    >
+      <div className="shadow__input" />
       <input
         type={type}
+        className="input__search"
         placeholder={placeholder}
         defaultValue={defaultValue}
         value={value}
         onChange={onChange}
         {...props}
       />
-    </label>
+    </div>
   )
 }
+
