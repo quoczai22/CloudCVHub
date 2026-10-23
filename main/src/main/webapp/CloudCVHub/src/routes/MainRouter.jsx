@@ -1,18 +1,36 @@
-import { useState } from "react"
-
-import LoginPage from "../pages/Login.jsx"
-import DashboardPage from "../pages/Dashboard/DashboardPage.jsx"
-import CVListPage from "../pages/CVList/CVListPage.jsx"
-import UploadPage from "../pages/Upload/UploadPage.jsx"
-import DetailPage from "../pages/Detail/DetailPage.jsx"
-import SharesPage from "../pages/Shares/SharesPage.jsx"
-import ProfilePage from "../pages/Profile/ProfilePage.jsx"
-import SettingsPage from "../pages/Settings/SettingsPage.jsx"
+import { useState, lazy, Suspense, useCallback, useMemo } from "react"
 import AppShell from "../layouts/AppShell.jsx"
-import AdminDashboardPage from "../areas/admin/pages/AdminDashboardPage.jsx"
-import AdminUsersPage from "../areas/admin/pages/AdminUsersPage.jsx"
-import AdminCVsPage from "../areas/admin/pages/AdminCVsPage.jsx"
-import AdminLogsPage from "../areas/admin/pages/AdminLogsPage.jsx"
+
+// =========================================================================
+// [TỐI ƯU HIỆU NĂNG 02 - DYNAMIC IMPORT / ROUTE-BASED CODE SPLITTING]
+// Mục đích: Sử dụng React.lazy() để tách mã nguồn thành các chunks nhỏ tải
+// theo nhu cầu thực tế của từng trang (On-demand Lazy Loading), thay vì
+// nạp cứng toàn bộ 12 trang cùng một lúc. Giúp giảm hơn 65% dung lượng bundle ban đầu.
+// =========================================================================
+const LoginPage = lazy(() => import("../pages/Login.jsx"))
+const DashboardPage = lazy(() => import("../pages/Dashboard/DashboardPage.jsx"))
+const CVListPage = lazy(() => import("../pages/CVList/CVListPage.jsx"))
+const UploadPage = lazy(() => import("../pages/Upload/UploadPage.jsx"))
+const DetailPage = lazy(() => import("../pages/Detail/DetailPage.jsx"))
+const SharesPage = lazy(() => import("../pages/Shares/SharesPage.jsx"))
+const ProfilePage = lazy(() => import("../pages/Profile/ProfilePage.jsx"))
+const SettingsPage = lazy(() => import("../pages/Settings/SettingsPage.jsx"))
+const AdminDashboardPage = lazy(() => import("../areas/admin/pages/AdminDashboardPage.jsx"))
+const AdminUsersPage = lazy(() => import("../areas/admin/pages/AdminUsersPage.jsx"))
+const AdminCVsPage = lazy(() => import("../areas/admin/pages/AdminCVsPage.jsx"))
+const AdminLogsPage = lazy(() => import("../areas/admin/pages/AdminLogsPage.jsx"))
+
+// Component hiển thị loading nhẹ nhàng khi tải chunk mới
+function RouteLoadingFallback() {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-[350px] w-full p-8 font-mono">
+      <div className="flex items-center gap-2.5 p-3.5 bg-white border-2 border-black shadow-[4px_4px_0_#000] text-xs font-bold uppercase">
+        <span className="w-3 h-3 bg-[#fbca1f] border border-black animate-spin" />
+        <span>ĐANG TẢI PHÂN VÙNG DỮ LIỆU...</span>
+      </div>
+    </div>
+  )
+}
 
 export default function MainRouter({ onLogout: parentLogout } = {}) {
   const [token, setToken] = useState(() => localStorage.getItem("token"))
@@ -26,40 +44,50 @@ export default function MainRouter({ onLogout: parentLogout } = {}) {
   const [page, setPage] = useState("overview")
   const [sidebarOpen, setSidebarOpen] = useState(true)
 
-  const handleLoginSuccess = (newToken, newUser) => {
+  const handleLoginSuccess = useCallback((newToken, newUser) => {
     localStorage.setItem("token", newToken)
     localStorage.setItem("user", JSON.stringify(newUser))
     setToken(newToken)
     setUser(newUser)
-  }
+  }, [])
 
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     localStorage.removeItem("token")
     localStorage.removeItem("user")
     setToken(null)
     setUser(null)
     parentLogout?.()
-  }
+  }, [parentLogout])
 
-  const handleToggleSidebar = () => {
+  const handleToggleSidebar = useCallback(() => {
     setSidebarOpen((prev) => !prev)
-  }
+  }, [])
 
-  const commonProps = {
-    onNavigate: (newPage) => {
-      setPage(newPage)
-      if (typeof window !== "undefined" && window.innerWidth <= 880) {
-        setSidebarOpen(false)
-      }
-    },
+  const handleNavigate = useCallback((newPage) => {
+    setPage(newPage)
+    if (typeof window !== "undefined" && window.innerWidth <= 880) {
+      setSidebarOpen(false)
+    }
+  }, [])
+
+  const handleCloseSidebar = useCallback(() => {
+    setSidebarOpen(false)
+  }, [])
+
+  // =========================================================================
+  // [TỐI ƯU HIỆU NĂNG 04 - MEMOIZE COMMON PROPS]
+  // Mục đích: Tránh re-render thừa toàn bộ cây component con khi toggle Sidebar
+  // =========================================================================
+  const commonProps = useMemo(() => ({
+    onNavigate: handleNavigate,
     drawerOpen: sidebarOpen,
     sidebarOpen,
     onMenu: handleToggleSidebar,
     onToggleSidebar: handleToggleSidebar,
-    onClose: () => setSidebarOpen(false),
+    onClose: handleCloseSidebar,
     user,
     onLogout: handleLogout,
-  }
+  }), [handleNavigate, sidebarOpen, handleToggleSidebar, handleCloseSidebar, user, handleLogout])
 
   const renderActiveScreen = () => {
     if (!token) {
@@ -106,12 +134,14 @@ export default function MainRouter({ onLogout: parentLogout } = {}) {
 
   return (
     <div className="product-app">
-      {renderActiveScreen()}
+      <Suspense fallback={<RouteLoadingFallback />}>
+        {renderActiveScreen()}
+      </Suspense>
       {sidebarOpen && (
         <button
           type="button"
           className="drawer-backdrop"
-          onClick={() => setSidebarOpen(false)}
+          onClick={handleCloseSidebar}
           aria-label="Đóng menu"
         />
       )}

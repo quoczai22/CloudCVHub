@@ -9,5 +9,18 @@ export default defineConfig({
   build: {
     outDir: process.env.VERCEL ? 'dist' : path.resolve(__dirname, '../../resources/static'),
     emptyOutDir: false,
+    // =========================================================================
+    // [TỐI ƯU HIỆU NĂNG 03 - VENDOR CHUNKS SPLITTING]
+    // Tách các thư viện node_modules cốt lõi thành vendor chunk riêng biệt
+    // =========================================================================
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom')) {
+            return 'vendor-react'
+          }
+        },
+      },
+    },
   },
 })

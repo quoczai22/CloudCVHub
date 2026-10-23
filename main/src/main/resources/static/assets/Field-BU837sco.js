@@ -1,0 +1,1 @@
+import{t as e}from"./vendor-react-VZnIVrcg.js";var t=e();function n({label:e,type:n=`text`,placeholder:r,defaultValue:i,value:a,onChange:o,className:s=``,...c}){return(0,t.jsxs)(`label`,{className:`field ${s}`.trim(),children:[(0,t.jsx)(`span`,{children:e}),(0,t.jsx)(`input`,{type:n,placeholder:r,defaultValue:i,value:a,onChange:o,...c})]})}export{n as t};
