@@ -12,8 +12,10 @@ const navItems = [
 ]
 
 const adminNavItems = [
-  { id: "admin-users", label: "Quản lý người dùng", icon: "user" },
-  { id: "admin-cvs", label: "Quản lý CV", icon: "shield" },
+  { id: "admin-dashboard", label: "Tổng quan máy chủ", icon: "grid" },
+  { id: "admin-users", label: "Quản lý Người dùng", icon: "user" },
+  { id: "admin-cvs", label: "Kiểm duyệt & Quản lý CV", icon: "shield" },
+  { id: "admin-logs", label: "Nhật ký kiểm toán", icon: "history" },
 ]
 
 export default function Sidebar({
@@ -97,24 +99,11 @@ export default function Sidebar({
 
       <div className="nav-label">KHÔNG GIAN LÀM VIỆC</div>
       <nav>{navItems.map(renderItem)}</nav>
-      <div className="nav-label admin-label">PHÂN VÙNG QUẢN TRỊ</div>
-      <div className="px-3 my-2">
-        <button
-          type="button"
-          onClick={() => {
-            onNavigate?.("admin-dashboard")
-            onClose?.()
-          }}
-          className="w-full flex items-center justify-between p-2.5 text-xs font-mono font-bold uppercase bg-[#fbca1f] text-black border-2 border-black shadow-[3px_3px_0_#000] hover:bg-[#ffe066] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
-          title="Chuyển sang Phân vùng Quản trị (Admin Area)"
-        >
-          <div className="flex items-center gap-2">
-            <Icon name="shield" size={16} />
-            <span>Admin Portal</span>
-          </div>
-          <span className="text-[10px] px-1 bg-black text-[#fbca1f] font-mono">AREA →</span>
-        </button>
+      <div className="nav-label admin-label flex items-center justify-between">
+        <span>PHÂN VÙNG QUẢN TRỊ</span>
+        <span className="text-[9px] px-1 bg-black text-[#fbca1f] font-mono">ADMIN</span>
       </div>
+      <nav>{adminNavItems.map(renderItem)}</nav>
       <div
         className="integrity"
         title="Mã băm mật mã SHA-256 xác thực tính toàn vẹn hệ thống và chống can thiệp dữ liệu"

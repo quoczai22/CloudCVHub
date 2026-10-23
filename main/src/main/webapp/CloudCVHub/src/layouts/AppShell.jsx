@@ -9,8 +9,10 @@ const pageNames = {
   shares: "Liên kết chia sẻ",
   profile: "Hồ sơ cá nhân",
   settings: "Cài đặt",
-  "admin-users": "Quản lý người dùng",
-  "admin-cvs": "Quản lý CV",
+  "admin-dashboard": "Quản trị / Tổng quan máy chủ",
+  "admin-users": "Quản trị / Quản lý Người dùng",
+  "admin-cvs": "Quản trị / Kiểm duyệt & Quản lý CV",
+  "admin-logs": "Quản trị / Nhật ký kiểm toán",
 }
 
 export default function AppShell({

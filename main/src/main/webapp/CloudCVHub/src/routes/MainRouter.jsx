@@ -8,7 +8,11 @@ import DetailPage from "../pages/Detail/DetailPage.jsx"
 import SharesPage from "../pages/Shares/SharesPage.jsx"
 import ProfilePage from "../pages/Profile/ProfilePage.jsx"
 import SettingsPage from "../pages/Settings/SettingsPage.jsx"
-import AdminArea from "../areas/admin/AdminArea.jsx"
+import AppShell from "../layouts/AppShell.jsx"
+import AdminDashboardPage from "../areas/admin/pages/AdminDashboardPage.jsx"
+import AdminUsersPage from "../areas/admin/pages/AdminUsersPage.jsx"
+import AdminCVsPage from "../areas/admin/pages/AdminCVsPage.jsx"
+import AdminLogsPage from "../areas/admin/pages/AdminLogsPage.jsx"
 
 export default function MainRouter({ onLogout: parentLogout } = {}) {
   const [token, setToken] = useState(() => localStorage.getItem("token"))
@@ -62,23 +66,16 @@ export default function MainRouter({ onLogout: parentLogout } = {}) {
       return <LoginPage onLoginSuccess={handleLoginSuccess} />
     }
 
-    // Phân vùng Admin (Admin Area)
     if (page.startsWith("admin-")) {
       return (
-        <AdminArea
-          activeTab={page}
-          onNavigate={(targetTab) => {
-            if (targetTab === "overview" || !targetTab.startsWith("admin-")) {
-              setPage(targetTab || "overview")
-            } else {
-              setPage(targetTab)
-            }
-          }}
-          onBackToUser={() => setPage("overview")}
-          user={user}
-          onLogout={handleLogout}
-          {...commonProps}
-        />
+        <AppShell {...commonProps} page={page}>
+          <div className="page content-page admin-page">
+            {page === "admin-dashboard" && <AdminDashboardPage onNavigate={commonProps.onNavigate} />}
+            {page === "admin-users" && <AdminUsersPage onNavigate={commonProps.onNavigate} />}
+            {page === "admin-cvs" && <AdminCVsPage onNavigate={commonProps.onNavigate} />}
+            {page === "admin-logs" && <AdminLogsPage onNavigate={commonProps.onNavigate} />}
+          </div>
+        </AppShell>
       )
     }
 

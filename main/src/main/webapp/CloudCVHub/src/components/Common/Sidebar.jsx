@@ -12,8 +12,10 @@ const navItems = [
 ]
 
 const adminNavItems = [
-  { id: "admin-users", label: "Quản lý người dùng", icon: "user" },
-  { id: "admin-cvs", label: "Quản lý CV", icon: "shield" },
+  { id: "admin-dashboard", label: "Tổng quan máy chủ", icon: "grid" },
+  { id: "admin-users", label: "Quản lý Người dùng", icon: "user" },
+  { id: "admin-cvs", label: "Kiểm duyệt & Quản lý CV", icon: "shield" },
+  { id: "admin-logs", label: "Nhật ký kiểm toán", icon: "history" },
 ]
 
 export default function Sidebar({
