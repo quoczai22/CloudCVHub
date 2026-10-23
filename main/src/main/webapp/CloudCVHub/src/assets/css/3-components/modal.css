@@ -1,10 +1,20 @@
-/* 3-components/modal.css - Hộp thoại popup, toast thông báo, mobile drawer backdrop */
 .drawer-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(17, 17, 17, 0.65);
-  backdrop-filter: blur(2px);
-  z-index: 35;
+  display: none;
+}
+
+@media (max-width: 880px) {
+  .drawer-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(17, 17, 17, 0.65);
+    backdrop-filter: blur(2px);
+    z-index: 35;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: none;
+    cursor: pointer;
+  }
 }
 
 .modal-overlay {

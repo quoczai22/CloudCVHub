@@ -18,19 +18,19 @@ export default function ProfilePage(props) {
   }
   return (
     <section
-      className="artboard app-screen profile-screen"
+      className={`artboard app-screen profile-screen ${!isSidebarVisible ? "sidebar-collapsed" : ""}`}
       aria-label="User profile screen"
     >
       <Sidebar
         active="profile"
         onNavigate={onNavigate}
-        open={drawerOpen}
+        open={isSidebarVisible}
         onClose={onClose}
         user={user}
         onLogout={onLogout}
       />
       <main className="app-main">
-        <Header section="Hồ sơ / Danh tính" onMenu={onMenu} />
+        <Header section="Hồ sơ / Danh tính" onMenu={onMenu} sidebarOpen={isSidebarVisible} />
         <div className="page profile-page">
           <div className="page-heading">
             <div>

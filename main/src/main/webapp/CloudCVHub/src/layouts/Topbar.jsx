@@ -1,16 +1,19 @@
 import Icon from '../components/UI/Icon'
+import ComicBrutalMenuButton from '../components/UI/ComicBrutalMenuButton'
 
 export default function Topbar({
   section,
   onSearch,
   onMenu,
+  sidebarOpen = true,
 }) {
   return (
     <header className="topbar">
-      <div>
-        <button className="mobile-menu" onClick={onMenu} aria-label="Mở menu">
-          <Icon name="menu" />
-        </button>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <ComicBrutalMenuButton
+          isOpen={sidebarOpen}
+          onClick={onMenu}
+        />
         <span>KHÔNG GIAN /</span>
         <b>{section?.toUpperCase() || "TỔNG QUAN"}</b>
       </div>

@@ -13,16 +13,21 @@ export default function AdminLayout({
   children,
   onNavigate,
   drawerOpen,
+  sidebarOpen = drawerOpen,
   onMenu,
   onClose,
   onSearch,
   user,
   onLogout,
 }) {
+  const isSidebarVisible = sidebarOpen !== undefined ? sidebarOpen : drawerOpen
   const currentTitle = pageTitles[activeTab] || "Quản trị hệ thống"
 
   return (
-    <section className="artboard app-screen admin-area-screen" aria-label={`Admin Area - ${currentTitle}`}>
+    <section
+      className={`artboard app-screen admin-area-screen ${!isSidebarVisible ? "sidebar-collapsed" : ""}`}
+      aria-label={`Admin Area - ${currentTitle}`}
+    >
       {/* Top Hazard Warning Stripe */}
       <div
         className="w-full h-1.5 border-b border-black"
@@ -35,7 +40,7 @@ export default function AdminLayout({
         <AdminSidebar
           active={activeTab}
           onNavigate={onNavigate}
-          open={drawerOpen}
+          open={isSidebarVisible}
           onClose={onClose}
           user={user}
           onLogout={onLogout}
@@ -46,6 +51,7 @@ export default function AdminLayout({
             section={currentTitle}
             onSearch={onSearch}
             onMenu={onMenu}
+            sidebarOpen={isSidebarVisible}
           />
           <div className="p-4 md:p-6 flex-1">
             {children}

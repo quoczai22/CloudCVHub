@@ -49,7 +49,8 @@ const cvs = [
 ]
 
 export default function CVListPage(props) {
-  const { onNavigate, drawerOpen, onMenu, onClose, user, onLogout } = props
+  const { onNavigate, drawerOpen, sidebarOpen = drawerOpen, onMenu, onClose, user, onLogout } = props
+  const isSidebarVisible = sidebarOpen !== undefined ? sidebarOpen : drawerOpen
   const [filter, setFilter] = useState("ALL CVS")
   const [search, setSearch] = useState("")
   const [menu, setMenu] = useState("Product Designer cấp cao")
@@ -65,11 +66,14 @@ export default function CVListPage(props) {
     [filter, search],
   )
   return (
-    <section className="artboard app-screen" aria-label="CV management screen">
+    <section
+      className={`artboard app-screen ${!isSidebarVisible ? "sidebar-collapsed" : ""}`}
+      aria-label="CV management screen"
+    >
       <Sidebar
         active="cvs"
         onNavigate={onNavigate}
-        open={drawerOpen}
+        open={isSidebarVisible}
         onClose={onClose}
         user={user}
         onLogout={onLogout}
@@ -83,6 +87,7 @@ export default function CVListPage(props) {
             window.setTimeout(() => setLoading(false), 280)
           }}
           onMenu={onMenu}
+          sidebarOpen={isSidebarVisible}
         />
         <div className="page cv-page">
           <div className="page-heading">

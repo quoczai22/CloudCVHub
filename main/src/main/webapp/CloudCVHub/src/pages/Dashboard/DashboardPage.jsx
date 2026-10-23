@@ -12,11 +12,13 @@ import './DashboardPage.css'
 export default function DashboardPage({
   onNavigate,
   drawerOpen,
+  sidebarOpen = drawerOpen,
   onMenu,
   onClose,
   user,
   onLogout,
 }) {
+  const isSidebarVisible = sidebarOpen !== undefined ? sidebarOpen : drawerOpen
   const [toast, setToast] = useState("")
   const action = (text) => {
     setToast(text)
@@ -24,17 +26,20 @@ export default function DashboardPage({
   }
 
   return (
-    <section className="artboard app-screen" aria-label="Dashboard screen">
+    <section
+      className={`artboard app-screen ${!isSidebarVisible ? "sidebar-collapsed" : ""}`}
+      aria-label="Dashboard screen"
+    >
       <Sidebar
         active="overview"
         onNavigate={onNavigate}
-        open={drawerOpen}
+        open={isSidebarVisible}
         onClose={onClose}
         user={user}
         onLogout={onLogout}
       />
       <main className="app-main">
-        <Header section="Tổng quan" onMenu={onMenu} />
+        <Header section="Tổng quan" onMenu={onMenu} sidebarOpen={isSidebarVisible} />
         <div className="page dashboard-page">
           <DashboardSummary onNavigate={onNavigate} />
           <DashboardChart />

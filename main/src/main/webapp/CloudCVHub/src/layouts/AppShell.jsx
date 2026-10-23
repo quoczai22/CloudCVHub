@@ -18,24 +18,35 @@ export default function AppShell({
   children,
   onNavigate,
   drawerOpen,
+  sidebarOpen = drawerOpen,
   onMenu,
   onClose,
   onSearch,
   user,
   onLogout,
 }) {
+  const isSidebarVisible = sidebarOpen !== undefined ? sidebarOpen : drawerOpen
+
   return (
-    <section className="artboard app-screen" aria-label={pageNames[page]}>
+    <section
+      className={`artboard app-screen ${!isSidebarVisible ? "sidebar-collapsed" : ""}`}
+      aria-label={pageNames[page]}
+    >
       <Sidebar
         active={page === "detail" ? "cvs" : page}
         onNavigate={onNavigate}
-        open={drawerOpen}
+        open={isSidebarVisible}
         onClose={onClose}
         user={user}
         onLogout={onLogout}
       />
       <main className="app-main">
-        <Topbar section={pageNames[page]} onSearch={onSearch} onMenu={onMenu} />
+        <Topbar
+          section={pageNames[page]}
+          onSearch={onSearch}
+          onMenu={onMenu}
+          sidebarOpen={isSidebarVisible}
+        />
         {children}
       </main>
     </section>

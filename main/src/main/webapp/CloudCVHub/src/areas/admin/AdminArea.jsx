@@ -9,6 +9,7 @@ export default function AdminArea({
   activeTab = "admin-dashboard",
   onNavigate,
   drawerOpen,
+  sidebarOpen = drawerOpen,
   onMenu,
   onClose,
   onSearch,
@@ -41,6 +42,7 @@ export default function AdminArea({
         activeTab={activeTab}
         onNavigate={onNavigate}
         drawerOpen={drawerOpen}
+        sidebarOpen={sidebarOpen}
         onMenu={onMenu}
         onClose={onClose}
         onSearch={onSearch}

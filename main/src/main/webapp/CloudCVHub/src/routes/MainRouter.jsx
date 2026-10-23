@@ -20,7 +20,7 @@ export default function MainRouter({ onLogout: parentLogout } = {}) {
     }
   })
   const [page, setPage] = useState("overview")
-  const [drawerOpen, setDrawerOpen] = useState(false)
+  const [sidebarOpen, setSidebarOpen] = useState(true)
 
   const handleLoginSuccess = (newToken, newUser) => {
     localStorage.setItem("token", newToken)
@@ -37,14 +37,22 @@ export default function MainRouter({ onLogout: parentLogout } = {}) {
     parentLogout?.()
   }
 
+  const handleToggleSidebar = () => {
+    setSidebarOpen((prev) => !prev)
+  }
+
   const commonProps = {
     onNavigate: (newPage) => {
       setPage(newPage)
-      setDrawerOpen(false)
+      if (typeof window !== "undefined" && window.innerWidth <= 880) {
+        setSidebarOpen(false)
+      }
     },
-    drawerOpen,
-    onMenu: () => setDrawerOpen(true),
-    onClose: () => setDrawerOpen(false),
+    drawerOpen: sidebarOpen,
+    sidebarOpen,
+    onMenu: handleToggleSidebar,
+    onToggleSidebar: handleToggleSidebar,
+    onClose: () => setSidebarOpen(false),
     user,
     onLogout: handleLogout,
   }
@@ -58,13 +66,18 @@ export default function MainRouter({ onLogout: parentLogout } = {}) {
     if (page.startsWith("admin-")) {
       return (
         <AdminArea
-          {...commonProps}
           activeTab={page}
-          onElevateToAdmin={() => {
-            const elevated = { ...(user || {}), role: "ADMIN" }
-            setUser(elevated)
-            localStorage.setItem("user", JSON.stringify(elevated))
+          onNavigate={(targetTab) => {
+            if (targetTab === "overview" || !targetTab.startsWith("admin-")) {
+              setPage(targetTab || "overview")
+            } else {
+              setPage(targetTab)
+            }
           }}
+          onBackToUser={() => setPage("overview")}
+          user={user}
+          onLogout={handleLogout}
+          {...commonProps}
         />
       )
     }
@@ -92,11 +105,11 @@ export default function MainRouter({ onLogout: parentLogout } = {}) {
   return (
     <div className="product-app">
       {renderActiveScreen()}
-      {drawerOpen && (
+      {sidebarOpen && (
         <button
           type="button"
           className="drawer-backdrop"
-          onClick={() => setDrawerOpen(false)}
+          onClick={() => setSidebarOpen(false)}
           aria-label="Đóng menu"
         />
       )}

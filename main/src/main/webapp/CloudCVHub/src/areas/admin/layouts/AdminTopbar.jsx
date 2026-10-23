@@ -1,17 +1,14 @@
 import Icon from '../../../components/UI/Icon'
+import ComicBrutalMenuButton from '../../../components/UI/ComicBrutalMenuButton'
 
-export default function AdminTopbar({ section, onSearch, onMenu }) {
+export default function AdminTopbar({ section, onSearch, onMenu, sidebarOpen = true }) {
   return (
     <header className="topbar border-b-2 border-black bg-white">
       <div className="topbar-left flex items-center gap-3">
-        <button
-          type="button"
-          className="menu-button"
+        <ComicBrutalMenuButton
+          isOpen={sidebarOpen}
           onClick={onMenu}
-          aria-label="Mở menu quản trị"
-        >
-          <Icon name="grid" size={20} />
-        </button>
+        />
 
         <div className="breadcrumb flex items-center gap-2 font-mono text-xs font-bold">
           <span className="px-2 py-0.5 bg-black text-[#fbca1f] border border-black shadow-[1px_1px_0_#000]">
