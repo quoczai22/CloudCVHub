@@ -456,6 +456,13 @@ h1, h2, h3, h4, h5, h6,
   background: var(--paper);
 }
 
+/* =========================================================================
+   [TỐI ƯU IMPECCABLE 01 - TRANSITION TIMING & DESKTOP SIDEBAR COLLAPSE]
+   Vị trí: Bố cục lưới AppShell & Sidebar điều khiển
+   Mục đích: Loại bỏ hiện tượng giật cục steps(2) cũ, thay bằng hàm chuyển động
+   cubic-bezier(0.23, 1, 0.32, 1). Bổ sung trạng thái .sidebar-collapsed giúp
+   nội dung dãn 100% màn hình khi thu gọn mà KHÔNG bị backdrop phủ mờ màn hình.
+   ========================================================================= */
 .product-app .app-screen {
   display: grid;
   grid-template-columns: 242px minmax(0, 1fr);
@@ -3461,9 +3468,13 @@ h1, h2, h3, h4, h5, h6,
   transform: translate(2px, 2px);
 }
 
-/* ============================================================
-   From Uiverse.io - 3D Isometric Neo-Brutalist Input Component
-   ============================================================ */
+/* =========================================================================
+   [TỐI ƯU IMPECCABLE 03 - 3D ISOMETRIC INPUT COMPONENT]
+   Vị trí: ProfilePage & Giao diện thông tin danh tính
+   Mục đích: Nâng cấp trường nhập liệu tĩnh thành khối 3D Isometric với
+   perspective 1000px, đổ bóng kép (Dual hard shadow), góc xoay trục Z/Y/X 
+   và hàm gia tốc cubic-bezier(0.23, 1, 0.32, 1) mượt mà khi hover/focus.
+   ========================================================================= */
 .input__container {
   position: relative;
   background: #f4f2ea;

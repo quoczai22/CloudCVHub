@@ -57,6 +57,10 @@ export default function CVListPage(props) {
   const [loading, setLoading] = useState(false)
   const [deleteTarget, setDeleteTarget] = useState(null)
 
+  // =========================================================================
+  // [TỐI ƯU IMPECCABLE 05 - CLICK-OUTSIDE AUTO CLOSE]
+  // Mục đích: Tự động đóng action menu và trả biểu tượng ✕ về lại ≡ khi click ra ngoài
+  // =========================================================================
   useEffect(() => {
     const handleOutsideClick = (e) => {
       if (!e.target.closest(".row-actions")) {
@@ -190,6 +194,11 @@ export default function CVListPage(props) {
                     </span>
                     <span className="version">{cv.version}</span>
                     <div className="row-actions">
+                      {/* =========================================================================
+                          [TỐI ƯU IMPECCABLE 04 - MORPHING SVG HAMBURGER & LOẠI BỎ NÚT TRÙNG LẶP]
+                          Mục đích: Loại bỏ 2 nút Edit & Share trùng lặp ở ngoài. Tích hợp nút
+                          SVG duy nhất có khả năng morphing mượt mà từ ≡ sang ✕ trong 300ms.
+                         ========================================================================= */}
                       <button
                         type="button"
                         title={menu === cv.title ? "Đóng danh mục thao tác" : "Mở danh mục thao tác"}

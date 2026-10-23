@@ -66,6 +66,11 @@ export default function MainRouter({ onLogout: parentLogout } = {}) {
       return <LoginPage onLoginSuccess={handleLoginSuccess} />
     }
 
+    // =========================================================================
+    // [TỐI ƯU IMPECCABLE 02 - UNIFIED APPSHELL FOR ADMIN AREA]
+    // Mục đích: Loại bỏ sidebar màu đỏ bị chèn lệch và khoảng hở 242px bên trái.
+    // Tích hợp trực tiếp các trang Admin vào AppShell chuẩn của ứng dụng.
+    // =========================================================================
     if (page.startsWith("admin-")) {
       return (
         <AppShell {...commonProps} page={page}>
