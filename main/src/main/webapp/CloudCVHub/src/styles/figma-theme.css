@@ -3613,3 +3613,161 @@ h1, h2, h3, h4, h5, h6,
   transform: translateZ(10px) translateX(2px) translateY(2px);
   box-shadow: 1px 1px 0 0 #000;
 }
+
+/* ==========================================================================
+   Animated SVG Hamburger Menu Button (User's Morphing System)
+   ========================================================================== */
+.cv-action-toggle {
+  width: 32px;
+  height: 32px;
+  display: inline-grid;
+  place-items: center;
+  border: 1.5px solid var(--ink);
+  background: white;
+  cursor: pointer;
+  transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.15s ease;
+  padding: 0;
+  color: var(--ink);
+}
+
+.cv-action-toggle:hover,
+.cv-action-toggle[aria-expanded="true"],
+.cv-action-toggle[data-state="opened"],
+.cv-action-toggle.active {
+  background: var(--yellow);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+.cv-action-toggle:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+
+/* button one - Clean Morphing SVG Lines */
+.button-one {
+  --button-color: #000;
+}
+
+.button-one .line {
+  transition: y 300ms ease-in 300ms, transform 300ms ease-in, rotate 300ms ease-in, opacity 0ms 300ms;
+  transform-origin: 50px 50px;
+}
+
+.button-one[aria-expanded="true"] .line,
+.button-one[data-state="opened"] .line {
+  transition: y 300ms ease-in, transform 300ms ease-in 300ms, rotate 300ms ease-in 300ms, opacity 0ms 300ms;
+}
+
+.button-one[aria-expanded="true"] :is(.top, .bottom),
+.button-one[data-state="opened"] :is(.top, .bottom) {
+  y: 45px;
+}
+
+.button-one[aria-expanded="true"] .top,
+.button-one[data-state="opened"] .top {
+  rotate: 45deg;
+  transform: rotate(45deg);
+}
+
+.button-one[aria-expanded="true"] .middle,
+.button-one[data-state="opened"] .middle {
+  opacity: 0;
+}
+
+.button-one[aria-expanded="true"] .bottom,
+.button-one[data-state="opened"] .bottom {
+  rotate: -45deg;
+  transform: rotate(-45deg);
+}
+
+/* button two - 1-turn Rotate */
+.button-two {
+  --button-color: #000;
+}
+
+.button-two[data-state="closed"] :is(.top, .bottom) {
+  animation: to-open-icon 0.8s forwards;
+}
+
+.button-two[data-state="opened"] :is(.top, .bottom) {
+  animation: to-close-icon 0.8s forwards;
+}
+
+.button-two .hamburger {
+  transition: rotate 600ms 100ms;
+}
+
+.button-two[data-state="opened"] .hamburger {
+  rotate: 1turn;
+}
+
+.button-two .line.top {
+  --rotation: -45deg;
+  transform-origin: 65px 45px;
+}
+
+.button-two .line.bottom {
+  --rotation: 45deg;
+  transform-origin: 60px 55px;
+}
+
+@keyframes to-close-icon {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  40% {
+    stroke-dashoffset: 79.9;
+  }
+  60% {
+    stroke-dashoffset: 79.9;
+    rotate: calc(var(--rotation));
+  }
+  100% {
+    stroke-dashoffset: 0;
+    rotate: var(--rotation);
+  }
+}
+
+@keyframes to-open-icon {
+  0% {
+    stroke-dashoffset: 0;
+    rotate: var(--rotation);
+  }
+  40% {
+    stroke-dashoffset: 79.9;
+    rotate: var(--rotation);
+  }
+  60% {
+    stroke-dashoffset: 79.9;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* button three - translate and slide */
+.button-three {
+  --button-color: #000;
+  overflow: hidden;
+}
+
+.button-three .hamburger {
+  transition: translate 0.6s, rotate 0.6s;
+}
+
+.button-three[aria-expanded="true"] .hamburger,
+.button-three[data-state="opened"] .hamburger {
+  translate: 10px -10px;
+  rotate: 0.125turn;
+}
+
+.button-three .line {
+  transition: 0.6s;
+  stroke-dasharray: 60 31 60 300;
+}
+
+.button-three[aria-expanded="true"] .line,
+.button-three[data-state="opened"] .line {
+  stroke-dasharray: 60 105 60 300;
+  stroke-dashoffset: -90;
+}

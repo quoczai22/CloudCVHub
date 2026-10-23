@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import Icon from '../../components/UI/Icon'
 import Kicker from '../../components/UI/Kicker'
 import Button from '../../components/UI/Button'
@@ -53,9 +53,22 @@ export default function CVListPage(props) {
   const isSidebarVisible = sidebarOpen !== undefined ? sidebarOpen : drawerOpen
   const [filter, setFilter] = useState("ALL CVS")
   const [search, setSearch] = useState("")
-  const [menu, setMenu] = useState("Product Designer cấp cao")
+  const [menu, setMenu] = useState(null)
   const [loading, setLoading] = useState(false)
   const [deleteTarget, setDeleteTarget] = useState(null)
+
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (!e.target.closest(".row-actions")) {
+        setMenu(null)
+      }
+    }
+    if (menu) {
+      document.addEventListener("click", handleOutsideClick)
+      return () => document.removeEventListener("click", handleOutsideClick)
+    }
+  }, [menu])
+
   const filtered = useMemo(
     () =>
       cvs.filter(
@@ -178,40 +191,46 @@ export default function CVListPage(props) {
                     <span className="version">{cv.version}</span>
                     <div className="row-actions">
                       <button
-                        title="Xem chi tiết"
-                        onClick={() => onNavigate("detail")}
-                      >
-                        <Icon name="edit" />
-                      </button>
-                      <button
-                        title="Chia sẻ"
-                        onClick={() => onNavigate("shares")}
-                      >
-                        <Icon name="link" />
-                      </button>
-                      <button
-                        title="More actions"
-                        className={menu === cv.title ? "active" : ""}
-                        onClick={() =>
+                        type="button"
+                        title={menu === cv.title ? "Đóng danh mục thao tác" : "Mở danh mục thao tác"}
+                        aria-expanded={menu === cv.title}
+                        data-state={menu === cv.title ? "opened" : "closed"}
+                        className={`cv-action-toggle button-one ${menu === cv.title ? "active" : ""}`}
+                        onClick={(e) => {
+                          e.stopPropagation()
                           setMenu(menu === cv.title ? null : cv.title)
-                        }
+                        }}
                       >
-                        <Icon name="menu" />
+                        <svg
+                          fill="currentColor"
+                          className="hamburger"
+                          viewBox="0 0 100 100"
+                          width="16"
+                          height="16"
+                          style={{ pointerEvents: "none" }}
+                        >
+                          <rect className="line top" width="80" height="11" x="10" y="25" rx="3" />
+                          <rect className="line middle" width="80" height="11" x="10" y="45" rx="3" />
+                          <rect className="line bottom" width="80" height="11" x="10" y="65" rx="3" />
+                        </svg>
                       </button>
                       {menu === cv.title && (
-                        <div className="action-menu">
-                          <button onClick={() => onNavigate("detail")}>
+                        <div className="action-menu" onClick={(e) => e.stopPropagation()}>
+                          <button onClick={() => { setMenu(null); onNavigate("detail"); }}>
                             <Icon name="edit" /> EDIT DOCUMENT
                           </button>
-                          <button onClick={() => onNavigate("shares")}>
+                          <button onClick={() => { setMenu(null); onNavigate("shares"); }}>
                             <Icon name="link" /> SHARE LINK
                           </button>
-                          <button>
+                          <button onClick={() => setMenu(null)}>
                             <Icon name="history" /> VERSION HISTORY
                           </button>
                           <button
                             className="danger"
-                            onClick={() => setDeleteTarget(cv.title)}
+                            onClick={() => {
+                              setMenu(null)
+                              setDeleteTarget(cv.title)
+                            }}
                           >
                             <Icon name="trash" /> MOVE TO TRASH
                           </button>
